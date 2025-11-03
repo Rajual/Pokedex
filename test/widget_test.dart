@@ -5,26 +5,34 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:pokedex/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  testWidgets('Design System Demo displays correctly', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const MyApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    // Verify that the home page is displayed
+    expect(find.text('Pokédex - Design System Demo'), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    // Verify AppButton examples are present
+    expect(find.text('AppButton Component'), findsOneWidget);
+    expect(find.text('Primary'), findsOneWidget);
+    expect(find.text('Secondary'), findsOneWidget);
+    expect(find.text('Tertiary'), findsOneWidget);
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // Verify Pokémon Gallery is present
+    expect(find.text('Pokémon Gallery'), findsOneWidget);
+
+    // Verify some Pokemon names are displayed
+    expect(find.text('Charizard'), findsOneWidget);
+    expect(find.text('Pikachu'), findsOneWidget);
+
+    // Verify Type Elements section is present
+    expect(find.text('Pokémon Type Elements'), findsOneWidget);
+    expect(find.text('Fire'), findsOneWidget);
+    expect(find.text('Water'), findsOneWidget);
   });
 }

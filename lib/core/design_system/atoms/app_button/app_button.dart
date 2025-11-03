@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../theme/app_typography.dart';
-import 'button_color_scheme.dart';
-import 'button_dimensions.dart';
+import 'utils/button_color_scheme.dart';
+import 'utils/button_dimensions.dart';
 import 'models/button_colors.dart';
 import 'models/button_dimensions_model.dart';
 import 'models/button_state.dart';

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pokedex/core/design_system/atoms/app_button/app_button.dart';
 import 'package:pokedex/core/design_system/atoms/app_button/utils/enum.dart';
+import 'package:pokedex/core/design_system/atoms/app_button/widgets/jumping_dots_loader.dart';
 
 void main() {
   group('AppButton - onPressed Callback Tests', () {
@@ -361,7 +362,7 @@ void main() {
         ),
       );
 
-      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+      expect(find.byType(JumpingDotsLoader), findsOneWidget);
       // Label should not be visible when loading
       expect(find.text('Loading Button'), findsNothing);
     });
@@ -380,7 +381,7 @@ void main() {
         ),
       );
 
-      expect(find.byType(CircularProgressIndicator), findsNothing);
+      expect(find.byType(JumpingDotsLoader), findsNothing);
       expect(find.text('Not Loading Button'), findsOneWidget);
     });
 
@@ -429,7 +430,7 @@ void main() {
       final buttonWidget = tester.widget<ElevatedButton>(button);
 
       expect(buttonWidget.onPressed, isNull);
-      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+      expect(find.byType(JumpingDotsLoader), findsOneWidget);
     });
   });
 
@@ -508,7 +509,7 @@ void main() {
 
       expect(find.byIcon(Icons.add), findsNothing);
       expect(find.byIcon(Icons.arrow_forward), findsNothing);
-      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+      expect(find.byType(JumpingDotsLoader), findsOneWidget);
     });
 
     testWidgets('leadingIcon appears before label',

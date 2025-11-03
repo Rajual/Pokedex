@@ -41,4 +41,18 @@ class AppColors {
   // Colores para bordes
   static const Color borderColor = Color(0xFFE5E7EB);
   static const Color borderColorDark = Color(0xFFD1D5DB);
+
+  // Colores para texto
+  static const _TextColors text = _TextColors();
+}
+
+class _TextColors {
+  const _TextColors();
+
+  Color get primary => AppColors.gray900;
+  Color get secondary => AppColors.gray600;
+  Color get tertiary => AppColors.gray500;
+  Color get error => AppColors.error;
+  Color get success => AppColors.success;
+  Color get warning => AppColors.warning;
 }

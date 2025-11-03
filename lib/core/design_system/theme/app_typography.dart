@@ -100,3 +100,62 @@ class AppTypography {
     height: 1.45,
   );
 }
+
+/// TextTheme simplificado con 3 estilos principales para usar con Flutter nativo
+class AppTextTheme {
+  AppTextTheme._();
+
+  /// Tema de texto principal para la aplicación
+  static TextTheme lightTextTheme = const TextTheme(
+    displayLarge: AppTypography.displayLarge,
+    displayMedium: AppTypography.headlineLarge,
+    displaySmall: AppTypography.headlineMedium,
+    headlineMedium: AppTypography.headlineSmall,
+    headlineSmall: AppTypography.titleLarge,
+    titleLarge: AppTypography.titleMedium,
+    titleMedium: AppTypography.titleSmall,
+    titleSmall: AppTypography.bodyLarge,
+    bodyLarge: AppTypography.bodyMedium,
+    bodyMedium: AppTypography.bodySmall,
+    bodySmall: AppTypography.labelLarge,
+    labelLarge: AppTypography.labelMedium,
+    labelMedium: AppTypography.labelSmall,
+    labelSmall: AppTypography.labelSmall,
+  );
+
+  /// TextTheme secundario para variaciones
+  static TextTheme darkTextTheme = const TextTheme(
+    displayLarge: AppTypography.displayLarge,
+    displayMedium: AppTypography.headlineLarge,
+    displaySmall: AppTypography.headlineMedium,
+    headlineMedium: AppTypography.headlineSmall,
+    headlineSmall: AppTypography.titleLarge,
+    titleLarge: AppTypography.titleMedium,
+    titleMedium: AppTypography.titleSmall,
+    titleSmall: AppTypography.bodyLarge,
+    bodyLarge: AppTypography.bodyMedium,
+    bodyMedium: AppTypography.bodySmall,
+    bodySmall: AppTypography.labelLarge,
+    labelLarge: AppTypography.labelMedium,
+    labelMedium: AppTypography.labelSmall,
+    labelSmall: AppTypography.labelSmall,
+  );
+
+  /// TextTheme compacto para espacios reducidos
+  static TextTheme compactTextTheme = const TextTheme(
+    displayLarge: AppTypography.titleLarge,
+    displayMedium: AppTypography.titleMedium,
+    displaySmall: AppTypography.titleSmall,
+    headlineMedium: AppTypography.bodyLarge,
+    headlineSmall: AppTypography.bodyMedium,
+    titleLarge: AppTypography.bodySmall,
+    titleMedium: AppTypography.labelLarge,
+    titleSmall: AppTypography.labelMedium,
+    bodyLarge: AppTypography.labelSmall,
+    bodyMedium: AppTypography.labelSmall,
+    bodySmall: AppTypography.labelSmall,
+    labelLarge: AppTypography.labelSmall,
+    labelMedium: AppTypography.labelSmall,
+    labelSmall: AppTypography.labelSmall,
+  );
+}
