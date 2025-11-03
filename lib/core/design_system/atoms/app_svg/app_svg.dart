@@ -34,13 +34,17 @@ class AppSvg extends StatelessWidget {
   Widget build(BuildContext context) {
     final dimensions = getSvgDimensions(size);
 
+    final colorFilterToApply = color != null
+        ? ColorFilter.mode(color!, BlendMode.srcIn)
+        : null;
+
     final svgPicture = SvgPicture.asset(
       assetPath,
       width: dimensions.size,
       height: dimensions.size,
       fit: fit,
       semanticsLabel: 'Pokemon illustration',
-      colorFilter: const ColorFilter.mode(Colors.red, BlendMode.srcIn),
+      colorFilter: colorFilterToApply,
       placeholderBuilder: showPlaceholder
           ? (context) => Container(
                 color: Colors.grey[200],

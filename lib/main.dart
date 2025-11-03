@@ -112,30 +112,76 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             const SizedBox(height: 32),
 
-            // Type Elements
+            // Type Elements with AppTypeTag
             const Text(
               'Pokémon Type Elements',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
+            const Text(
+              'Small Size',
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+            ),
+            const SizedBox(height: 8),
             Wrap(
               spacing: 8,
               runSpacing: 8,
               children: [
-                _TypeBadge('assets/elements/Typefire.svg', 'Fire'),
-                _TypeBadge('assets/elements/Typewater.svg', 'Water'),
-                _TypeBadge('assets/elements/Typegrass.svg', 'Grass'),
-                _TypeBadge('assets/elements/Typeelectric.svg', 'Electric'),
-                _TypeBadge('assets/elements/Typeground.svg', 'Ground'),
-                _TypeBadge('assets/elements/Typerock.svg', 'Rock'),
-                _TypeBadge('assets/elements/Typedragon.svg', 'Dragon'),
-                _TypeBadge('assets/elements/Typedark.svg', 'Dark'),
-                _TypeBadge('assets/elements/Typefairy.svg', 'Fairy'),
-                _TypeBadge('assets/elements/Typepsychic.svg', 'Psychic'),
-                _TypeBadge('assets/elements/Typebug.svg', 'Bug'),
-                _TypeBadge('assets/elements/Typeflying.svg', 'Flying'),
+                AppTypeTag(type: PokemonType.fire, size: TypeTagSize.small),
+                AppTypeTag(type: PokemonType.water, size: TypeTagSize.small),
+                AppTypeTag(type: PokemonType.grass, size: TypeTagSize.small),
+                AppTypeTag(type: PokemonType.electric, size: TypeTagSize.small),
+                AppTypeTag(type: PokemonType.ice, size: TypeTagSize.small),
+                AppTypeTag(type: PokemonType.flying, size: TypeTagSize.small),
               ],
             ),
+            const SizedBox(height: 16),
+            const Text(
+              'Medium Size (Default)',
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+            ),
+            const SizedBox(height: 8),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                AppTypeTag(type: PokemonType.fire),
+                AppTypeTag(type: PokemonType.water),
+                AppTypeTag(type: PokemonType.grass),
+                AppTypeTag(type: PokemonType.electric),
+                AppTypeTag(type: PokemonType.dragon),
+                AppTypeTag(type: PokemonType.psychic),
+                AppTypeTag(type: PokemonType.fighting),
+                AppTypeTag(type: PokemonType.dark),
+              ],
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              'Large Size',
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+            ),
+            const SizedBox(height: 8),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                AppTypeTag(type: PokemonType.bug, size: TypeTagSize.large),
+                AppTypeTag(type: PokemonType.rock, size: TypeTagSize.large),
+                AppTypeTag(type: PokemonType.ground, size: TypeTagSize.large),
+                AppTypeTag(type: PokemonType.poison, size: TypeTagSize.large),
+                AppTypeTag(type: PokemonType.ghost, size: TypeTagSize.large),
+                AppTypeTag(type: PokemonType.steel, size: TypeTagSize.large),
+              ],
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              'Full Width',
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+            ),
+            const SizedBox(height: 8),
+            AppTypeTag(type: PokemonType.fairy, fullWidth: true),
+            const SizedBox(height: 8),
+            AppTypeTag(type: PokemonType.normal, fullWidth: true),
           ],
         ),
       ),
@@ -169,38 +215,6 @@ class _PokemonCard extends StatelessWidget {
           style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
         ),
       ],
-    );
-  }
-}
-
-class _TypeBadge extends StatelessWidget {
-  final String assetPath;
-  final String label;
-
-  const _TypeBadge(this.assetPath, this.label);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey[300]!),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          AppSvg(
-            assetPath,
-            size: SvgSize.small,
-          ),
-          const SizedBox(width: 8),
-          Text(
-            label,
-            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-          ),
-        ],
-      ),
     );
   }
 }

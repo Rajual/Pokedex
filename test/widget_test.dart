@@ -32,7 +32,14 @@ void main() {
 
     // Verify Type Elements section is present
     expect(find.text('Pokémon Type Elements'), findsOneWidget);
-    expect(find.text('Fire'), findsOneWidget);
-    expect(find.text('Water'), findsOneWidget);
+    expect(find.text('Small Size'), findsOneWidget);
+    expect(find.text('Medium Size (Default)'), findsOneWidget);
+    expect(find.text('Large Size'), findsOneWidget);
+    expect(find.text('Full Width'), findsOneWidget);
+
+    // Verify some type labels are displayed (in Spanish) - may appear multiple times due to different sizes
+    expect(find.text('Fuego'), findsWidgets);
+    expect(find.text('Agua'), findsWidgets);
+    expect(find.text('Psíquico'), findsOneWidget);
   });
 }
