@@ -26,6 +26,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool isFavorite = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,6 +84,128 @@ class _MyHomePageState extends State<MyHomePage> {
                   label: 'With Icon',
                   leadingIcon: Icons.favorite,
                   onPressed: () {},
+                ),
+              ],
+            ),
+            const SizedBox(height: 32),
+
+            // AppFavoriteTag Component
+            const Text(
+              'AppFavoriteTag Component',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              'Styles & Sizes',
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+            ),
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  children: [
+                    const Text('Filled', style: TextStyle(fontSize: 12)),
+                    const SizedBox(height: 8),
+                    AppFavoriteTag(
+                      isFavorite: isFavorite,
+                      onFavoriteChanged: (value) {
+                        setState(() {
+                          isFavorite = value;
+                        });
+                      },
+                      size: FavoriteTagSize.medium,
+                      style: FavoriteTagStyle.filled,
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    const Text('Outlined', style: TextStyle(fontSize: 12)),
+                    const SizedBox(height: 8),
+                    AppFavoriteTag(
+                      isFavorite: isFavorite,
+                      onFavoriteChanged: (value) {
+                        setState(() {
+                          isFavorite = value;
+                        });
+                      },
+                      size: FavoriteTagSize.medium,
+                      style: FavoriteTagStyle.outlined,
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    const Text('Floating', style: TextStyle(fontSize: 12)),
+                    const SizedBox(height: 8),
+                    AppFavoriteTag(
+                      isFavorite: isFavorite,
+                      onFavoriteChanged: (value) {
+                        setState(() {
+                          isFavorite = value;
+                        });
+                      },
+                      size: FavoriteTagSize.medium,
+                      style: FavoriteTagStyle.floating,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              'All Sizes',
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+            ),
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  children: [
+                    const Text('Small', style: TextStyle(fontSize: 12)),
+                    const SizedBox(height: 8),
+                    AppFavoriteTag(
+                      isFavorite: isFavorite,
+                      onFavoriteChanged: (value) {
+                        setState(() {
+                          isFavorite = value;
+                        });
+                      },
+                      size: FavoriteTagSize.small,
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    const Text('Medium', style: TextStyle(fontSize: 12)),
+                    const SizedBox(height: 8),
+                    AppFavoriteTag(
+                      isFavorite: isFavorite,
+                      onFavoriteChanged: (value) {
+                        setState(() {
+                          isFavorite = value;
+                        });
+                      },
+                      size: FavoriteTagSize.medium,
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    const Text('Large', style: TextStyle(fontSize: 12)),
+                    const SizedBox(height: 8),
+                    AppFavoriteTag(
+                      isFavorite: isFavorite,
+                      onFavoriteChanged: (value) {
+                        setState(() {
+                          isFavorite = value;
+                        });
+                      },
+                      size: FavoriteTagSize.large,
+                    ),
+                  ],
                 ),
               ],
             ),
