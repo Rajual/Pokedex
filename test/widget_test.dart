@@ -23,18 +23,14 @@ void main() {
     expect(find.text('Secondary'), findsOneWidget);
     expect(find.text('Tertiary'), findsOneWidget);
 
-    // Verify Pokémon Gallery is present
+    // Verify Pokémon Gallery is present with size labels
     expect(find.text('Pokémon Gallery'), findsOneWidget);
-
-    // Verify some Pokemon names are displayed
-    expect(find.text('Charizard'), findsOneWidget);
-    expect(find.text('Pikachu'), findsOneWidget);
+    expect(find.text('Small Size'), findsWidgets); // Appears in both Pokemon and Type sections
+    expect(find.text('Medium Size (Default)'), findsWidgets); // Can appear multiple times
+    expect(find.text('Large Size'), findsWidgets);  // Can appear multiple times
 
     // Verify Type Elements section is present
     expect(find.text('Pokémon Type Elements'), findsOneWidget);
-    expect(find.text('Small Size'), findsOneWidget);
-    expect(find.text('Medium Size (Default)'), findsOneWidget);
-    expect(find.text('Large Size'), findsOneWidget);
     expect(find.text('Full Width'), findsOneWidget);
 
     // Verify some type labels are displayed (in Spanish) - may appear multiple times due to different sizes

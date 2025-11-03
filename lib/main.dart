@@ -87,28 +87,136 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             const SizedBox(height: 32),
 
-            // Pokémon Gallery with PNG images
+            // Pokémon Gallery with AppImage
             const Text(
               'Pokémon Gallery',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
+            const Text(
+              'Small Size',
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+            ),
+            const SizedBox(height: 8),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  AppImage(
+                    'assets/ilustration/PokemonCharizard.png',
+                    size: AppImageSize.small,
+                    showShadow: true,
+                  ),
+                  const SizedBox(width: 8),
+                  AppImage(
+                    'assets/ilustration/PokemonPikachu.png',
+                    size: AppImageSize.small,
+                    showShadow: true,
+                  ),
+                  const SizedBox(width: 8),
+                  AppImage(
+                    'assets/ilustration/PokemonSquirtle.png',
+                    size: AppImageSize.small,
+                    showShadow: true,
+                  ),
+                  const SizedBox(width: 8),
+                  AppImage(
+                    'assets/ilustration/PokemonVenusaur.png',
+                    size: AppImageSize.small,
+                    showShadow: true,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              'Medium Size (Default)',
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+            ),
+            const SizedBox(height: 8),
             GridView.count(
               crossAxisCount: 3,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              childAspectRatio: 0.8,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
               children: [
-                _PokemonCard('assets/ilustration/PokemonCharizard.png', 'Charizard'),
-                _PokemonCard('assets/ilustration/PokemonPikachu.png', 'Pikachu'),
-                _PokemonCard('assets/ilustration/PokemonSquirtle.png', 'Squirtle'),
-                _PokemonCard('assets/ilustration/PokemonVenusaur.png', 'Venusaur'),
-                _PokemonCard('assets/ilustration/PokemonBlastoise.png', 'Blastoise'),
-                _PokemonCard('assets/ilustration/PokemonMew.png', 'Mew'),
-                _PokemonCard('assets/ilustration/PokemonLucario.png', 'Lucario'),
-                _PokemonCard('assets/ilustration/PokemonRayquaza.png', 'Rayquaza'),
-                _PokemonCard('assets/ilustration/PokemonZoroark.png', 'Zoroark'),
+                AppImage(
+                  'assets/ilustration/PokemonCharizard.png',
+                  size: AppImageSize.medium,
+                  showShadow: true,
+                ),
+                AppImage(
+                  'assets/ilustration/PokemonPikachu.png',
+                  size: AppImageSize.medium,
+                  showShadow: true,
+                ),
+                AppImage(
+                  'assets/ilustration/PokemonSquirtle.png',
+                  size: AppImageSize.medium,
+                  showShadow: true,
+                ),
+                AppImage(
+                  'assets/ilustration/PokemonVenusaur.png',
+                  size: AppImageSize.medium,
+                  showShadow: true,
+                ),
+                AppImage(
+                  'assets/ilustration/PokemonBlastoise.png',
+                  size: AppImageSize.medium,
+                  showShadow: true,
+                ),
+                AppImage(
+                  'assets/ilustration/PokemonMew.png',
+                  size: AppImageSize.medium,
+                  showShadow: true,
+                ),
+                AppImage(
+                  'assets/ilustration/PokemonLucario.png',
+                  size: AppImageSize.medium,
+                  showShadow: true,
+                ),
+                AppImage(
+                  'assets/ilustration/PokemonRayquaza.png',
+                  size: AppImageSize.medium,
+                  showShadow: true,
+                ),
+                AppImage(
+                  'assets/ilustration/PokemonZoroark.png',
+                  size: AppImageSize.medium,
+                  showShadow: true,
+                ),
               ],
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              'Large Size',
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+            ),
+            const SizedBox(height: 8),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  AppImage(
+                    'assets/ilustration/PokemonCharizard.png',
+                    size: AppImageSize.large,
+                    borderRadius: 12,
+                  ),
+                  const SizedBox(width: 8),
+                  AppImage(
+                    'assets/ilustration/PokemonPikachu.png',
+                    size: AppImageSize.large,
+                    borderRadius: 12,
+                  ),
+                  const SizedBox(width: 8),
+                  AppImage(
+                    'assets/ilustration/PokemonSquirtle.png',
+                    size: AppImageSize.large,
+                    borderRadius: 12,
+                  ),
+                ],
+              ),
             ),
             const SizedBox(height: 32),
 
@@ -185,36 +293,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class _PokemonCard extends StatelessWidget {
-  final String assetPath;
-  final String name;
-
-  const _PokemonCard(this.assetPath, this.name);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: Image.asset(
-            assetPath,
-            width: 120,
-            height: 120,
-            fit: BoxFit.cover,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          name,
-          textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
-        ),
-      ],
     );
   }
 }
