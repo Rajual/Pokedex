@@ -6,8 +6,8 @@ part of 'pokemon_detail_dto.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_PokemonDetailDto _$PokemonDetailDtoFromJson(Map<String, dynamic> json) =>
-    _PokemonDetailDto(
+PokemonDetailDto _$PokemonDetailDtoFromJson(Map<String, dynamic> json) =>
+    PokemonDetailDto(
       id: (json['id'] as num).toInt(),
       name: json['name'] as String,
       height: (json['height'] as num).toInt(),
@@ -23,7 +23,7 @@ _PokemonDetailDto _$PokemonDetailDtoFromJson(Map<String, dynamic> json) =>
       ),
     );
 
-Map<String, dynamic> _$PokemonDetailDtoToJson(_PokemonDetailDto instance) =>
+Map<String, dynamic> _$PokemonDetailDtoToJson(PokemonDetailDto instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
@@ -34,49 +34,49 @@ Map<String, dynamic> _$PokemonDetailDtoToJson(_PokemonDetailDto instance) =>
       'sprites': instance.sprites,
     };
 
-_PokemonTypeSlotDto _$PokemonTypeSlotDtoFromJson(Map<String, dynamic> json) =>
-    _PokemonTypeSlotDto(
+PokemonTypeSlotDto _$PokemonTypeSlotDtoFromJson(Map<String, dynamic> json) =>
+    PokemonTypeSlotDto(
       slot: (json['slot'] as num).toInt(),
       type: PokemonTypeInfoDto.fromJson(json['type'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$PokemonTypeSlotDtoToJson(_PokemonTypeSlotDto instance) =>
+Map<String, dynamic> _$PokemonTypeSlotDtoToJson(PokemonTypeSlotDto instance) =>
     <String, dynamic>{'slot': instance.slot, 'type': instance.type};
 
-_PokemonTypeInfoDto _$PokemonTypeInfoDtoFromJson(Map<String, dynamic> json) =>
-    _PokemonTypeInfoDto(
+PokemonTypeInfoDto _$PokemonTypeInfoDtoFromJson(Map<String, dynamic> json) =>
+    PokemonTypeInfoDto(
       name: json['name'] as String,
       url: json['url'] as String,
     );
 
-Map<String, dynamic> _$PokemonTypeInfoDtoToJson(_PokemonTypeInfoDto instance) =>
+Map<String, dynamic> _$PokemonTypeInfoDtoToJson(PokemonTypeInfoDto instance) =>
     <String, dynamic>{'name': instance.name, 'url': instance.url};
 
-_PokemonStatDto _$PokemonStatDtoFromJson(Map<String, dynamic> json) =>
-    _PokemonStatDto(
+PokemonStatDto _$PokemonStatDtoFromJson(Map<String, dynamic> json) =>
+    PokemonStatDto(
       baseStat: (json['base_stat'] as num).toInt(),
       effort: (json['effort'] as num).toInt(),
       stat: PokemonStatInfoDto.fromJson(json['stat'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$PokemonStatDtoToJson(_PokemonStatDto instance) =>
+Map<String, dynamic> _$PokemonStatDtoToJson(PokemonStatDto instance) =>
     <String, dynamic>{
       'base_stat': instance.baseStat,
       'effort': instance.effort,
       'stat': instance.stat,
     };
 
-_PokemonStatInfoDto _$PokemonStatInfoDtoFromJson(Map<String, dynamic> json) =>
-    _PokemonStatInfoDto(
+PokemonStatInfoDto _$PokemonStatInfoDtoFromJson(Map<String, dynamic> json) =>
+    PokemonStatInfoDto(
       name: json['name'] as String,
       url: json['url'] as String,
     );
 
-Map<String, dynamic> _$PokemonStatInfoDtoToJson(_PokemonStatInfoDto instance) =>
+Map<String, dynamic> _$PokemonStatInfoDtoToJson(PokemonStatInfoDto instance) =>
     <String, dynamic>{'name': instance.name, 'url': instance.url};
 
-_PokemonSpritesDto _$PokemonSpritesDtoFromJson(Map<String, dynamic> json) =>
-    _PokemonSpritesDto(
+PokemonSpritesDto _$PokemonSpritesDtoFromJson(Map<String, dynamic> json) =>
+    PokemonSpritesDto(
       frontDefault: json['front_default'] as String?,
       other: json['other'] == null
           ? null
@@ -85,15 +85,15 @@ _PokemonSpritesDto _$PokemonSpritesDtoFromJson(Map<String, dynamic> json) =>
             ),
     );
 
-Map<String, dynamic> _$PokemonSpritesDtoToJson(_PokemonSpritesDto instance) =>
+Map<String, dynamic> _$PokemonSpritesDtoToJson(PokemonSpritesDto instance) =>
     <String, dynamic>{
       'front_default': instance.frontDefault,
       'other': instance.other,
     };
 
-_PokemonOtherSpritesDto _$PokemonOtherSpritesDtoFromJson(
+PokemonOtherSpritesDto _$PokemonOtherSpritesDtoFromJson(
   Map<String, dynamic> json,
-) => _PokemonOtherSpritesDto(
+) => PokemonOtherSpritesDto(
   officialArtwork: json['official-artwork'] == null
       ? null
       : PokemonArtworkDto.fromJson(
@@ -102,11 +102,11 @@ _PokemonOtherSpritesDto _$PokemonOtherSpritesDtoFromJson(
 );
 
 Map<String, dynamic> _$PokemonOtherSpritesDtoToJson(
-  _PokemonOtherSpritesDto instance,
+  PokemonOtherSpritesDto instance,
 ) => <String, dynamic>{'official-artwork': instance.officialArtwork};
 
-_PokemonArtworkDto _$PokemonArtworkDtoFromJson(Map<String, dynamic> json) =>
-    _PokemonArtworkDto(frontDefault: json['front_default'] as String?);
+PokemonArtworkDto _$PokemonArtworkDtoFromJson(Map<String, dynamic> json) =>
+    PokemonArtworkDto(frontDefault: json['front_default'] as String?);
 
-Map<String, dynamic> _$PokemonArtworkDtoToJson(_PokemonArtworkDto instance) =>
+Map<String, dynamic> _$PokemonArtworkDtoToJson(PokemonArtworkDto instance) =>
     <String, dynamic>{'front_default': instance.frontDefault};

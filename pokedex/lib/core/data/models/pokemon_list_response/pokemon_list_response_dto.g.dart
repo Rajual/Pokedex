@@ -6,9 +6,9 @@ part of 'pokemon_list_response_dto.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_PokemonListResponseDto _$PokemonListResponseDtoFromJson(
+PokemonListResponseDto _$PokemonListResponseDtoFromJson(
   Map<String, dynamic> json,
-) => _PokemonListResponseDto(
+) => PokemonListResponseDto(
   count: (json['count'] as num).toInt(),
   next: json['next'] as String?,
   previous: json['previous'] as String?,
@@ -18,7 +18,7 @@ _PokemonListResponseDto _$PokemonListResponseDtoFromJson(
 );
 
 Map<String, dynamic> _$PokemonListResponseDtoToJson(
-  _PokemonListResponseDto instance,
+  PokemonListResponseDto instance,
 ) => <String, dynamic>{
   'count': instance.count,
   'next': instance.next,
@@ -26,11 +26,11 @@ Map<String, dynamic> _$PokemonListResponseDtoToJson(
   'results': instance.results,
 };
 
-_PokemonListItemDto _$PokemonListItemDtoFromJson(Map<String, dynamic> json) =>
-    _PokemonListItemDto(
+PokemonListItemDto _$PokemonListItemDtoFromJson(Map<String, dynamic> json) =>
+    PokemonListItemDto(
       name: json['name'] as String,
       url: json['url'] as String,
     );
 
-Map<String, dynamic> _$PokemonListItemDtoToJson(_PokemonListItemDto instance) =>
+Map<String, dynamic> _$PokemonListItemDtoToJson(PokemonListItemDto instance) =>
     <String, dynamic>{'name': instance.name, 'url': instance.url};
