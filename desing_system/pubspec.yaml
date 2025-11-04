@@ -12,6 +12,8 @@ dependencies:
     sdk: flutter
     # SVG Support - Para los assets SVG del Figma
   flutter_svg: ^2.2.1
+  # Image Handling - Cache de imágenes
+  cached_network_image: ^3.4.1
 
 dev_dependencies:
   flutter_test:

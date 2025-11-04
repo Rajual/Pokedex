@@ -3,6 +3,7 @@ import 'package:desing_system/templates/empty_state_template/models/empty_state_
 import 'package:desing_system/templates/loading_template/loading_template.dart';
 import 'package:desing_system/templates/loading_template/models/loading_template_ui_model.dart';
 import 'package:flutter/material.dart';
+import 'templates/pokemon_detail_template_screen.dart';
 
 class TemplatesScreen extends StatelessWidget {
   const TemplatesScreen({super.key});
@@ -114,6 +115,26 @@ class TemplatesScreen extends StatelessWidget {
                 onAction: () {},
               ),
             ),
+          ),
+
+          const SizedBox(height: 32),
+
+          // Pokemon Detail Template Section
+          const Text(
+            'Pokemon Detail Template',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 16),
+          AppButton.fromProperties(
+            label: 'View Pokemon Detail Examples',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const PokemonDetailTemplateScreen(),
+                ),
+              );
+            },
           ),
 
           const SizedBox(height: 32),

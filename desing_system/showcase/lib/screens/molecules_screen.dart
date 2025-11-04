@@ -1,6 +1,7 @@
 import 'package:desing_system/desing_system.dart';
 import 'package:desing_system/molecules/skeleton/skeleton.dart';
 import 'package:flutter/material.dart';
+import 'molecules/gender_bar_screen.dart';
 
 class MoleculesScreen extends StatelessWidget {
   const MoleculesScreen({super.key});
@@ -115,6 +116,26 @@ class MoleculesScreen extends StatelessWidget {
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16),
+          
+          // Gender Bar Example
+          ListTile(
+            leading: const Icon(Icons.wc),
+            title: const Text('Gender Bar'),
+            subtitle: const Text('Visualize gender distribution with bars'),
+            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const GenderBarScreen(),
+                ),
+              );
+            },
+          ),
+          
+          const Divider(),
+          const SizedBox(height: 8),
+          
           Wrap(
             spacing: 8,
             runSpacing: 8,

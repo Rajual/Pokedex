@@ -5,6 +5,7 @@ import 'components/image_detail_screen.dart';
 import 'components/svg_detail_screen.dart';
 import 'components/favorite_tag_detail_screen.dart';
 import 'atoms/dot_indicator_screen.dart';
+import 'atoms/stat_card_screen.dart';
 
 class AtomsScreen extends StatelessWidget {
   const AtomsScreen({super.key});
@@ -75,6 +76,17 @@ class AtomsScreen extends StatelessWidget {
             () => Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const DotIndicatorScreen()),
+            ),
+          ),
+
+          _buildComponentTile(
+            context,
+            'Stat Card',
+            'Display statistics and metrics with icon, label and value',
+            Icons.analytics,
+            () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const StatCardScreen()),
             ),
           ),
         ],
