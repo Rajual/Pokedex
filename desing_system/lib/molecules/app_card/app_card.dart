@@ -6,7 +6,6 @@ import '../../atoms/app_image/models/app_image_ui_model.dart';
 import '../app_type_tag/app_type_tag.dart';
 import 'models/app_card_ui_model.dart';
 import 'models/swipe_action_ui_model.dart';
-import 'swipeable_card.dart';
 
 /// Card component that displays a Pokemon with:
 /// - Background with gradient or solid color
@@ -15,7 +14,7 @@ import 'swipeable_card.dart';
 /// - Pokemon name
 /// - Type tags (primary and secondary)
 /// - Favorite button
-/// - Optional swipe action (e.g., delete)
+/// - Optional swipe action (e.g., delete) - se activa automáticamente cuando swipeAction no es null
 ///
 /// Example:
 /// ```dart
@@ -38,7 +37,7 @@ import 'swipeable_card.dart';
 ///   ),
 /// )
 /// ```
-class AppCard extends StatelessWidget {
+class AppCard extends StatefulWidget {
   final AppCardUiModel uiModel;
 
   /// Callback quando o favorito muda
@@ -47,16 +46,23 @@ class AppCard extends StatelessWidget {
   /// Callback ao tocar no card
   final VoidCallback? onTap;
 
-  /// Acción al deslizar (opcional)
+  /// Acción al deslizar (opcional) - cuando es null, no hay funcionalidad de swipe
   final SwipeActionUiModel? swipeAction;
+
+  /// Duración de la animación de swipe
+  final Duration swipeAnimationDuration;
 
   const AppCard({
     required this.uiModel,
     required this.onFavoriteChanged,
     this.onTap,
     this.swipeAction,
+    this.swipeAnimationDuration = const Duration(milliseconds: 300),
     super.key,
   });
+
+  @override
+  State<AppCard> createState() => _AppCardState();
 
   /// Factory constructor for backward compatibility
   factory AppCard.fromProperties({
@@ -73,6 +79,7 @@ class AppCard extends StatelessWidget {
     CardElevation elevation = CardElevation.medium,
     VoidCallback? onTap,
     SwipeActionUiModel? swipeAction,
+    Duration swipeAnimationDuration = const Duration(milliseconds: 300),
     bool isEnabled = true,
     bool showPokemonNumber = true,
     Key? key,
@@ -95,29 +102,135 @@ class AppCard extends StatelessWidget {
       onFavoriteChanged: onFavoriteChanged,
       onTap: onTap,
       swipeAction: swipeAction,
+      swipeAnimationDuration: swipeAnimationDuration,
       key: key,
     );
+  }
+}
+
+class _AppCardState extends State<AppCard> with SingleTickerProviderStateMixin {
+  // Swipe animation controller
+  AnimationController? _swipeController;
+  Animation<Offset>? _slideAnimation;
+  
+  double _dragExtent = 0;
+  bool _isDragging = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Solo inicializar animación si hay swipeAction
+    if (widget.swipeAction != null) {
+      _swipeController = AnimationController(
+        vsync: this,
+        duration: widget.swipeAnimationDuration,
+      );
+      _slideAnimation = Tween<Offset>(
+        begin: Offset.zero,
+        end: const Offset(-1.0, 0),
+      ).animate(CurvedAnimation(
+        parent: _swipeController!,
+        curve: Curves.easeOut,
+      ));
+    }
+  }
+
+  @override
+  void dispose() {
+    _swipeController?.dispose();
+    super.dispose();
+  }
+
+  void _handleDragStart(DragStartDetails details) {
+    if (!widget.uiModel.isEnabled || widget.swipeAction == null) return;
+    
+    setState(() {
+      _isDragging = true;
+    });
+  }
+
+  void _handleDragUpdate(DragUpdateDetails details) {
+    if (!widget.uiModel.isEnabled || widget.swipeAction == null || !_isDragging) return;
+
+    final delta = details.primaryDelta ?? 0;
+    final cardWidth = context.size?.width ?? 0;
+    
+    if (cardWidth == 0) return;
+
+    setState(() {
+      // Solo permitir deslizar a la izquierda (delta negativo)
+      if (delta < 0) {
+        _dragExtent = (_dragExtent + delta).clamp(-cardWidth, 0.0);
+      } else if (_dragExtent < 0) {
+        // Permitir volver si ya estaba deslizado
+        _dragExtent = (_dragExtent + delta).clamp(-cardWidth, 0.0);
+      }
+      
+      _swipeController!.value = (_dragExtent.abs() / cardWidth).clamp(0.0, 1.0);
+    });
+  }
+
+  void _handleDragEnd(DragEndDetails details) {
+    if (!widget.uiModel.isEnabled || widget.swipeAction == null || !_isDragging) return;
+
+    final cardWidth = context.size?.width ?? 0;
+    if (cardWidth == 0) return;
+
+    final threshold = widget.swipeAction!.threshold;
+    final velocity = details.primaryVelocity ?? 0;
+    
+    setState(() {
+      _isDragging = false;
+      
+      // Si superó el threshold o tiene velocidad suficiente, completar la acción
+      if ((_dragExtent.abs() / cardWidth) >= threshold || velocity < -300) {
+        _swipeController!.forward().then((_) {
+          widget.swipeAction?.onAction?.call();
+          // Resetear después de la acción
+          Future.delayed(const Duration(milliseconds: 300), () {
+            if (mounted) {
+              _swipeController!.reverse().then((_) {
+                if (mounted) {
+                  setState(() {
+                    _dragExtent = 0;
+                  });
+                }
+              });
+            }
+          });
+        });
+      } else {
+        // Volver a la posición original
+        _swipeController!.reverse().then((_) {
+          if (mounted) {
+            setState(() {
+              _dragExtent = 0;
+            });
+          }
+        });
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final cardWidth = uiModel.size.width;
-    final cardHeight = uiModel.size.height;
-    final padding = uiModel.size.padding;
-    final borderRadius = uiModel.size.borderRadius;
+    final cardWidth = widget.uiModel.size.width;
+    final cardHeight = widget.uiModel.size.height;
+    final padding = widget.uiModel.size.padding;
+    final borderRadius = widget.uiModel.size.borderRadius;
 
     // Format Pokemon number
-    final pokemonNumberStr = uiModel.pokemonNumber.toString().padLeft(4, '0');
+    final pokemonNumberStr = widget.uiModel.pokemonNumber.toString().padLeft(4, '0');
 
     // Build the card content
     Widget cardContent = Container(
       width: cardWidth,
       height: cardHeight,
       decoration: BoxDecoration(
-        color: uiModel.backgroundColor,
+        color: widget.uiModel.backgroundColor,
         borderRadius: BorderRadius.circular(borderRadius),
-        border: uiModel.style == CardStyle.outlined
-            ? Border.all(color: uiModel.backgroundColor.withOpacity(0.5), width: 2)
+        border: widget.uiModel.style == CardStyle.outlined
+            ? Border.all(color: widget.uiModel.backgroundColor.withOpacity(0.5), width: 2)
             : null,
       ),
       child: Padding(
@@ -131,7 +244,7 @@ class AppCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Pokemon number
-                if (uiModel.showPokemonNumber)
+                if (widget.uiModel.showPokemonNumber)
                   Expanded(
                     child: Text(
                       'Nº$pokemonNumberStr',
@@ -149,14 +262,14 @@ class AppCard extends StatelessWidget {
                   width: 32,
                   height: 32,
                   child: AppFavoriteTag.fromProperties(
-                    isFavorite: uiModel.isFavorite,
-                    onFavoriteChanged: onFavoriteChanged,
+                    isFavorite: widget.uiModel.isFavorite,
+                    onFavoriteChanged: widget.onFavoriteChanged,
                     size: FavoriteTagSize.small,
                     style: FavoriteTagStyle.outlined,
                     activeColor: Colors.white,
                     inactiveColor: Colors.white70,
                     enableAnimation: true,
-                    isEnabled: uiModel.isEnabled,
+                    isEnabled: widget.uiModel.isEnabled,
                   ),
                 ),
               ],
@@ -168,7 +281,7 @@ class AppCard extends StatelessWidget {
               child: Center(
                 child: AppImage(
                   uiModel: AppImageUiModel(
-                    assetPath: uiModel.imagePath,
+                    assetPath: widget.uiModel.imagePath,
                     size: AppImageSize.medium,
                     fit: AppImageFit.contain,
                     showShadow: false,
@@ -187,7 +300,7 @@ class AppCard extends StatelessWidget {
                 children: [
                   // Pokemon name
                   Text(
-                    uiModel.pokemonName,
+                    widget.uiModel.pokemonName,
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -206,12 +319,12 @@ class AppCard extends StatelessWidget {
                         runSpacing: 2,
                         children: [
                           AppTypeTag(
-                            type: uiModel.primaryType,
+                            type: widget.uiModel.primaryType,
                             size: TypeTagSize.small,
                           ),
-                          if (uiModel.secondaryType != null)
+                          if (widget.uiModel.secondaryType != null)
                             AppTypeTag(
-                              type: uiModel.secondaryType!,
+                              type: widget.uiModel.secondaryType!,
                               size: TypeTagSize.small,
                             ),
                         ],
@@ -226,29 +339,74 @@ class AppCard extends StatelessWidget {
       ),
     );
 
-    // Apply onTap and elevation styling
-    if (uiModel.style == CardStyle.elevated) {
+    // Apply elevation styling
+    if (widget.uiModel.style == CardStyle.elevated) {
       cardContent = Material(
-        elevation: uiModel.elevation.value,
+        elevation: widget.uiModel.elevation.value,
         borderRadius: BorderRadius.circular(borderRadius),
         child: cardContent,
       );
     }
 
     // Wrap with GestureDetector if onTap is provided
-    if (onTap != null && uiModel.isEnabled) {
+    if (widget.onTap != null && widget.uiModel.isEnabled) {
       cardContent = GestureDetector(
-        onTap: onTap,
+        onTap: widget.onTap,
         child: cardContent,
       );
     }
 
-    // Wrap with SwipeableCard if swipeAction is provided
-    if (swipeAction != null) {
-      cardContent = SwipeableCard(
-        swipeAction: swipeAction,
-        isEnabled: uiModel.isEnabled,
-        child: cardContent,
+    // Wrap with swipe functionality if swipeAction is provided
+    if (widget.swipeAction != null && _swipeController != null) {
+      cardContent = GestureDetector(
+        onHorizontalDragStart: _handleDragStart,
+        onHorizontalDragUpdate: _handleDragUpdate,
+        onHorizontalDragEnd: _handleDragEnd,
+        child: Stack(
+          children: [
+            // Background con la acción
+            Positioned.fill(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: widget.swipeAction!.backgroundColor,
+                  borderRadius: BorderRadius.circular(borderRadius),
+                ),
+                alignment: Alignment.centerRight,
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: AnimatedOpacity(
+                  opacity: _swipeController!.value > 0.1 ? 1.0 : 0.0,
+                  duration: const Duration(milliseconds: 150),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        widget.swipeAction!.icon,
+                        color: widget.swipeAction!.iconColor,
+                        size: 32,
+                      ),
+                      if (widget.swipeAction!.label != null) ...[
+                        const SizedBox(height: 4),
+                        Text(
+                          widget.swipeAction!.label!,
+                          style: TextStyle(
+                            color: widget.swipeAction!.iconColor,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            // Card que se desliza
+            SlideTransition(
+              position: _slideAnimation!,
+              child: cardContent,
+            ),
+          ],
+        ),
       );
     }
 
