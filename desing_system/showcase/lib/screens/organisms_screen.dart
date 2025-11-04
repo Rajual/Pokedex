@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:desing_system/desing_system.dart';
 import 'components/pokemon_list_detail_screen.dart';
+import 'organisms/filter_bottom_sheet_screen.dart';
 
 class OrganismsScreen extends StatelessWidget {
   const OrganismsScreen({super.key});
@@ -27,6 +28,17 @@ class OrganismsScreen extends StatelessWidget {
             () => Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const PokemonListDetailScreen()),
+            ),
+          ),
+
+          _buildComponentTile(
+            context,
+            'Filter Bottom Sheet',
+            'Modal bottom sheet for filtering with expandable sections and checkboxes',
+            Icons.filter_list,
+            () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const FilterBottomSheetScreen()),
             ),
           ),
         ],

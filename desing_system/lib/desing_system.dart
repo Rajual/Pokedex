@@ -10,6 +10,9 @@ export 'molecules/app_card/exports.dart';
 export 'molecules/app_type_tag/exports.dart';
 export 'molecules/search_bar/exports.dart';
 
+// Organisms
+export 'organisms/filter_bottom_sheet/exports.dart';
+
 // Templates
 export 'templates/onboarding_template/exports.dart';
 export 'templates/empty_state_template/exports.dart';
