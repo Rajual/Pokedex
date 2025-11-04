@@ -11,8 +11,6 @@ import 'package:pokedex/app/config/localizations.dart';
 import 'package:pokedex/features/listing/presentation/presenter/listing_presenter.dart';
 import 'package:pokedex/features/listing/domain/entities/pokemon_list_item.dart';
 
-import '../../../../core/common/result.dart';
-
 /// Screen that displays a searchable and filterable Pokemon list
 /// using design system components
 class ListingScreen extends ConsumerStatefulWidget {
@@ -110,66 +108,76 @@ class _LoadingSkeleton extends StatelessWidget {
 }
 
 class _ListingScreenState extends ConsumerState<ListingScreen> {
-  Result<List<PokemonListItem>, String>? _result;
-
   @override
   void initState() {
     super.initState();
     // Load initial data when screen opens
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _loadData();
-    });
-  }
-
-  Future<void> _loadData() async {
-    final presenter = ref.read(listingPresenterProvider);
-    final result = await presenter.loadData();
-    setState(() {
-      _result = result;
+      ref.read(pokemonListProvider.notifier).loadPokemon();
     });
   }
 
   @override
   Widget build(BuildContext context) {
     final localizations = MyAppLocalizations.of(context);
+    final pokemonAsync = ref.watch(filteredPokemonProvider);
+    final filterState = ref.watch(filterProvider);
 
     // Show skeleton while UI model (localizations) is loading
     if (localizations == null) {
       return const _LoadingSkeleton();
     }
 
-    if (_result == null) {
-      return LoadingTemplate(
+    return pokemonAsync.when(
+      loading: () => LoadingTemplate(
         uiModel: LoadingTemplateUiModel(
           title: localizations.getListingTitle(),
           subtitle: localizations.getListingLoading(),
           layoutType: LoadingLayoutType.cards,
           itemCount: 6,
         ),
-      );
-    }
-
-    return _result!.match(
-      onSuccess: (data) => _buildSuccessContent(data, localizations),
-      onFailure: (error) => _buildErrorContent(error, localizations),
+      ),
+      error: (error, stack) => _buildErrorContent(error.toString(), localizations),
+      data: (data) => _buildSuccessContent(data, localizations, filterState),
     );
   }
 
   Widget _buildSuccessContent(
     List<PokemonListItem> pokemon,
     MyAppLocalizations? localizations,
+    FilterState filterState,
   ) {
     return Scaffold(
       appBar: AppBar(
         title: Text(localizations?.getListingTitle() ?? 'Pokémon List'),
         actions: [
+          if (filterState.hasActiveFilters)
+            Container(
+              margin: const EdgeInsets.only(right: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                color: AppColors.primary,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Text(
+                '${filterState.selectedTypes.length}',
+                style: const TextStyle(
+                  color: AppColors.white,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           IconButton(
-            icon: const Icon(Icons.filter_list),
+            icon: Icon(
+              Icons.filter_list,
+              color: filterState.hasActiveFilters ? AppColors.primary : null,
+            ),
             onPressed: () => _showFilterBottomSheet(context, localizations),
           ),
         ],
       ),
-      body: _buildPokemonList(pokemon, localizations),
+      body: _buildPokemonList(pokemon, localizations, filterState),
     );
   }
 
@@ -187,7 +195,7 @@ class _ListingScreenState extends ConsumerState<ListingScreen> {
           title: localizations?.getListingError() ?? 'Failed to load Pokémon',
           description: error,
           actionLabel: localizations?.getListingRetry() ?? 'Retry',
-          onAction: _loadData,
+          onAction: () => ref.read(pokemonListProvider.notifier).loadPokemon(),
         ),
       ),
     );
@@ -196,6 +204,7 @@ class _ListingScreenState extends ConsumerState<ListingScreen> {
   Widget _buildPokemonList(
     List<PokemonListItem> pokemon,
     MyAppLocalizations? localizations,
+    FilterState filterState,
   ) {
     // Convert domain entities to design system Pokemon objects
     final designSystemPokemon = pokemon.map(_mapToDesignSystemPokemon).toList();
@@ -322,15 +331,17 @@ class _ListingScreenState extends ConsumerState<ListingScreen> {
     MyAppLocalizations? localizations,
   ) {
     final typeFilters = localizations?.getListingTypeFilters() ?? [];
+    final filterNotifier = ref.read(filterProvider.notifier);
 
     final sections = [
       FilterSection(
         title: localizations?.getListingFilterTitle() ?? 'Filter by Type',
         options: typeFilters.map((type) {
+          final typeValue = type['value'] as String;
           return FilterOption(
-            id: type['value'] as String,
+            id: typeValue,
             label: type['name'] as String,
-            isSelected: false, // TODO: Implement filter state
+            isSelected: filterNotifier.isTypeSelected(typeValue),
           );
         }).toList(),
       ),
@@ -341,7 +352,21 @@ class _ListingScreenState extends ConsumerState<ListingScreen> {
       title: localizations?.getListingFilterTitle() ?? 'Filter by Type',
       sections: sections,
       onApply: (selectedFilters) {
-        // TODO: Implement filter application
+        // selectedFilters is Map<String, List<String>> where:
+        // - Key: section title (e.g., "Filter by Type")
+        // - Value: list of selected option IDs (e.g., ["fire", "water", "grass"])
+        
+        // Extract all selected type IDs from all sections
+        final selectedTypeIds = <String>{};
+        for (var entry in selectedFilters.entries) {
+          selectedTypeIds.addAll(entry.value);
+        }
+
+        // Update filter state
+        filterNotifier.setSelectedTypes(selectedTypeIds);
+
+        // Force update of filtered list
+        ref.read(filteredPokemonProvider.notifier).updateFilters();
       },
     );
   }

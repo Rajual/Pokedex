@@ -51,8 +51,7 @@ dependencies:
   # Navigation - go_router para navegación declarativa
   go_router: ^16.3.0
 
-  # Image Handling - Cache de imágenes
-  cached_network_image: ^3.4.1
+
 
   # Local Storage - SharedPreferences para persistencia local
   shared_preferences: ^2.2.3
