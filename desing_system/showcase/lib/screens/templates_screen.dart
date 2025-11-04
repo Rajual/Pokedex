@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:desing_system/desing_system.dart';
 import 'templates/onboarding_template_screen.dart';
+import 'templates/empty_state_template_screen.dart';
 
 /// Pantalla que lista todos los templates disponibles
 class TemplatesScreen extends StatelessWidget {
@@ -28,6 +29,21 @@ class TemplatesScreen extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => const OnboardingTemplateScreen(),
+                ),
+              );
+            },
+          ),
+          _buildTemplateCard(
+            context,
+            icon: Icons.info_outline,
+            title: 'Empty State Template',
+            description: 'Template para estados vacíos, errores y pantallas informativas',
+            color: AppColors.warning,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const EmptyStateTemplateScreen(),
                 ),
               );
             },

@@ -12,6 +12,7 @@ export 'molecules/search_bar/exports.dart';
 
 // Templates
 export 'templates/onboarding_template/exports.dart';
+export 'templates/empty_state_template/exports.dart';
 
 // Theme
 export 'theme/app_colors.dart';
