@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../../atoms/app_favorite_tag/app_favorite_tag.dart';
 import '../../atoms/app_favorite_tag/models/app_favorite_tag_ui_model.dart';
@@ -8,6 +7,9 @@ import '../../atoms/stat_card/stat_card.dart';
 import '../../molecules/app_type_tag/app_type_tag.dart';
 import '../../molecules/gender_bar/gender_bar.dart';
 import '../../molecules/gender_bar/models/gender_bar_ui_model.dart';
+import '../../organisms/hero_image_header/hero_image_header.dart';
+import '../../organisms/hero_image_header/models/hero_image_header_ui_model.dart';
+import '../../organisms/hero_image_header/utils/hero_image_header_enums.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_dimensions.dart';
 import 'models/pokemon_detail_template_ui_model.dart';
@@ -15,11 +17,11 @@ import 'models/pokemon_detail_template_ui_model.dart';
 /// Template para mostrar el detalle completo de un Pokémon
 ///
 /// Reutiliza:
+/// - HeroImageHeader: Para el header con imagen hero y decoraciones
 /// - AppFavoriteTag: Para el botón de favorito
 /// - AppTypeTag: Para mostrar tipos y debilidades
 /// - StatCard: Para mostrar estadísticas (peso, altura, categoría, habilidad)
 /// - GenderBar: Para mostrar distribución de género
-/// - CachedNetworkImage: Para la imagen del Pokémon
 ///
 /// Ejemplo de uso:
 /// ```dart
@@ -56,88 +58,36 @@ class PokemonDetailTemplate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final size = MediaQuery.of(context).size;
 
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          // Header con imagen del Pokémon
-          SliverAppBar(
-            expandedHeight: size.height * 0.4,
-            pinned: true,
-            backgroundColor: uiModel.primaryColor,
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.white),
-              onPressed: uiModel.onBack,
-            ),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: AppDimensions.md),
-                child: AppFavoriteTag(
-                  uiModel: AppFavoriteTagUiModel(
-                    isFavorite: uiModel.isFavorite,
-                    size: FavoriteTagSize.large,
-                    style: FavoriteTagStyle.floating,
+          // Header con imagen del Pokémon usando HeroImageHeader
+          HeroImageHeader(
+            uiModel: HeroImageHeaderUiModel(
+              imageUrl: uiModel.imageUrl,
+              heroTag: 'pokemon-${uiModel.number}',
+              backgroundColor: uiModel.primaryColor,
+              expandedHeightFraction: 0.4,
+              showBackButton: true,
+              onBack: uiModel.onBack,
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: AppDimensions.md),
+                  child: AppFavoriteTag(
+                    uiModel: AppFavoriteTagUiModel(
+                      isFavorite: uiModel.isFavorite,
+                      size: FavoriteTagSize.large,
+                      style: FavoriteTagStyle.floating,
+                    ),
+                    onFavoriteChanged: (_) {
+                      uiModel.onFavoriteToggle?.call();
+                    },
                   ),
-                  onFavoriteChanged: (_) {
-                    uiModel.onFavoriteToggle?.call();
-                  },
                 ),
-              ),
-            ],
-            flexibleSpace: FlexibleSpaceBar(
-              background: Stack(
-                children: [
-                  // Fondo con gradiente
-                  Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          uiModel.primaryColor,
-                          uiModel.primaryColor.withOpacity(0.7),
-                        ],
-                      ),
-                    ),
-                  ),
-                  // Decoración circular
-                  Positioned(
-                    right: -50,
-                    top: -50,
-                    child: Container(
-                      width: 250,
-                      height: 250,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.white.withOpacity(0.1),
-                      ),
-                    ),
-                  ),
-                  // Imagen del Pokémon
-                  Center(
-                    child: Hero(
-                      tag: 'pokemon-${uiModel.number}',
-                      child: CachedNetworkImage(
-                        imageUrl: uiModel.imageUrl,
-                        width: size.width * 0.6,
-                        height: size.width * 0.6,
-                        fit: BoxFit.contain,
-                        placeholder: (context, url) => const Center(
-                          child: CircularProgressIndicator(
-                            color: Colors.white,
-                          ),
-                        ),
-                        errorWidget: (context, url, error) => Icon(
-                          Icons.catching_pokemon,
-                          size: size.width * 0.3,
-                          color: Colors.white.withOpacity(0.5),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              ],
+              showDecoration: true,
+              decorationPosition: CircleDecorationPosition.topRight,
             ),
           ),
 

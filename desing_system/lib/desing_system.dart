@@ -14,6 +14,7 @@ export 'molecules/gender_bar/exports.dart';
 
 // Organisms
 export 'organisms/filter_bottom_sheet/exports.dart';
+export 'organisms/hero_image_header/exports.dart';
 
 // Templates
 export 'templates/onboarding_template/exports.dart';
