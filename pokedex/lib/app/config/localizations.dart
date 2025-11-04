@@ -25,6 +25,7 @@ class MyAppLocalizations {
     try {
       // Load all feature-specific JSON files
       await _loadFeatureData('onboarding');
+      await _loadFeatureData('listing');
       // Add more features here as they are implemented
       // await _loadFeatureData('home');
       // await _loadFeatureData('settings');
@@ -120,6 +121,55 @@ class MyAppLocalizations {
 
   String getOnboardingFinishText() {
     return getFeatureValue('onboarding', 'finishButtonText') ?? 'Get Started';
+  }
+
+  /// Get listing data specifically
+  Map<String, dynamic>? getListingData() {
+    return getFeatureData('listing');
+  }
+
+  /// Get listing title
+  String getListingTitle() {
+    return getFeatureValue('listing', 'title') ?? 'Pokémon List';
+  }
+
+  /// Get listing search placeholder
+  String getListingSearchPlaceholder() {
+    return getFeatureValue('listing', 'searchPlaceholder') ?? 'Search Pokémon...';
+  }
+
+  /// Get listing filter title
+  String getListingFilterTitle() {
+    return getFeatureValue('listing', 'filterTitle') ?? 'Filter by Type';
+  }
+
+  /// Get listing no results message
+  String getListingNoResults() {
+    return getFeatureValue('listing', 'noResults') ?? 'No Pokémon found';
+  }
+
+  /// Get listing loading message
+  String getListingLoading() {
+    return getFeatureValue('listing', 'loading') ?? 'Loading Pokémon...';
+  }
+
+  /// Get listing error message
+  String getListingError() {
+    return getFeatureValue('listing', 'error') ?? 'Failed to load Pokémon';
+  }
+
+  /// Get listing retry button text
+  String getListingRetry() {
+    return getFeatureValue('listing', 'retry') ?? 'Retry';
+  }
+
+  /// Get listing type filters
+  List<Map<String, dynamic>> getListingTypeFilters() {
+    final types = getFeatureValue('listing', 'types');
+    if (types is List) {
+      return types.cast<Map<String, dynamic>>();
+    }
+    return [];
   }
 }
 

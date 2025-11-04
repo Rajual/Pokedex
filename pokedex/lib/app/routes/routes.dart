@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import '../../features/onboarding/presentation/view/onboarding_screen.dart';
+import '../../features/listing/presentation/view/listing_screen.dart';
 import '../../main.dart';
 
 /// Route names constants
 class RouteNames {
   static const String home = '/home';
   static const String onboarding = '/onboarding';
+  static const String listing = '/listing';
 }
 
 /// Route generator for the app
@@ -24,6 +26,12 @@ class AppRouter {
           settings: settings,
         );
 
+      case RouteNames.listing:
+        return MaterialPageRoute(
+          builder: (_) => const ListingScreen(),
+          settings: settings,
+        );
+
       default:
         // Fallback to home if route not found
         return MaterialPageRoute(
@@ -38,6 +46,7 @@ class AppRouter {
     return {
       RouteNames.home: (context) => const MyHomePage(),
       RouteNames.onboarding: (context) => const OnboardingScreen(),
+      RouteNames.listing: (context) => const ListingScreen(),
     };
   }
 }
@@ -62,5 +71,15 @@ extension NavigatorExtension on BuildContext {
   /// Push to onboarding screen
   void pushToOnboarding() {
     Navigator.of(this).pushNamed(RouteNames.onboarding);
+  }
+
+  /// Navigate to listing screen
+  void goToListing() {
+    Navigator.of(this).pushReplacementNamed(RouteNames.listing);
+  }
+
+  /// Push to listing screen
+  void pushToListing() {
+    Navigator.of(this).pushNamed(RouteNames.listing);
   }
 }

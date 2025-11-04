@@ -1,6 +1,7 @@
 import 'package:desing_system/desing_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'app/config/localizations.dart';
 import 'app/routes/routes.dart';
 import 'core/common/preferences.dart';
 import 'features/onboarding/presentation/view/onboarding_screen.dart';
@@ -20,6 +21,14 @@ class MyApp extends ConsumerWidget {
       home: const AppEntryPoint(),
       routes: AppRouter.getRoutes(),
       onGenerateRoute: AppRouter.generateRoute,
+      localizationsDelegates: const [
+        MyAppLocalizationsDelegate(),
+        // Add other delegates if needed
+      ],
+      supportedLocales: const [
+        Locale('en', ''), // English
+        Locale('es', ''), // Spanish
+      ],
     );
   }
 }
@@ -206,20 +215,36 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
             ),
             const SizedBox(height: 32),
 
-            // Reset Onboarding Button (for testing)
-            Center(
-              child: AppButton.fromProperties(
-                label: 'Reset Onboarding',
-                type: ButtonType.secondary,
-                onPressed: () async {
-                  final prefs = await ref.read(preferencesServiceProvider.future);
-                  await prefs.setOnboardingCompleted(false);
-                  if (context.mounted) {
-                    // Navigate back to onboarding
-                    context.goToOnboarding();
-                  }
-                },
-              ),
+            // Navigation Buttons
+            const SizedBox(height: 32),
+            const Text(
+              'Features',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 16),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                AppButton.fromProperties(
+                  label: 'View Pokémon List',
+                  onPressed: () {
+                    context.pushToListing();
+                  },
+                ),
+                AppButton.fromProperties(
+                  label: 'Reset Onboarding',
+                  type: ButtonType.secondary,
+                  onPressed: () async {
+                    final prefs = await ref.read(preferencesServiceProvider.future);
+                    await prefs.setOnboardingCompleted(false);
+                    if (context.mounted) {
+                      // Navigate back to onboarding
+                      context.goToOnboarding();
+                    }
+                  },
+                ),
+              ],
             ),
           ],
         ),

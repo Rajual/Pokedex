@@ -1,0 +1,30 @@
+{
+  "title": "Lista de Pokémon",
+  "searchPlaceholder": "Buscar Pokémon...",
+  "filterTitle": "Filtrar por Tipo",
+  "noResults": "No se encontraron Pokémon",
+  "loading": "Cargando Pokémon...",
+  "error": "Error al cargar Pokémon",
+  "retry": "Reintentar",
+  "types": [
+    {"name": "Todos", "value": "all"},
+    {"name": "Fuego", "value": "fire"},
+    {"name": "Agua", "value": "water"},
+    {"name": "Planta", "value": "grass"},
+    {"name": "Eléctrico", "value": "electric"},
+    {"name": "Hielo", "value": "ice"},
+    {"name": "Lucha", "value": "fighting"},
+    {"name": "Veneno", "value": "poison"},
+    {"name": "Tierra", "value": "ground"},
+    {"name": "Volador", "value": "flying"},
+    {"name": "Psíquico", "value": "psychic"},
+    {"name": "Bicho", "value": "bug"},
+    {"name": "Roca", "value": "rock"},
+    {"name": "Fantasma", "value": "ghost"},
+    {"name": "Dragón", "value": "dragon"},
+    {"name": "Siniestro", "value": "dark"},
+    {"name": "Acero", "value": "steel"},
+    {"name": "Hada", "value": "fairy"},
+    {"name": "Normal", "value": "normal"}
+  ]
+}

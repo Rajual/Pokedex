@@ -1,0 +1,30 @@
+{
+  "title": "Pokémon List",
+  "searchPlaceholder": "Search Pokémon...",
+  "filterTitle": "Filter by Type",
+  "noResults": "No Pokémon found",
+  "loading": "Loading Pokémon...",
+  "error": "Failed to load Pokémon",
+  "retry": "Retry",
+  "types": [
+    {"name": "All", "value": "all"},
+    {"name": "Fire", "value": "fire"},
+    {"name": "Water", "value": "water"},
+    {"name": "Grass", "value": "grass"},
+    {"name": "Electric", "value": "electric"},
+    {"name": "Ice", "value": "ice"},
+    {"name": "Fighting", "value": "fighting"},
+    {"name": "Poison", "value": "poison"},
+    {"name": "Ground", "value": "ground"},
+    {"name": "Flying", "value": "flying"},
+    {"name": "Psychic", "value": "psychic"},
+    {"name": "Bug", "value": "bug"},
+    {"name": "Rock", "value": "rock"},
+    {"name": "Ghost", "value": "ghost"},
+    {"name": "Dragon", "value": "dragon"},
+    {"name": "Dark", "value": "dark"},
+    {"name": "Steel", "value": "steel"},
+    {"name": "Fairy", "value": "fairy"},
+    {"name": "Normal", "value": "normal"}
+  ]
+}
