@@ -10,6 +10,9 @@ export 'molecules/app_card/exports.dart';
 export 'molecules/app_type_tag/exports.dart';
 export 'molecules/search_bar/exports.dart';
 
+// Templates
+export 'templates/onboarding_template/exports.dart';
+
 // Theme
 export 'theme/app_colors.dart';
 export 'theme/app_typography.dart';

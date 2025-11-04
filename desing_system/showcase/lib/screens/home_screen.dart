@@ -18,6 +18,9 @@ class HomeScreen extends StatelessWidget {
       case 3:
         routeName = '/organisms';
         break;
+      case 4:
+        routeName = '/templates';
+        break;
       default:
         routeName = '/';
     }
@@ -75,10 +78,10 @@ class HomeScreen extends StatelessWidget {
                   ),
                   _buildCategoryCard(
                     context,
-                    'Theme',
-                    'Colors & Typography',
-                    Icons.palette,
-                    0, // Home screen index (for now)
+                    'Templates',
+                    'Full page layouts',
+                    Icons.view_carousel,
+                    4, // Templates screen index
                   ),
                 ],
               ),

@@ -4,6 +4,7 @@ import 'screens/home_screen.dart';
 import 'screens/atoms_screen.dart';
 import 'screens/molecules_screen.dart';
 import 'screens/organisms_screen.dart';
+import 'screens/templates_screen.dart';
 
 void main() {
   runApp(const ShowcaseApp());
@@ -23,6 +24,7 @@ class ShowcaseApp extends StatelessWidget {
         '/atoms': (context) => const AtomsScreen(),
         '/molecules': (context) => const MoleculesScreen(),
         '/organisms': (context) => const OrganismsScreen(),
+        '/templates': (context) => const TemplatesScreen(),
       },
       home: const MainScreen(),
     );
@@ -52,6 +54,7 @@ class MainScreenState extends State<MainScreen> {
     const AtomsScreen(),
     const MoleculesScreen(),
     const OrganismsScreen(),
+    const TemplatesScreen(),
   ];
 
   final List<String> _titles = [
@@ -59,6 +62,7 @@ class MainScreenState extends State<MainScreen> {
     'Atoms',
     'Molecules',
     'Organisms',
+    'Templates',
   ];
 
   void onItemTapped(int index) {
@@ -125,6 +129,15 @@ class MainScreenState extends State<MainScreen> {
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pushNamed(context, '/organisms');
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.view_carousel),
+              title: const Text('Templates'),
+              selected: _selectedIndex == 4,
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/templates');
               },
             ),
           ],
