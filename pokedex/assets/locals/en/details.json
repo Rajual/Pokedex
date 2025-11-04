@@ -1,0 +1,52 @@
+{
+  "stats": {
+    "weight": {
+      "label": "WEIGHT",
+      "icon": "monitor_weight"
+    },
+    "height": {
+      "label": "HEIGHT",
+      "icon": "height"
+    },
+    "category": {
+      "label": "CATEGORY",
+      "icon": "category"
+    },
+    "ability": {
+      "label": "ABILITY",
+      "icon": "flash_on"
+    }
+  },
+  "pokemon": {
+    "1": {
+      "name": "Bulbasaur",
+      "description": "A strange seed was planted on its back at birth. The plant sprouts and grows with this POKéMON.",
+      "category": "SEED",
+      "ability": "Overgrow",
+      "weight": "6,9 kg",
+      "height": "0,7 m",
+      "malePercentage": 87.5,
+      "femalePercentage": 12.5
+    },
+    "4": {
+      "name": "Charmander",
+      "description": "Obviously prefers hot places. When it rains, steam is said to spout from the tip of its tail.",
+      "category": "LIZARD",
+      "ability": "Blaze",
+      "weight": "8,5 kg",
+      "height": "0,6 m",
+      "malePercentage": 87.5,
+      "femalePercentage": 12.5
+    },
+    "7": {
+      "name": "Squirtle",
+      "description": "After birth, its back swells and hardens into a shell. Powerfully sprays foam from its mouth.",
+      "category": "TINY TURTLE",
+      "ability": "Torrent",
+      "weight": "9,0 kg",
+      "height": "0,5 m",
+      "malePercentage": 87.5,
+      "femalePercentage": 12.5
+    }
+  }
+}

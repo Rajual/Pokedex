@@ -5,6 +5,7 @@ import 'app/config/localizations.dart';
 import 'app/routes/routes.dart';
 import 'core/common/preferences.dart';
 import 'features/onboarding/presentation/view/onboarding_screen.dart';
+import 'features/error/domain/entities/error_entity.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -249,10 +250,18 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                   type: ButtonType.tertiary,
                   onPressed: () {
                     // Navigate to error screen with network error example
-                    Navigator.of(context).pushNamed('/error', arguments: {
-                      'errorType': 'network',
-                      'originalError': Exception('Network connection failed'),
-                    });
+                    context.pushToError(
+                      ErrorType.network,
+                      originalError: Exception('Network connection failed'),
+                    );
+                  },
+                ),
+                AppButton.fromProperties(
+                  label: 'View Pokemon Details',
+                  type: ButtonType.secondary,
+                  onPressed: () {
+                    // Navigate to details screen with Pokemon ID
+                    context.pushToDetails('1'); // Bulbasaur
                   },
                 ),
               ],

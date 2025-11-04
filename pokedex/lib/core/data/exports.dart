@@ -8,5 +8,3 @@ export 'gateways/pokemon_list_gateway.dart';
 export 'gateways/pokemon_detail_gateway.dart';
 
 
-// Mappers
-export 'mappers/pokemon_mapper.dart';

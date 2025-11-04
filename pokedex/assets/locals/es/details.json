@@ -1,0 +1,52 @@
+{
+  "stats": {
+    "weight": {
+      "label": "PESO",
+      "icon": "monitor_weight"
+    },
+    "height": {
+      "label": "ALTURA",
+      "icon": "height"
+    },
+    "category": {
+      "label": "CATEGORÍA",
+      "icon": "category"
+    },
+    "ability": {
+      "label": "HABILIDAD",
+      "icon": "flash_on"
+    }
+  },
+  "pokemon": {
+    "1": {
+      "name": "Bulbasaur",
+      "description": "Una extraña semilla fue plantada en su espalda al nacer. La planta brota y crece con este POKéMON.",
+      "category": "SEMILLA",
+      "ability": "Espesura",
+      "weight": "6,9 kg",
+      "height": "0,7 m",
+      "malePercentage": 87.5,
+      "femalePercentage": 12.5
+    },
+    "4": {
+      "name": "Charmander",
+      "description": "Obviamente prefiere lugares calurosos. Cuando llueve, se dice que sale vapor de la punta de su cola.",
+      "category": "LAGARTIJA",
+      "ability": "Mar Llamas",
+      "weight": "8,5 kg",
+      "height": "0,6 m",
+      "malePercentage": 87.5,
+      "femalePercentage": 12.5
+    },
+    "7": {
+      "name": "Squirtle",
+      "description": "Después del nacimiento, su espalda se hincha y se endurece en una concha. Rocía espuma poderosamente desde su boca.",
+      "category": "TORTUGUITA",
+      "ability": "Torrente",
+      "weight": "9,0 kg",
+      "height": "0,5 m",
+      "malePercentage": 87.5,
+      "femalePercentage": 12.5
+    }
+  }
+}

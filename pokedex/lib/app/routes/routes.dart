@@ -3,6 +3,7 @@ import '../../features/onboarding/presentation/view/onboarding_screen.dart';
 import '../../features/listing/presentation/view/listing_screen.dart';
 import '../../features/error/presentation/view/error_screen.dart';
 import '../../features/error/domain/entities/error_entity.dart';
+import '../../features/details/presentation/view/pokemon_detail_screen.dart';
 import '../../main.dart';
 
 /// Route names constants
@@ -11,6 +12,7 @@ class RouteNames {
   static const String onboarding = '/onboarding';
   static const String listing = '/listing';
   static const String error = '/error';
+  static const String details = '/details';
 }
 
 /// Route generator for the app
@@ -51,6 +53,15 @@ class AppRouter {
             errorType: errorType,
             originalError: originalError,
           ),
+          settings: settings,
+        );
+
+      case RouteNames.details:
+        final args = settings.arguments as Map<String, dynamic>?;
+        final pokemonId = args?['pokemonId'] as String? ?? '1';
+
+        return MaterialPageRoute(
+          builder: (_) => PokemonDetailScreen(pokemonId: pokemonId),
           settings: settings,
         );
 
@@ -119,6 +130,20 @@ extension NavigatorExtension on BuildContext {
     Navigator.of(this).pushNamed(RouteNames.error, arguments: {
       'errorType': errorType.name,
       'originalError': originalError,
+    });
+  }
+
+  /// Navigate to details screen with specific Pokemon ID
+  void goToDetails(String pokemonId) {
+    Navigator.of(this).pushNamed(RouteNames.details, arguments: {
+      'pokemonId': pokemonId,
+    });
+  }
+
+  /// Push to details screen with specific Pokemon ID
+  void pushToDetails(String pokemonId) {
+    Navigator.of(this).pushNamed(RouteNames.details, arguments: {
+      'pokemonId': pokemonId,
     });
   }
 }
