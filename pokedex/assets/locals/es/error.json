@@ -1,0 +1,46 @@
+{
+  "errors": {
+    "network": {
+      "title": "Error de Conexión",
+      "description": "No se pudo conectar al servidor. Por favor verifica tu conexión a internet e intenta nuevamente.",
+      "retryButtonText": "Reintentar",
+      "iconPath": "assets/icons/network_error.png"
+    },
+    "server": {
+      "title": "Error del Servidor",
+      "description": "Algo salió mal en nuestro servidor. Por favor intenta nuevamente más tarde.",
+      "retryButtonText": "Reintentar",
+      "iconPath": "assets/icons/server_error.png"
+    },
+    "client": {
+      "title": "Error de Solicitud",
+      "description": "Hubo un problema con tu solicitud. Por favor verifica tus datos e intenta nuevamente.",
+      "retryButtonText": "Reintentar",
+      "iconPath": "assets/icons/client_error.png"
+    },
+    "parsing": {
+      "title": "Error de Datos",
+      "description": "No se pudo procesar la información recibida. Por favor intenta nuevamente.",
+      "retryButtonText": "Reintentar",
+      "iconPath": "assets/icons/parsing_error.png"
+    },
+    "auth": {
+      "title": "Error de Autenticación",
+      "description": "Tu sesión ha expirado. Por favor inicia sesión nuevamente.",
+      "retryButtonText": "Iniciar Sesión",
+      "iconPath": "assets/icons/auth_error.png"
+    },
+    "timeout": {
+      "title": "Error de Tiempo de Espera",
+      "description": "La solicitud tardó demasiado en completarse. Por favor intenta nuevamente.",
+      "retryButtonText": "Reintentar",
+      "iconPath": "assets/icons/timeout_error.png"
+    },
+    "unknown": {
+      "title": "Algo Salió Mal",
+      "description": "Ocurrió un error inesperado. Por favor intenta nuevamente.",
+      "retryButtonText": "Reintentar",
+      "iconPath": "assets/icons/unknown_error.png"
+    }
+  }
+}

@@ -244,6 +244,17 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                     }
                   },
                 ),
+                AppButton.fromProperties(
+                  label: 'Test Error Screen',
+                  type: ButtonType.tertiary,
+                  onPressed: () {
+                    // Navigate to error screen with network error example
+                    Navigator.of(context).pushNamed('/error', arguments: {
+                      'errorType': 'network',
+                      'originalError': Exception('Network connection failed'),
+                    });
+                  },
+                ),
               ],
             ),
           ],

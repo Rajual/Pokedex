@@ -1,0 +1,46 @@
+{
+  "errors": {
+    "network": {
+      "title": "Connection Error",
+      "description": "Unable to connect to the server. Please check your internet connection and try again.",
+      "retryButtonText": "Retry",
+      "iconPath": "assets/icons/network_error.png"
+    },
+    "server": {
+      "title": "Server Error",
+      "description": "Something went wrong on our end. Please try again later.",
+      "retryButtonText": "Retry",
+      "iconPath": "assets/icons/server_error.png"
+    },
+    "client": {
+      "title": "Request Error",
+      "description": "There was an issue with your request. Please check your input and try again.",
+      "retryButtonText": "Retry",
+      "iconPath": "assets/icons/client_error.png"
+    },
+    "parsing": {
+      "title": "Data Error",
+      "description": "Unable to process the received data. Please try again.",
+      "retryButtonText": "Retry",
+      "iconPath": "assets/icons/parsing_error.png"
+    },
+    "auth": {
+      "title": "Authentication Error",
+      "description": "Your session has expired. Please log in again.",
+      "retryButtonText": "Login",
+      "iconPath": "assets/icons/auth_error.png"
+    },
+    "timeout": {
+      "title": "Timeout Error",
+      "description": "The request took too long to complete. Please try again.",
+      "retryButtonText": "Retry",
+      "iconPath": "assets/icons/timeout_error.png"
+    },
+    "unknown": {
+      "title": "Something Went Wrong",
+      "description": "An unexpected error occurred. Please try again.",
+      "retryButtonText": "Retry",
+      "iconPath": "assets/icons/unknown_error.png"
+    }
+  }
+}

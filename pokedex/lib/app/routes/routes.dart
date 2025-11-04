@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../features/onboarding/presentation/view/onboarding_screen.dart';
 import '../../features/listing/presentation/view/listing_screen.dart';
+import '../../features/error/presentation/view/error_screen.dart';
+import '../../features/error/domain/entities/error_entity.dart';
 import '../../main.dart';
 
 /// Route names constants
@@ -8,6 +10,7 @@ class RouteNames {
   static const String home = '/home';
   static const String onboarding = '/onboarding';
   static const String listing = '/listing';
+  static const String error = '/error';
 }
 
 /// Route generator for the app
@@ -32,6 +35,25 @@ class AppRouter {
           settings: settings,
         );
 
+      case RouteNames.error:
+        final args = settings.arguments as Map<String, dynamic>?;
+        final errorTypeString = args?['errorType'] as String? ?? 'unknown';
+        final originalError = args?['originalError'];
+
+        // Convert string to ErrorType enum
+        final errorType = ErrorType.values.firstWhere(
+          (e) => e.name == errorTypeString,
+          orElse: () => ErrorType.unknown,
+        );
+
+        return MaterialPageRoute(
+          builder: (_) => ErrorScreen(
+            errorType: errorType,
+            originalError: originalError,
+          ),
+          settings: settings,
+        );
+
       default:
         // Fallback to home if route not found
         return MaterialPageRoute(
@@ -47,6 +69,7 @@ class AppRouter {
       RouteNames.home: (context) => const MyHomePage(),
       RouteNames.onboarding: (context) => const OnboardingScreen(),
       RouteNames.listing: (context) => const ListingScreen(),
+      // Error route requires arguments, so it's handled in generateRoute
     };
   }
 }
@@ -81,5 +104,21 @@ extension NavigatorExtension on BuildContext {
   /// Push to listing screen
   void pushToListing() {
     Navigator.of(this).pushNamed(RouteNames.listing);
+  }
+
+  /// Navigate to error screen with specific error type
+  void goToError(ErrorType errorType, {dynamic originalError}) {
+    Navigator.of(this).pushNamed(RouteNames.error, arguments: {
+      'errorType': errorType.name,
+      'originalError': originalError,
+    });
+  }
+
+  /// Push to error screen with specific error type
+  void pushToError(ErrorType errorType, {dynamic originalError}) {
+    Navigator.of(this).pushNamed(RouteNames.error, arguments: {
+      'errorType': errorType.name,
+      'originalError': originalError,
+    });
   }
 }
