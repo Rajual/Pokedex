@@ -24,6 +24,7 @@ import 'screens/organisms/hero_image_header_screen.dart';
 import 'screens/templates/onboarding_template_screen.dart';
 import 'screens/templates/empty_state_template_screen.dart';
 import 'screens/templates/pokemon_detail_template_screen.dart';
+import 'screens/templates/home_template_screen.dart';
 
 // Main screens
 import 'screens/home_screen.dart';
@@ -65,6 +66,7 @@ class ShowcaseRoutes {
   static const String templateOnboarding = '/templates/onboarding';
   static const String templateEmptyState = '/templates/empty-state';
   static const String templatePokemonDetail = '/templates/pokemon-detail';
+  static const String templateHome = '/templates/home';
 
   /// Genera todas las rutas de la aplicación
   static Map<String, WidgetBuilder> getRoutes() {
@@ -100,6 +102,7 @@ class ShowcaseRoutes {
       templateOnboarding: (context) => const OnboardingTemplateScreen(),
       templateEmptyState: (context) => const EmptyStateTemplateScreen(),
       templatePokemonDetail: (context) => const PokemonDetailTemplateScreen(),
+      templateHome: (context) => const HomeTemplateScreen(),
     };
   }
 
@@ -237,6 +240,12 @@ class ShowcaseRoutes {
             description: 'Full Pokemon detail page with all information',
             icon: Icons.pets,
             route: templatePokemonDetail,
+          ),
+          ComponentItem(
+            name: 'Home Template',
+            description: 'Main app wrapper with bottom navigation bar',
+            icon: Icons.home_filled,
+            route: templateHome,
           ),
         ],
       ),

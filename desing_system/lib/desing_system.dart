@@ -21,6 +21,7 @@ export 'organisms/hero_image_header/exports.dart';
 export 'templates/onboarding_template/exports.dart';
 export 'templates/empty_state_template/exports.dart';
 export 'templates/pokemon_detail_template/exports.dart';
+export 'templates/home_template/exports.dart';
 
 // Theme
 export 'theme/app_colors.dart';
