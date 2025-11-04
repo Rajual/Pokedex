@@ -16,7 +16,14 @@ class ShowcaseApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Design System Showcase',
-      theme: AppTheme.lightTheme,
+      theme: AppTheme.lightTheme.copyWith(
+        scaffoldBackgroundColor: AppColors.backgroundColor,
+      ),
+      routes: {
+        '/atoms': (context) => const AtomsScreen(),
+        '/molecules': (context) => const MoleculesScreen(),
+        '/organisms': (context) => const OrganismsScreen(),
+      },
       home: const MainScreen(),
     );
   }
@@ -28,10 +35,10 @@ class MainScreen extends StatefulWidget {
   const MainScreen({super.key, this.initialIndex = 0});
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  State<MainScreen> createState() => MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
   @override
@@ -54,14 +61,7 @@ class _MainScreenState extends State<MainScreen> {
     'Organisms',
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  // Method to allow external navigation from home screen
-  void navigateToScreen(int index) {
+  void onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
@@ -96,7 +96,7 @@ class _MainScreenState extends State<MainScreen> {
               title: const Text('Home'),
               selected: _selectedIndex == 0,
               onTap: () {
-                _onItemTapped(0);
+                onItemTapped(0);
                 Navigator.pop(context);
               },
             ),
@@ -105,8 +105,8 @@ class _MainScreenState extends State<MainScreen> {
               title: const Text('Atoms'),
               selected: _selectedIndex == 1,
               onTap: () {
-                _onItemTapped(1);
                 Navigator.pop(context);
+                Navigator.pushNamed(context, '/atoms');
               },
             ),
             ListTile(
@@ -114,8 +114,8 @@ class _MainScreenState extends State<MainScreen> {
               title: const Text('Molecules'),
               selected: _selectedIndex == 2,
               onTap: () {
-                _onItemTapped(2);
                 Navigator.pop(context);
+                Navigator.pushNamed(context, '/molecules');
               },
             ),
             ListTile(
@@ -123,8 +123,8 @@ class _MainScreenState extends State<MainScreen> {
               title: const Text('Organisms'),
               selected: _selectedIndex == 3,
               onTap: () {
-                _onItemTapped(3);
                 Navigator.pop(context);
+                Navigator.pushNamed(context, '/organisms');
               },
             ),
           ],

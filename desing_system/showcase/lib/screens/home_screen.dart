@@ -6,14 +6,22 @@ class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   void _navigateToScreen(BuildContext context, int index) {
-    // Use a callback approach - navigate to the screen by updating the parent state
-    // Since we can't directly access private state, we'll use a different approach
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(
-        builder: (context) => MainScreen(initialIndex: index),
-      ),
-      (route) => false, // Remove all previous routes
-    );
+    // Navigate using named routes
+    String routeName;
+    switch (index) {
+      case 1:
+        routeName = '/atoms';
+        break;
+      case 2:
+        routeName = '/molecules';
+        break;
+      case 3:
+        routeName = '/organisms';
+        break;
+      default:
+        routeName = '/';
+    }
+    Navigator.of(context).pushNamed(routeName);
   }
 
   @override

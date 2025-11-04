@@ -19,6 +19,7 @@ class _ButtonDetailScreenState extends State<ButtonDetailScreen> {
         title: const Text('App Button'),
         backgroundColor: AppColors.primary,
       ),
+      backgroundColor: AppColors.backgroundColor,
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
