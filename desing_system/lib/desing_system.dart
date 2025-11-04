@@ -3,6 +3,7 @@ export 'atoms/app_button/exports.dart';
 export 'atoms/app_svg/exports.dart';
 export 'atoms/app_image/exports.dart';
 export 'atoms/app_favorite_tag/exports.dart';
+export 'atoms/dot_indicator/exports.dart';
 
 // Molecules
 export 'molecules/app_card/exports.dart';

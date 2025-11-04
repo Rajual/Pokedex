@@ -4,6 +4,7 @@ import 'components/button_detail_screen.dart';
 import 'components/image_detail_screen.dart';
 import 'components/svg_detail_screen.dart';
 import 'components/favorite_tag_detail_screen.dart';
+import 'atoms/dot_indicator_screen.dart';
 
 class AtomsScreen extends StatelessWidget {
   const AtomsScreen({super.key});
@@ -63,6 +64,17 @@ class AtomsScreen extends StatelessWidget {
             () => Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const FavoriteTagDetailScreen()),
+            ),
+          ),
+
+          _buildComponentTile(
+            context,
+            'Dot Indicator',
+            'Pagination indicators with dots and bars variants',
+            Icons.fiber_manual_record,
+            () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const DotIndicatorScreen()),
             ),
           ),
         ],
