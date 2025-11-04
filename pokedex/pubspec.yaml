@@ -54,6 +54,9 @@ dependencies:
   # Image Handling - Cache de imágenes
   cached_network_image: ^3.4.1
 
+  # Local Storage - SharedPreferences para persistencia local
+  shared_preferences: ^2.2.3
+
 
 
 dev_dependencies:
@@ -93,6 +96,8 @@ flutter:
     - assets/ilustration/
     - assets/icons/
     - assets/elements/
+    - assets/locals/en/
+    - assets/locals/es/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

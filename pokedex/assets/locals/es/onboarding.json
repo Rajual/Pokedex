@@ -1,0 +1,28 @@
+{
+  "pages": [
+    {
+      "imagePath": "assets/ilustration/PokemonPikachu.png",
+      "title": "Bienvenido al Mundo Pokemon",
+      "description": "Descubre criaturas asombrosas y emprende tu aventura",
+      "backgroundColor": 4294967295,
+      "textColor": 4278190080
+    },
+    {
+      "imagePath": "assets/ilustration/PokemonCharizard.png",
+      "title": "Captura y Entrena",
+      "description": "Encuentra, captura y entrena a tus Pokemon favoritos",
+      "backgroundColor": 4294967295,
+      "textColor": 4278190080
+    },
+    {
+      "imagePath": "assets/ilustration/PokemonBlastoise.png",
+      "title": "Batalla y Explora",
+      "description": "Desafía a otros entrenadores y explora nuevas regiones",
+      "backgroundColor": 4294967295,
+      "textColor": 4278190080
+    }
+  ],
+  "continueButtonText": "Continuar",
+  "skipButtonText": "Saltar",
+  "finishButtonText": "Empecemos"
+}

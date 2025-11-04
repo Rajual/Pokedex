@@ -1,31 +1,37 @@
 import 'package:desing_system/desing_system.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'app/routes/routes.dart';
+import 'core/common/preferences.dart';
+import 'features/onboarding/presentation/view/onboarding_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       title: 'Pokédex',
       theme: AppTheme.lightTheme,
-      home: const MyHomePage(),
+      home: const AppEntryPoint(),
+      routes: AppRouter.getRoutes(),
+      onGenerateRoute: AppRouter.generateRoute,
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends ConsumerStatefulWidget {
   const MyHomePage({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  ConsumerState<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends ConsumerState<MyHomePage> {
   bool isFavorite = false;
 
   @override
@@ -39,6 +45,35 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Welcome message after onboarding
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: AppColors.gray100,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Welcome to Pokédex!',
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      color: AppColors.gray900,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'You have successfully completed the onboarding. Explore the design system components below.',
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: AppColors.gray700,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 32),
+
             // AppButton Examples
             const Text(
               'AppButton Component',
@@ -89,128 +124,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             const SizedBox(height: 32),
 
-            // AppFavoriteTag Component
-            const Text(
-              'AppFavoriteTag Component',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              'Styles & Sizes',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-            ),
-            const SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(
-                  children: [
-                    const Text('Filled', style: TextStyle(fontSize: 12)),
-                    const SizedBox(height: 8),
-                    AppFavoriteTag.fromProperties(
-                      isFavorite: isFavorite,
-                      onFavoriteChanged: (value) {
-                        setState(() {
-                          isFavorite = value;
-                        });
-                      },
-                      size: FavoriteTagSize.medium,
-                      style: FavoriteTagStyle.filled,
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    const Text('Outlined', style: TextStyle(fontSize: 12)),
-                    const SizedBox(height: 8),
-                    AppFavoriteTag.fromProperties(
-                      isFavorite: isFavorite,
-                      onFavoriteChanged: (value) {
-                        setState(() {
-                          isFavorite = value;
-                        });
-                      },
-                      size: FavoriteTagSize.medium,
-                      style: FavoriteTagStyle.outlined,
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    const Text('Floating', style: TextStyle(fontSize: 12)),
-                    const SizedBox(height: 8),
-                    AppFavoriteTag.fromProperties(
-                      isFavorite: isFavorite,
-                      onFavoriteChanged: (value) {
-                        setState(() {
-                          isFavorite = value;
-                        });
-                      },
-                      size: FavoriteTagSize.medium,
-                      style: FavoriteTagStyle.floating,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              'All Sizes',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-            ),
-            const SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(
-                  children: [
-                    const Text('Small', style: TextStyle(fontSize: 12)),
-                    const SizedBox(height: 8),
-                    AppFavoriteTag.fromProperties(
-                      isFavorite: isFavorite,
-                      onFavoriteChanged: (value) {
-                        setState(() {
-                          isFavorite = value;
-                        });
-                      },
-                      size: FavoriteTagSize.small,
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    const Text('Medium', style: TextStyle(fontSize: 12)),
-                    const SizedBox(height: 8),
-                    AppFavoriteTag.fromProperties(
-                      isFavorite: isFavorite,
-                      onFavoriteChanged: (value) {
-                        setState(() {
-                          isFavorite = value;
-                        });
-                      },
-                      size: FavoriteTagSize.medium,
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    const Text('Large', style: TextStyle(fontSize: 12)),
-                    const SizedBox(height: 8),
-                    AppFavoriteTag.fromProperties(
-                      isFavorite: isFavorite,
-                      onFavoriteChanged: (value) {
-                        setState(() {
-                          isFavorite = value;
-                        });
-                      },
-                      size: FavoriteTagSize.large,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            const SizedBox(height: 32),
-
             // Pokémon Gallery with AppImage
             const Text(
               'Pokémon Gallery',
@@ -240,12 +153,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   const SizedBox(width: 8),
                   AppImage.fromProperties(
                     'assets/ilustration/PokemonSquirtle.png',
-                    size: AppImageSize.small,
-                    showShadow: true,
-                  ),
-                  const SizedBox(width: 8),
-                  AppImage.fromProperties(
-                    'assets/ilustration/PokemonVenusaur.png',
                     size: AppImageSize.small,
                     showShadow: true,
                   ),
@@ -295,385 +202,23 @@ class _MyHomePageState extends State<MyHomePage> {
                   size: AppImageSize.medium,
                   showShadow: true,
                 ),
-                AppImage.fromProperties(
-                  'assets/ilustration/PokemonLucario.png',
-                  size: AppImageSize.medium,
-                  showShadow: true,
-                ),
-                AppImage.fromProperties(
-                  'assets/ilustration/PokemonRayquaza.png',
-                  size: AppImageSize.medium,
-                  showShadow: true,
-                ),
-                AppImage.fromProperties(
-                  'assets/ilustration/PokemonZoroark.png',
-                  size: AppImageSize.medium,
-                  showShadow: true,
-                ),
               ],
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              'Large Size',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-            ),
-            const SizedBox(height: 8),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  AppImage.fromProperties(
-                    'assets/ilustration/PokemonCharizard.png',
-                    size: AppImageSize.large,
-                    borderRadius: 12,
-                  ),
-                  const SizedBox(width: 8),
-                  AppImage.fromProperties(
-                    'assets/ilustration/PokemonPikachu.png',
-                    size: AppImageSize.large,
-                    borderRadius: 12,
-                  ),
-                  const SizedBox(width: 8),
-                  AppImage.fromProperties(
-                    'assets/ilustration/PokemonSquirtle.png',
-                    size: AppImageSize.large,
-                    borderRadius: 12,
-                  ),
-                ],
-              ),
             ),
             const SizedBox(height: 32),
 
-            // Type Elements with AppTypeTag
-            const Text(
-              'Pokémon Type Elements',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              'Small Size',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-            ),
-            const SizedBox(height: 8),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: [
-                AppTypeTag.fromUiModel(
-                  uiModel: AppTypeTagUiModel(
-                    type: PokemonType.fire,
-                    size: TypeTagSize.small,
-                  ),
-                ),
-                AppTypeTag.fromUiModel(
-                  uiModel: AppTypeTagUiModel(
-                    type: PokemonType.water,
-                    size: TypeTagSize.small,
-                  ),
-                ),
-                AppTypeTag.fromUiModel(
-                  uiModel: AppTypeTagUiModel(
-                    type: PokemonType.grass,
-                    size: TypeTagSize.small,
-                  ),
-                ),
-                AppTypeTag.fromUiModel(
-                  uiModel: AppTypeTagUiModel(
-                    type: PokemonType.electric,
-                    size: TypeTagSize.small,
-                  ),
-                ),
-                AppTypeTag.fromUiModel(
-                  uiModel: AppTypeTagUiModel(
-                    type: PokemonType.ice,
-                    size: TypeTagSize.small,
-                  ),
-                ),
-                AppTypeTag.fromUiModel(
-                  uiModel: AppTypeTagUiModel(
-                    type: PokemonType.flying,
-                    size: TypeTagSize.small,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              'Medium Size (Default)',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-            ),
-            const SizedBox(height: 8),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: [
-                AppTypeTag.fromUiModel(
-                  uiModel: AppTypeTagUiModel(
-                    type: PokemonType.fire,
-                  ),
-                ),
-                AppTypeTag.fromUiModel(
-                  uiModel: AppTypeTagUiModel(
-                    type: PokemonType.water,
-                  ),
-                ),
-                AppTypeTag.fromUiModel(
-                  uiModel: AppTypeTagUiModel(
-                    type: PokemonType.grass,
-                  ),
-                ),
-                AppTypeTag.fromUiModel(
-                  uiModel: AppTypeTagUiModel(
-                    type: PokemonType.electric,
-                  ),
-                ),
-                AppTypeTag.fromUiModel(
-                  uiModel: AppTypeTagUiModel(
-                    type: PokemonType.dragon,
-                  ),
-                ),
-                AppTypeTag.fromUiModel(
-                  uiModel: AppTypeTagUiModel(
-                    type: PokemonType.psychic,
-                  ),
-                ),
-                AppTypeTag.fromUiModel(
-                  uiModel: AppTypeTagUiModel(
-                    type: PokemonType.fighting,
-                  ),
-                ),
-                AppTypeTag.fromUiModel(
-                  uiModel: AppTypeTagUiModel(
-                    type: PokemonType.dark,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              'Large Size',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-            ),
-            const SizedBox(height: 8),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: [
-                AppTypeTag.fromUiModel(
-                  uiModel: AppTypeTagUiModel(
-                    type: PokemonType.bug,
-                    size: TypeTagSize.large,
-                  ),
-                ),
-                AppTypeTag.fromUiModel(
-                  uiModel: AppTypeTagUiModel(
-                    type: PokemonType.rock,
-                    size: TypeTagSize.large,
-                  ),
-                ),
-                AppTypeTag.fromUiModel(
-                  uiModel: AppTypeTagUiModel(
-                    type: PokemonType.ground,
-                    size: TypeTagSize.large,
-                  ),
-                ),
-                AppTypeTag.fromUiModel(
-                  uiModel: AppTypeTagUiModel(
-                    type: PokemonType.poison,
-                    size: TypeTagSize.large,
-                  ),
-                ),
-                AppTypeTag.fromUiModel(
-                  uiModel: AppTypeTagUiModel(
-                    type: PokemonType.ghost,
-                    size: TypeTagSize.large,
-                  ),
-                ),
-                AppTypeTag.fromUiModel(
-                  uiModel: AppTypeTagUiModel(
-                    type: PokemonType.steel,
-                    size: TypeTagSize.large,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              'Full Width',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-            ),
-            const SizedBox(height: 8),
-            AppTypeTag.fromUiModel(
-              uiModel: AppTypeTagUiModel(
-                type: PokemonType.fairy,
-                fullWidth: true,
-              ),
-            ),
-            const SizedBox(height: 8),
-            AppTypeTag.fromUiModel(
-              uiModel: AppTypeTagUiModel(
-                type: PokemonType.normal,
-                fullWidth: true,
-              ),
-            ),
-            const SizedBox(height: 32),
-
-            // AppCard Component
-            const Text(
-              'AppCard Component',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              'Different Sizes',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-            ),
-            const SizedBox(height: 8),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  AppCard.fromProperties(
-                    pokemonName: 'Bulbasaur',
-                    pokemonNumber: 1,
-                    primaryType: PokemonType.grass,
-                    secondaryType: PokemonType.poison,
-                    imagePath: 'assets/ilustration/PokemonBulbasaur.png',
-                    backgroundColor: const Color(0xFF78C850),
-                    isFavorite: false,
-                    onFavoriteChanged: (value) {
-                      setState(() => isFavorite = value);
-                    },
-                    size: CardSize.small,
-                    style: CardStyle.elevated,
-                  ),
-                  const SizedBox(width: 8),
-                  AppCard.fromProperties(
-                    pokemonName: 'Bulbasaur',
-                    pokemonNumber: 1,
-                    primaryType: PokemonType.grass,
-                    secondaryType: PokemonType.poison,
-                    imagePath: 'assets/ilustration/PokemonBulbasaur.png',
-                    backgroundColor: const Color(0xFF78C850),
-                    isFavorite: isFavorite,
-                    onFavoriteChanged: (value) {
-                      setState(() => isFavorite = value);
-                    },
-                    size: CardSize.medium,
-                    style: CardStyle.elevated,
-                  ),
-                  const SizedBox(width: 8),
-                  AppCard.fromProperties(
-                    pokemonName: 'Bulbasaur',
-                    pokemonNumber: 1,
-                    primaryType: PokemonType.grass,
-                    secondaryType: PokemonType.poison,
-                    imagePath: 'assets/ilustration/PokemonBulbasaur.png',
-                    backgroundColor: const Color(0xFF78C850),
-                    isFavorite: false,
-                    onFavoriteChanged: (value) {
-                      setState(() => isFavorite = value);
-                    },
-                    size: CardSize.large,
-                    style: CardStyle.elevated,
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              'Different Types',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-            ),
-            const SizedBox(height: 8),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  AppCard.fromProperties(
-                    pokemonName: 'Charmeleon',
-                    pokemonNumber: 5,
-                    primaryType: PokemonType.fire,
-                    imagePath: 'assets/ilustration/PokemonCharmeleon.png',
-                    backgroundColor: const Color(0xFFFD7D24),
-                    isFavorite: false,
-                    onFavoriteChanged: (_) {},
-                    size: CardSize.medium,
-                    style: CardStyle.elevated,
-                  ),
-                  const SizedBox(width: 8),
-                  AppCard.fromProperties(
-                    pokemonName: 'Squirtle',
-                    pokemonNumber: 7,
-                    primaryType: PokemonType.water,
-                    imagePath: 'assets/ilustration/PokemonSquirtle.png',
-                    backgroundColor: const Color(0xFF6B9BD1),
-                    isFavorite: true,
-                    onFavoriteChanged: (_) {},
-                    size: CardSize.medium,
-                    style: CardStyle.elevated,
-                  ),
-                  const SizedBox(width: 8),
-                  AppCard.fromProperties(
-                    pokemonName: 'Pikachu',
-                    pokemonNumber: 25,
-                    primaryType: PokemonType.electric,
-                    imagePath: 'assets/ilustration/PokemonPikachu.png',
-                    backgroundColor: const Color(0xFFF9D030),
-                    isFavorite: false,
-                    onFavoriteChanged: (_) {},
-                    size: CardSize.medium,
-                    style: CardStyle.elevated,
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              'Different Styles',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-            ),
-            const SizedBox(height: 8),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  AppCard.fromProperties(
-                    pokemonName: 'Bulbasaur',
-                    pokemonNumber: 1,
-                    primaryType: PokemonType.grass,
-                    imagePath: 'assets/ilustration/PokemonBulbasaur.png',
-                    backgroundColor: const Color(0xFF78C850),
-                    isFavorite: false,
-                    onFavoriteChanged: (_) {},
-                    size: CardSize.medium,
-                    style: CardStyle.elevated,
-                  ),
-                  const SizedBox(width: 8),
-                  AppCard.fromProperties(
-                    pokemonName: 'Bulbasaur',
-                    pokemonNumber: 1,
-                    primaryType: PokemonType.grass,
-                    imagePath: 'assets/ilustration/PokemonBulbasaur.png',
-                    backgroundColor: const Color(0xFF78C850),
-                    isFavorite: false,
-                    onFavoriteChanged: (_) {},
-                    size: CardSize.medium,
-                    style: CardStyle.outlined,
-                  ),
-                  const SizedBox(width: 8),
-                  AppCard.fromProperties(
-                    pokemonName: 'Bulbasaur',
-                    pokemonNumber: 1,
-                    primaryType: PokemonType.grass,
-                    imagePath: 'assets/ilustration/PokemonBulbasaur.png',
-                    backgroundColor: const Color(0xFF78C850),
-                    isFavorite: false,
-                    onFavoriteChanged: (_) {},
-                    size: CardSize.medium,
-                    style: CardStyle.filled,
-                  ),
-                ],
+            // Reset Onboarding Button (for testing)
+            Center(
+              child: AppButton.fromProperties(
+                label: 'Reset Onboarding',
+                type: ButtonType.secondary,
+                onPressed: () async {
+                  final prefs = await ref.read(preferencesServiceProvider.future);
+                  await prefs.setOnboardingCompleted(false);
+                  if (context.mounted) {
+                    // Navigate back to onboarding
+                    context.goToOnboarding();
+                  }
+                },
               ),
             ),
           ],
@@ -682,3 +227,49 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+class AppEntryPoint extends ConsumerWidget {
+  const AppEntryPoint({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final prefsAsync = ref.watch(preferencesServiceProvider);
+
+    return prefsAsync.when(
+      loading: () => const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      ),
+      error: (error, stack) => Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Error loading app: $error'),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () {
+                  // Restart the app or handle error
+                  ref.invalidate(preferencesServiceProvider);
+                },
+                child: const Text('Retry'),
+              ),
+            ],
+          ),
+        ),
+      ),
+      data: (prefs) {
+        // Check if onboarding has been completed
+        final onboardingCompleted = prefs.isOnboardingCompleted;
+
+        if (onboardingCompleted) {
+          return const MyHomePage();
+        } else {
+          return const OnboardingScreen();
+        }
+      },
+    );
+  }
+}
+
