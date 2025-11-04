@@ -14,6 +14,7 @@ import 'screens/components/card_detail_screen.dart';
 import 'screens/components/type_tag_detail_screen.dart';
 import 'screens/components/search_bar_detail_screen.dart';
 import 'screens/molecules/swipeable_card_showcase_screen.dart';
+import 'screens/molecules/bottom_navigation_bar_showcase_screen.dart';
 
 // Organisms
 import 'screens/organisms/filter_bottom_sheet_screen.dart';
@@ -54,6 +55,7 @@ class ShowcaseRoutes {
   static const String moleculeSearchBar = '/molecules/search-bar';
   static const String moleculeGenderBar = '/molecules/gender-bar';
   static const String moleculeSwipeableCard = '/molecules/swipeable-card';
+  static const String moleculeBottomNavigationBar = '/molecules/bottom-navigation-bar';
 
   // Rutas de Organisms
   static const String organismFilterBottomSheet = '/organisms/filter-bottom-sheet';
@@ -88,6 +90,7 @@ class ShowcaseRoutes {
       moleculeSearchBar: (context) => const SearchBarDetailScreen(),
       moleculeGenderBar: (context) => const GenderBarScreen(),
       moleculeSwipeableCard: (context) => const SwipeableCardShowcaseScreen(),
+      moleculeBottomNavigationBar: (context) => const BottomNavigationBarShowcaseScreen(),
 
       // Organisms
       organismFilterBottomSheet: (context) => const FilterBottomSheetScreen(),
@@ -182,6 +185,12 @@ class ShowcaseRoutes {
             description: 'Cards with swipe actions (delete, archive, etc.)',
             icon: Icons.swipe,
             route: moleculeSwipeableCard,
+          ),
+          ComponentItem(
+            name: 'Bottom Navigation Bar',
+            description: 'Navigation bar with icons and labels',
+            icon: Icons.navigation,
+            route: moleculeBottomNavigationBar,
           ),
         ],
       ),
