@@ -1,89 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:desing_system/desing_system.dart';
-import '../main.dart';
+import '../routes.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  void _navigateToScreen(BuildContext context, int index) {
-    // Navigate using named routes
-    String routeName;
-    switch (index) {
-      case 1:
-        routeName = '/atoms';
-        break;
-      case 2:
-        routeName = '/molecules';
-        break;
-      case 3:
-        routeName = '/organisms';
-        break;
-      case 4:
-        routeName = '/templates';
-        break;
-      default:
-        routeName = '/';
-    }
-    Navigator.of(context).pushNamed(routeName);
-  }
-
   @override
   Widget build(BuildContext context) {
+    final categories = ShowcaseRoutes.getComponentCategories();
+
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Design System Showcase'),
+        backgroundColor: AppColors.primary,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 20),
+            const SizedBox(height: 8),
             Text(
-              'Design System Showcase',
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+              'Welcome to the Design System Showcase',
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: AppColors.primary,
                   ),
             ),
             const SizedBox(height: 16),
             Text(
-              'Explore and interact with all the components in our design system. Use the navigation drawer to browse different categories.',
+              'Explore and interact with all the components in our design system.',
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             const SizedBox(height: 32),
             Expanded(
-              child: GridView.count(
-                crossAxisCount: 2,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-                children: [
-                  _buildCategoryCard(
-                    context,
-                    'Atoms',
-                    'Basic building blocks',
-                    Icons.widgets,
-                    1, // Atoms screen index
-                  ),
-                  _buildCategoryCard(
-                    context,
-                    'Molecules',
-                    'Combinations of atoms',
-                    Icons.view_module,
-                    2, // Molecules screen index
-                  ),
-                  _buildCategoryCard(
-                    context,
-                    'Organisms',
-                    'Complex components',
-                    Icons.dashboard,
-                    3, // Organisms screen index
-                  ),
-                  _buildCategoryCard(
-                    context,
-                    'Templates',
-                    'Full page layouts',
-                    Icons.view_carousel,
-                    4, // Templates screen index
-                  ),
-                ],
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                  childAspectRatio: 1.0,
+                ),
+                itemCount: categories.length,
+                itemBuilder: (context, index) {
+                  final category = categories[index];
+                  return _buildCategoryCard(context, category);
+                },
               ),
             ),
           ],
@@ -92,18 +54,12 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildCategoryCard(
-    BuildContext context,
-    String title,
-    String subtitle,
-    IconData icon,
-    int targetIndex,
-  ) {
+  Widget _buildCategoryCard(BuildContext context, ComponentCategory category) {
     return Card(
       elevation: 4,
       child: InkWell(
         onTap: () {
-          _navigateToScreen(context, targetIndex);
+          Navigator.pushNamed(context, category.route);
         },
         borderRadius: BorderRadius.circular(8),
         child: Padding(
@@ -112,13 +68,13 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
-                icon,
+                category.icon,
                 size: 48,
                 color: AppColors.primary,
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 12),
               Text(
-                title,
+                category.name,
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -126,9 +82,11 @@ class HomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 4),
               Text(
-                subtitle,
-                style: Theme.of(context).textTheme.bodyMedium,
+                category.description,
+                style: Theme.of(context).textTheme.bodySmall,
                 textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
             ],
           ),

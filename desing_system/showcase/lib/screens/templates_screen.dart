@@ -3,23 +3,36 @@ import 'package:desing_system/templates/empty_state_template/models/empty_state_
 import 'package:desing_system/templates/loading_template/loading_template.dart';
 import 'package:desing_system/templates/loading_template/models/loading_template_ui_model.dart';
 import 'package:flutter/material.dart';
-import 'templates/pokemon_detail_template_screen.dart';
+import '../routes.dart';
 
 class TemplatesScreen extends StatelessWidget {
   const TemplatesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final categories = ShowcaseRoutes.getComponentCategories();
+    final templatesCategory = categories.firstWhere((cat) => cat.name == 'Templates');
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Templates'),
+        backgroundColor: AppColors.primary,
       ),
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
+          _buildSectionHeader(context, templatesCategory),
+          const SizedBox(height: 24),
+          ...templatesCategory.components.map((component) => 
+            _buildComponentTile(context, component)
+          ),
+          const SizedBox(height: 24),
+          const Divider(),
+          const SizedBox(height: 16),
+
           // Loading Template Section
           const Text(
-            'Loading Template',
+            'Loading Template (Utility)',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16),
@@ -92,11 +105,11 @@ class TemplatesScreen extends StatelessWidget {
             ),
           ),
 
-          const SizedBox(height: 32),
+          const SizedBox(height: 24),
 
           // Empty State Template Section
           const Text(
-            'Empty State Template',
+            'Empty State Template (Utility)',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16),
@@ -116,54 +129,70 @@ class TemplatesScreen extends StatelessWidget {
               ),
             ),
           ),
+        ],
+      ),
+    );
+  }
 
-          const SizedBox(height: 32),
-
-          // Pokemon Detail Template Section
-          const Text(
-            'Pokemon Detail Template',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 16),
-          AppButton.fromProperties(
-            label: 'View Pokemon Detail Examples',
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const PokemonDetailTemplateScreen(),
-                ),
-              );
-            },
-          ),
-
-          const SizedBox(height: 32),
-
-          // Navigation
-          const Text(
-            'Navigation',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 16),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
+  Widget _buildSectionHeader(BuildContext context, ComponentCategory category) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.orange.shade50,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.orange.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
             children: [
-              AppButton.fromProperties(
-                label: 'View Molecules',
-                onPressed: () {
-                  Navigator.pushNamed(context, '/molecules');
-                },
-              ),
-              AppButton.fromProperties(
-                label: 'View Organisms',
-                onPressed: () {
-                  Navigator.pushNamed(context, '/organisms');
-                },
+              Icon(category.icon, color: Colors.orange.shade700, size: 32),
+              const SizedBox(width: 12),
+              Text(
+                category.name,
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.orange.shade700,
+                ),
               ),
             ],
           ),
+          const SizedBox(height: 8),
+          Text(
+            category.description,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            '${category.components.length} components available',
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.orange.shade700,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildComponentTile(BuildContext context, ComponentItem component) {
+    return Card(
+      margin: const EdgeInsets.only(bottom: 12.0),
+      child: ListTile(
+        leading: Icon(component.icon, color: AppColors.primary, size: 32),
+        title: Text(
+          component.name,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+        subtitle: Text(component.description),
+        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+        onTap: () => Navigator.pushNamed(context, component.route),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
       ),
     );
   }

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import '../../atoms/app_favorite_tag/app_favorite_tag.dart';
-import '../../atoms/app_favorite_tag/models/app_favorite_tag_ui_model.dart';
 import '../../atoms/app_favorite_tag/utils/favorite_tag_enums.dart';
 import '../../atoms/app_image/app_image.dart';
 import '../../atoms/app_image/models/app_image_ui_model.dart';
 import '../app_type_tag/app_type_tag.dart';
 import 'models/app_card_ui_model.dart';
+import 'models/swipe_action_ui_model.dart';
+import 'swipeable_card.dart';
 
 /// Card component that displays a Pokemon with:
 /// - Background with gradient or solid color
@@ -14,6 +15,7 @@ import 'models/app_card_ui_model.dart';
 /// - Pokemon name
 /// - Type tags (primary and secondary)
 /// - Favorite button
+/// - Optional swipe action (e.g., delete)
 ///
 /// Example:
 /// ```dart
@@ -31,6 +33,9 @@ import 'models/app_card_ui_model.dart';
 ///     setState(() => isFavorite = value);
 ///   },
 ///   onTap: () => print('Card tapped'),
+///   swipeAction: SwipeActionUiModel.delete(
+///     onAction: () => print('Delete action'),
+///   ),
 /// )
 /// ```
 class AppCard extends StatelessWidget {
@@ -42,10 +47,14 @@ class AppCard extends StatelessWidget {
   /// Callback ao tocar no card
   final VoidCallback? onTap;
 
+  /// Acción al deslizar (opcional)
+  final SwipeActionUiModel? swipeAction;
+
   const AppCard({
     required this.uiModel,
     required this.onFavoriteChanged,
     this.onTap,
+    this.swipeAction,
     super.key,
   });
 
@@ -63,6 +72,7 @@ class AppCard extends StatelessWidget {
     CardStyle style = CardStyle.elevated,
     CardElevation elevation = CardElevation.medium,
     VoidCallback? onTap,
+    SwipeActionUiModel? swipeAction,
     bool isEnabled = true,
     bool showPokemonNumber = true,
     Key? key,
@@ -84,6 +94,7 @@ class AppCard extends StatelessWidget {
       ),
       onFavoriteChanged: onFavoriteChanged,
       onTap: onTap,
+      swipeAction: swipeAction,
       key: key,
     );
   }
@@ -228,6 +239,15 @@ class AppCard extends StatelessWidget {
     if (onTap != null && uiModel.isEnabled) {
       cardContent = GestureDetector(
         onTap: onTap,
+        child: cardContent,
+      );
+    }
+
+    // Wrap with SwipeableCard if swipeAction is provided
+    if (swipeAction != null) {
+      cardContent = SwipeableCard(
+        swipeAction: swipeAction,
+        isEnabled: uiModel.isEnabled,
         child: cardContent,
       );
     }

@@ -1,92 +1,71 @@
 import 'package:flutter/material.dart';
 import 'package:desing_system/desing_system.dart';
-import 'components/button_detail_screen.dart';
-import 'components/image_detail_screen.dart';
-import 'components/svg_detail_screen.dart';
-import 'components/favorite_tag_detail_screen.dart';
-import 'atoms/dot_indicator_screen.dart';
-import 'atoms/stat_card_screen.dart';
+import '../routes.dart';
 
 class AtomsScreen extends StatelessWidget {
   const AtomsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final categories = ShowcaseRoutes.getComponentCategories();
+    final atomsCategory = categories.firstWhere((cat) => cat.name == 'Atoms');
+
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Atoms'),
+        backgroundColor: AppColors.primary,
+      ),
       backgroundColor: AppColors.backgroundColor,
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
-          _buildSectionTitle(context, 'Atoms'),
-          const Text(
-            'Atoms are the basic building blocks of our design system. Click on any component to see detailed examples and usage.',
-            style: TextStyle(fontSize: 16),
-          ),
+          _buildSectionHeader(context, atomsCategory),
           const SizedBox(height: 24),
-
-          _buildComponentTile(
-            context,
-            'App Button',
-            'Interactive buttons with multiple styles, sizes, and states',
-            Icons.smart_button,
-            () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const ButtonDetailScreen()),
-            ),
+          ...atomsCategory.components.map((component) => 
+            _buildComponentTile(context, component)
           ),
+        ],
+      ),
+    );
+  }
 
-          _buildComponentTile(
-            context,
-            'App Image',
-            'Network image component with different sizes and fit options',
-            Icons.image,
-            () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const ImageDetailScreen()),
-            ),
+  Widget _buildSectionHeader(BuildContext context, ComponentCategory category) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.blue.shade50,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.blue.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(category.icon, color: Colors.blue.shade700, size: 32),
+              const SizedBox(width: 12),
+              Text(
+                category.name,
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue.shade700,
+                ),
+              ),
+            ],
           ),
-
-          _buildComponentTile(
-            context,
-            'App SVG',
-            'SVG image component for scalable vector graphics',
-            Icons.image_search,
-            () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const SvgDetailScreen()),
-            ),
+          const SizedBox(height: 8),
+          Text(
+            category.description,
+            style: const TextStyle(fontSize: 16),
           ),
-
-          _buildComponentTile(
-            context,
-            'App Favorite Tag',
-            'Interactive favorite/star component with animations',
-            Icons.star_border,
-            () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const FavoriteTagDetailScreen()),
-            ),
-          ),
-
-          _buildComponentTile(
-            context,
-            'Dot Indicator',
-            'Pagination indicators with dots and bars variants',
-            Icons.fiber_manual_record,
-            () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const DotIndicatorScreen()),
-            ),
-          ),
-
-          _buildComponentTile(
-            context,
-            'Stat Card',
-            'Display statistics and metrics with icon, label and value',
-            Icons.analytics,
-            () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const StatCardScreen()),
+          const SizedBox(height: 8),
+          Text(
+            '${category.components.length} components available',
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.blue.shade700,
+              fontWeight: FontWeight.w500,
             ),
           ),
         ],
@@ -94,37 +73,18 @@ class AtomsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSectionTitle(BuildContext context, String title) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
-      child: Text(
-        title,
-        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: AppColors.primary,
-            ),
-      ),
-    );
-  }
-
-  Widget _buildComponentTile(
-    BuildContext context,
-    String title,
-    String subtitle,
-    IconData icon,
-    VoidCallback onTap,
-  ) {
+  Widget _buildComponentTile(BuildContext context, ComponentItem component) {
     return Card(
       margin: const EdgeInsets.only(bottom: 12.0),
       child: ListTile(
-        leading: Icon(icon, color: AppColors.primary, size: 32),
+        leading: Icon(component.icon, color: AppColors.primary, size: 32),
         title: Text(
-          title,
+          component.name,
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
-        subtitle: Text(subtitle),
+        subtitle: Text(component.description),
         trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-        onTap: onTap,
+        onTap: () => Navigator.pushNamed(context, component.route),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),

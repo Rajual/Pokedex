@@ -1,23 +1,39 @@
 import 'package:desing_system/desing_system.dart';
 import 'package:desing_system/molecules/skeleton/skeleton.dart';
 import 'package:flutter/material.dart';
-import 'molecules/gender_bar_screen.dart';
+import '../routes.dart';
 
 class MoleculesScreen extends StatelessWidget {
   const MoleculesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final categories = ShowcaseRoutes.getComponentCategories();
+    final moleculesCategory = categories.firstWhere((cat) => cat.name == 'Molecules');
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Molecules'),
+        backgroundColor: AppColors.primary,
       ),
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
+          _buildSectionHeader(context, moleculesCategory),
+          const SizedBox(height: 24),
+
+          // Components list
+          ...moleculesCategory.components.map((component) => 
+            _buildComponentTile(context, component)
+          ),
+
+          const SizedBox(height: 24),
+          const Divider(),
+          const SizedBox(height: 16),
+
           // Skeleton Section
           const Text(
-            'Skeleton Molecule',
+            'Skeleton Components (Utility)',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16),
@@ -107,54 +123,70 @@ class MoleculesScreen extends StatelessWidget {
             ),
             child: SkeletonCard(),
           ),
+        ],
+      ),
+    );
+  }
 
-          const SizedBox(height: 32),
-
-          // Navigation
-          const Text(
-            'Navigation',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 16),
-          
-          // Gender Bar Example
-          ListTile(
-            leading: const Icon(Icons.wc),
-            title: const Text('Gender Bar'),
-            subtitle: const Text('Visualize gender distribution with bars'),
-            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const GenderBarScreen(),
-                ),
-              );
-            },
-          ),
-          
-          const Divider(),
-          const SizedBox(height: 8),
-          
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
+  Widget _buildSectionHeader(BuildContext context, ComponentCategory category) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.purple.shade50,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.purple.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
             children: [
-              AppButton.fromProperties(
-                label: 'View Templates',
-                onPressed: () {
-                  Navigator.pushNamed(context, '/templates');
-                },
-              ),
-              AppButton.fromProperties(
-                label: 'View Organisms',
-                onPressed: () {
-                  Navigator.pushNamed(context, '/organisms');
-                },
+              Icon(category.icon, color: Colors.purple.shade700, size: 32),
+              const SizedBox(width: 12),
+              Text(
+                category.name,
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.purple.shade700,
+                ),
               ),
             ],
           ),
+          const SizedBox(height: 8),
+          Text(
+            category.description,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            '${category.components.length} components available',
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.purple.shade700,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildComponentTile(BuildContext context, ComponentItem component) {
+    return Card(
+      margin: const EdgeInsets.only(bottom: 12.0),
+      child: ListTile(
+        leading: Icon(component.icon, color: AppColors.primary, size: 32),
+        title: Text(
+          component.name,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+        subtitle: Text(component.description),
+        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+        onTap: () => Navigator.pushNamed(context, component.route),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
       ),
     );
   }
