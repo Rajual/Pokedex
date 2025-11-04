@@ -1,8 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:desing_system/desing_system.dart';
-import 'components/card_detail_screen.dart';
-import 'components/type_tag_detail_screen.dart';
-import 'components/search_bar_detail_screen.dart';
+import 'package:desing_system/molecules/skeleton/skeleton.dart';
+import 'package:flutter/material.dart';
 
 class MoleculesScreen extends StatelessWidget {
   const MoleculesScreen({super.key});
@@ -10,88 +8,132 @@ class MoleculesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      appBar: AppBar(
+        title: const Text('Molecules'),
+      ),
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
-          _buildSectionTitle(context, 'Molecules'),
+          // Skeleton Section
           const Text(
-            'Molecules are combinations of atoms that form more complex UI components. Click on any component to see detailed examples and usage.',
-            style: TextStyle(fontSize: 16),
+            'Skeleton Molecule',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 16),
 
-          _buildComponentTile(
-            context,
-            'App Card',
-            'Pokemon card component with image, types, and favorite functionality',
-            Icons.credit_card,
-            () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const CardDetailScreen()),
+          // Basic Skeletons
+          const Text(
+            'Basic Skeletons',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+          ),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  border: Border.all(color: AppColors.gray200),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Column(
+                  children: [
+                    const Text('Rectangle', style: TextStyle(fontSize: 12)),
+                    const SizedBox(height: 4),
+                    Skeleton(width: 80, height: 20),
+                  ],
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  border: Border.all(color: AppColors.gray200),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Column(
+                  children: [
+                    const Text('Circle', style: TextStyle(fontSize: 12)),
+                    const SizedBox(height: 4),
+                    SkeletonAvatar(size: 40),
+                  ],
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 16),
+
+          // Text Skeletons
+          const Text(
+            'Text Skeletons',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+          ),
+          const SizedBox(height: 8),
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              border: Border.all(color: AppColors.gray200),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('Single Line', style: TextStyle(fontSize: 12)),
+                const SizedBox(height: 4),
+                Skeleton(width: 200, height: 16),
+                const SizedBox(height: 12),
+                const Text('Multiple Lines', style: TextStyle(fontSize: 12)),
+                const SizedBox(height: 4),
+                SkeletonText(width: 250, lines: 3),
+              ],
             ),
           ),
 
-          _buildComponentTile(
-            context,
-            'App Type Tag',
-            'Pokemon type tags with automatic color coding and sizing',
-            Icons.label,
-            () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const TypeTagDetailScreen()),
+          const SizedBox(height: 16),
+
+          // Card Skeleton
+          const Text(
+            'Card Skeleton',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+          ),
+          const SizedBox(height: 8),
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              border: Border.all(color: AppColors.gray200),
+              borderRadius: BorderRadius.circular(8),
             ),
+            child: SkeletonCard(),
           ),
 
-          _buildComponentTile(
-            context,
-            'Custom Search Bar',
-            'Search input component with customizable icons and real-time filtering',
-            Icons.search,
-            () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const SearchBarDetailScreen()),
-            ),
+          const SizedBox(height: 32),
+
+          // Navigation
+          const Text(
+            'Navigation',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 16),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              AppButton.fromProperties(
+                label: 'View Templates',
+                onPressed: () {
+                  Navigator.pushNamed(context, '/templates');
+                },
+              ),
+              AppButton.fromProperties(
+                label: 'View Organisms',
+                onPressed: () {
+                  Navigator.pushNamed(context, '/organisms');
+                },
+              ),
+            ],
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildSectionTitle(BuildContext context, String title) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
-      child: Text(
-        title,
-        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: AppColors.primary,
-            ),
-      ),
-    );
-  }
-
-  Widget _buildComponentTile(
-    BuildContext context,
-    String title,
-    String subtitle,
-    IconData icon,
-    VoidCallback onTap,
-  ) {
-    return Card(
-      margin: const EdgeInsets.only(bottom: 12.0),
-      child: ListTile(
-        leading: Icon(icon, color: AppColors.primary, size: 32),
-        title: Text(
-          title,
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        ),
-        subtitle: Text(subtitle),
-        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-        onTap: onTap,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
-        ),
       ),
     );
   }

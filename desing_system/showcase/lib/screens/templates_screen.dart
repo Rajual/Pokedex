@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:desing_system/desing_system.dart';
-import 'templates/onboarding_template_screen.dart';
-import 'templates/empty_state_template_screen.dart';
+import 'package:desing_system/templates/empty_state_template/models/empty_state_template_ui_model.dart';
+import 'package:desing_system/templates/loading_template/loading_template.dart';
+import 'package:desing_system/templates/loading_template/models/loading_template_ui_model.dart';
+import 'package:flutter/material.dart';
 
-/// Pantalla que lista todos los templates disponibles
 class TemplatesScreen extends StatelessWidget {
   const TemplatesScreen({super.key});
 
@@ -12,110 +12,137 @@ class TemplatesScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Templates'),
-        backgroundColor: AppColors.primary,
-        foregroundColor: AppColors.white,
       ),
       body: ListView(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16.0),
         children: [
-          _buildTemplateCard(
-            context,
-            icon: Icons.slideshow,
-            title: 'Onboarding Template',
-            description: 'Template para pantallas de bienvenida con scroll horizontal',
-            color: AppColors.primary,
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const OnboardingTemplateScreen(),
-                ),
-              );
-            },
+          // Loading Template Section
+          const Text(
+            'Loading Template',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
-          _buildTemplateCard(
-            context,
-            icon: Icons.info_outline,
-            title: 'Empty State Template',
-            description: 'Template para estados vacíos, errores y pantallas informativas',
-            color: AppColors.warning,
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const EmptyStateTemplateScreen(),
-                ),
-              );
-            },
-          ),
-        ],
-      ),
-    );
-  }
+          const SizedBox(height: 16),
 
-  Widget _buildTemplateCard(
-    BuildContext context, {
-    required IconData icon,
-    required String title,
-    required String description,
-    required Color color,
-    required VoidCallback onTap,
-  }) {
-    return Card(
-      elevation: 2,
-      margin: const EdgeInsets.only(bottom: 16),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Row(
+          // List Layout
+          const Text(
+            'List Layout',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+          ),
+          const SizedBox(height: 8),
+          Container(
+            height: 300,
+            decoration: BoxDecoration(
+              border: Border.all(color: AppColors.gray200),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: LoadingTemplate(
+              uiModel: LoadingTemplateUiModel(
+                title: 'Loading Pokémon...',
+                subtitle: 'Please wait while we fetch the data',
+                layoutType: LoadingLayoutType.list,
+                itemCount: 4,
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 16),
+
+          // Cards Layout
+          const Text(
+            'Cards Layout',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+          ),
+          const SizedBox(height: 8),
+          Container(
+            height: 400,
+            decoration: BoxDecoration(
+              border: Border.all(color: AppColors.gray200),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: LoadingTemplate(
+              uiModel: LoadingTemplateUiModel(
+                title: 'Loading Pokémon Cards',
+                layoutType: LoadingLayoutType.cards,
+                itemCount: 3,
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 16),
+
+          // Grid Layout
+          const Text(
+            'Grid Layout',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+          ),
+          const SizedBox(height: 8),
+          Container(
+            height: 350,
+            decoration: BoxDecoration(
+              border: Border.all(color: AppColors.gray200),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: LoadingTemplate(
+              uiModel: LoadingTemplateUiModel(
+                title: 'Loading Grid Items',
+                layoutType: LoadingLayoutType.grid,
+                itemCount: 6,
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 32),
+
+          // Empty State Template Section
+          const Text(
+            'Empty State Template',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 16),
+          Container(
+            height: 300,
+            decoration: BoxDecoration(
+              border: Border.all(color: AppColors.gray200),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: EmptyStateTemplate(
+              uiModel: EmptyStateTemplateUiModel(
+                imagePath: 'assets/error_icon.png',
+                title: 'No data available',
+                description: 'There are no items to display at the moment.',
+                actionLabel: 'Refresh',
+                onAction: () {},
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 32),
+
+          // Navigation
+          const Text(
+            'Navigation',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 16),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
             children: [
-              Container(
-                width: 56,
-                height: 56,
-                decoration: BoxDecoration(
-                  color: color.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Icon(
-                  icon,
-                  color: color,
-                  size: 28,
-                ),
+              AppButton.fromProperties(
+                label: 'View Molecules',
+                onPressed: () {
+                  Navigator.pushNamed(context, '/molecules');
+                },
               ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      description,
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: AppColors.gray600,
-                          ),
-                    ),
-                  ],
-                ),
-              ),
-              Icon(
-                Icons.arrow_forward_ios,
-                size: 20,
-                color: AppColors.gray400,
+              AppButton.fromProperties(
+                label: 'View Organisms',
+                onPressed: () {
+                  Navigator.pushNamed(context, '/organisms');
+                },
               ),
             ],
           ),
-        ),
+        ],
       ),
     );
   }
