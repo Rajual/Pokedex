@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../atoms/stat_card/models/stat_card_ui_model.dart';
 import '../../../molecules/app_type_tag/app_type_tag.dart';
 
 /// UI Model para PokemonDetailTemplate
@@ -18,17 +19,8 @@ class PokemonDetailTemplateUiModel {
   /// Descripción del Pokémon
   final String description;
 
-  /// Peso en kg
-  final String weight;
-
-  /// Altura en metros
-  final String height;
-
-  /// Categoría (ej: "SEMILLA", "LLAMA")
-  final String category;
-
-  /// Habilidad principal
-  final String ability;
+  /// Lista de StatCards para mostrar (peso, altura, categoría, habilidad, etc)
+  final List<StatCardUiModel> stats;
 
   /// Porcentaje de género masculino (0-100)
   final double malePercentage;
@@ -57,10 +49,7 @@ class PokemonDetailTemplateUiModel {
     required this.imageUrl,
     required this.types,
     required this.description,
-    required this.weight,
-    required this.height,
-    required this.category,
-    required this.ability,
+    required this.stats,
     required this.malePercentage,
     required this.femalePercentage,
     required this.weaknesses,
@@ -76,10 +65,7 @@ class PokemonDetailTemplateUiModel {
     String? imageUrl,
     List<PokemonType>? types,
     String? description,
-    String? weight,
-    String? height,
-    String? category,
-    String? ability,
+    List<StatCardUiModel>? stats,
     double? malePercentage,
     double? femalePercentage,
     List<PokemonType>? weaknesses,
@@ -94,10 +80,7 @@ class PokemonDetailTemplateUiModel {
       imageUrl: imageUrl ?? this.imageUrl,
       types: types ?? this.types,
       description: description ?? this.description,
-      weight: weight ?? this.weight,
-      height: height ?? this.height,
-      category: category ?? this.category,
-      ability: ability ?? this.ability,
+      stats: stats ?? this.stats,
       malePercentage: malePercentage ?? this.malePercentage,
       femalePercentage: femalePercentage ?? this.femalePercentage,
       weaknesses: weaknesses ?? this.weaknesses,

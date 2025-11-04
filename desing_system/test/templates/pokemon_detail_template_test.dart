@@ -13,10 +13,28 @@ void main() {
         imageUrl: 'https://test.com/image.png',
         types: [PokemonType.grass, PokemonType.poison],
         description: 'Test description',
-        weight: '6,9 kg',
-        height: '0,7 m',
-        category: 'SEMILLA',
-        ability: 'Espesura',
+        stats: [
+          StatCardUiModel(
+            icon: Icons.monitor_weight_outlined,
+            label: 'PESO',
+            value: '6,9 kg',
+          ),
+          StatCardUiModel(
+            icon: Icons.height,
+            label: 'ALTURA',
+            value: '0,7 m',
+          ),
+          StatCardUiModel(
+            icon: Icons.category_outlined,
+            label: 'CATEGORÍA',
+            value: 'SEMILLA',
+          ),
+          StatCardUiModel(
+            icon: Icons.flash_on_outlined,
+            label: 'HABILIDAD',
+            value: 'Espesura',
+          ),
+        ],
         malePercentage: 87.5,
         femalePercentage: 12.5,
         weaknesses: [PokemonType.fire, PokemonType.psychic],
@@ -410,10 +428,13 @@ void main() {
         imageUrl: 'https://test.com/image.png',
         types: [PokemonType.grass],
         description: 'Test description',
-        weight: '6,9 kg',
-        height: '0,7 m',
-        category: 'SEMILLA',
-        ability: 'Espesura',
+        stats: [
+          StatCardUiModel(
+            icon: Icons.monitor_weight_outlined,
+            label: 'PESO',
+            value: '6,9 kg',
+          ),
+        ],
         malePercentage: 87.5,
         femalePercentage: 12.5,
         weaknesses: [PokemonType.fire],
@@ -423,6 +444,7 @@ void main() {
       expect(model.number, equals('001'));
       expect(model.name, equals('Bulbasaur'));
       expect(model.isFavorite, isFalse);
+      expect(model.stats.length, equals(1));
     });
 
     test('should create copy with updated values', () {
@@ -432,10 +454,13 @@ void main() {
         imageUrl: 'https://test.com/image.png',
         types: [PokemonType.grass],
         description: 'Test description',
-        weight: '6,9 kg',
-        height: '0,7 m',
-        category: 'SEMILLA',
-        ability: 'Espesura',
+        stats: [
+          StatCardUiModel(
+            icon: Icons.monitor_weight_outlined,
+            label: 'PESO',
+            value: '6,9 kg',
+          ),
+        ],
         malePercentage: 87.5,
         femalePercentage: 12.5,
         weaknesses: [PokemonType.fire],

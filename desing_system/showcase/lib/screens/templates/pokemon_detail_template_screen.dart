@@ -89,10 +89,28 @@ class _PokemonDetailTemplateScreenState
             types: [PokemonType.grass, PokemonType.poison],
             description:
                 'Tiene una semilla de planta en su espalda desde que nace. La semilla crece lentamente.',
-            weight: '6,9 kg',
-            height: '0,7 m',
-            category: 'SEMILLA',
-            ability: 'Espesura',
+            stats: [
+              const StatCardUiModel(
+                icon: Icons.monitor_weight_outlined,
+                label: 'PESO',
+                value: '6,9 kg',
+              ),
+              const StatCardUiModel(
+                icon: Icons.height,
+                label: 'ALTURA',
+                value: '0,7 m',
+              ),
+              const StatCardUiModel(
+                icon: Icons.category_outlined,
+                label: 'CATEGORÍA',
+                value: 'SEMILLA',
+              ),
+              const StatCardUiModel(
+                icon: Icons.flash_on_outlined,
+                label: 'HABILIDAD',
+                value: 'Espesura',
+              ),
+            ],
             malePercentage: 87.5,
             femalePercentage: 12.5,
             weaknesses: [
@@ -124,10 +142,28 @@ class _PokemonDetailTemplateScreenState
             types: [PokemonType.fire, PokemonType.flying],
             description:
                 'Escupe fuego tan caliente que puede derretir cualquier cosa. Su aliento puede llegar a temperaturas increíblemente altas.',
-            weight: '90,5 kg',
-            height: '1,7 m',
-            category: 'LLAMA',
-            ability: 'Mar Llamas',
+            stats: [
+              const StatCardUiModel(
+                icon: Icons.monitor_weight_outlined,
+                label: 'PESO',
+                value: '90,5 kg',
+              ),
+              const StatCardUiModel(
+                icon: Icons.height,
+                label: 'ALTURA',
+                value: '1,7 m',
+              ),
+              const StatCardUiModel(
+                icon: Icons.category_outlined,
+                label: 'CATEGORÍA',
+                value: 'LLAMA',
+              ),
+              const StatCardUiModel(
+                icon: Icons.flash_on_outlined,
+                label: 'HABILIDAD',
+                value: 'Mar Llamas',
+              ),
+            ],
             malePercentage: 87.5,
             femalePercentage: 12.5,
             weaknesses: [
@@ -158,10 +194,28 @@ class _PokemonDetailTemplateScreenState
             types: [PokemonType.electric],
             description:
                 'Cuando varios de estos Pokémon se reúnen, su electricidad puede causar tormentas de rayos.',
-            weight: '6,0 kg',
-            height: '0,4 m',
-            category: 'RATÓN',
-            ability: 'Electricidad Estática',
+            stats: [
+              const StatCardUiModel(
+                icon: Icons.monitor_weight_outlined,
+                label: 'PESO',
+                value: '6,0 kg',
+              ),
+              const StatCardUiModel(
+                icon: Icons.height,
+                label: 'ALTURA',
+                value: '0,4 m',
+              ),
+              const StatCardUiModel(
+                icon: Icons.category_outlined,
+                label: 'CATEGORÍA',
+                value: 'RATÓN',
+              ),
+              const StatCardUiModel(
+                icon: Icons.flash_on_outlined,
+                label: 'HABILIDAD',
+                value: 'Electricidad Estática',
+              ),
+            ],
             malePercentage: 50.0,
             femalePercentage: 50.0,
             weaknesses: [PokemonType.ground],
@@ -188,10 +242,28 @@ class _PokemonDetailTemplateScreenState
             types: [PokemonType.water, PokemonType.flying],
             description:
                 'Es extremadamente violento y destructivo. En las ciudades costeras viven aterrorizados por sus ataques.',
-            weight: '235,0 kg',
-            height: '6,5 m',
-            category: 'ATROCIDAD',
-            ability: 'Intimidación',
+            stats: [
+              const StatCardUiModel(
+                icon: Icons.monitor_weight_outlined,
+                label: 'PESO',
+                value: '235,0 kg',
+              ),
+              const StatCardUiModel(
+                icon: Icons.height,
+                label: 'ALTURA',
+                value: '6,5 m',
+              ),
+              const StatCardUiModel(
+                icon: Icons.category_outlined,
+                label: 'CATEGORÍA',
+                value: 'ATROCIDAD',
+              ),
+              const StatCardUiModel(
+                icon: Icons.flash_on_outlined,
+                label: 'HABILIDAD',
+                value: 'Intimidación',
+              ),
+            ],
             malePercentage: 50.0,
             femalePercentage: 50.0,
             weaknesses: [

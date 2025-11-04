@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../../atoms/app_favorite_tag/app_favorite_tag.dart';
 import '../../atoms/app_favorite_tag/models/app_favorite_tag_ui_model.dart';
 import '../../atoms/app_favorite_tag/utils/favorite_tag_enums.dart';
-import '../../atoms/stat_card/models/stat_card_ui_model.dart';
 import '../../atoms/stat_card/stat_card.dart';
 import '../../molecules/app_type_tag/app_type_tag.dart';
 import '../../molecules/gender_bar/gender_bar.dart';
@@ -20,7 +19,7 @@ import 'models/pokemon_detail_template_ui_model.dart';
 /// - HeroImageHeader: Para el header con imagen hero y decoraciones
 /// - AppFavoriteTag: Para el botón de favorito
 /// - AppTypeTag: Para mostrar tipos y debilidades
-/// - StatCard: Para mostrar estadísticas (peso, altura, categoría, habilidad)
+/// - StatCard: Para mostrar estadísticas (recibidas como parámetros)
 /// - GenderBar: Para mostrar distribución de género
 ///
 /// Ejemplo de uso:
@@ -32,10 +31,12 @@ import 'models/pokemon_detail_template_ui_model.dart';
 ///     imageUrl: 'https://...',
 ///     types: [PokemonType.grass, PokemonType.poison],
 ///     description: 'Tiene una semilla de planta...',
-///     weight: '6,9 kg',
-///     height: '0,7 m',
-///     category: 'SEMILLA',
-///     ability: 'Espesura',
+///     stats: [
+///       StatCardUiModel(icon: Icons.monitor_weight_outlined, label: 'PESO', value: '6,9 kg'),
+///       StatCardUiModel(icon: Icons.height, label: 'ALTURA', value: '0,7 m'),
+///       StatCardUiModel(icon: Icons.category_outlined, label: 'CATEGORÍA', value: 'SEMILLA'),
+///       StatCardUiModel(icon: Icons.flash_on_outlined, label: 'HABILIDAD', value: 'Espesura'),
+///     ],
 ///     malePercentage: 87.5,
 ///     femalePercentage: 12.5,
 ///     weaknesses: [PokemonType.fire, PokemonType.psychic],
@@ -152,56 +153,8 @@ class PokemonDetailTemplate extends StatelessWidget {
 
                     const SizedBox(height: AppDimensions.xl),
 
-                    // Stats Grid
-                    Row(
-                      children: [
-                        Expanded(
-                          child: StatCard(
-                            uiModel: StatCardUiModel(
-                              icon: Icons.monitor_weight_outlined,
-                              label: 'PESO',
-                              value: uiModel.weight,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: AppDimensions.md),
-                        Expanded(
-                          child: StatCard(
-                            uiModel: StatCardUiModel(
-                              icon: Icons.height,
-                              label: 'ALTURA',
-                              value: uiModel.height,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    const SizedBox(height: AppDimensions.md),
-
-                    Row(
-                      children: [
-                        Expanded(
-                          child: StatCard(
-                            uiModel: StatCardUiModel(
-                              icon: Icons.category_outlined,
-                              label: 'CATEGORÍA',
-                              value: uiModel.category,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: AppDimensions.md),
-                        Expanded(
-                          child: StatCard(
-                            uiModel: StatCardUiModel(
-                              icon: Icons.flash_on_outlined,
-                              label: 'HABILIDAD',
-                              value: uiModel.ability,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                    // Stats Grid - Se genera dinámicamente desde la lista de stats
+                    _buildStatsGrid(),
 
                     const SizedBox(height: AppDimensions.xl),
 
@@ -228,6 +181,36 @@ class PokemonDetailTemplate extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget _buildStatsGrid() {
+    // Divide las stats en filas de 2 columnas
+    final rows = <Widget>[];
+    for (int i = 0; i < uiModel.stats.length; i += 2) {
+      rows.add(
+        Row(
+          children: [
+            Expanded(
+              child: StatCard(uiModel: uiModel.stats[i]),
+            ),
+            if (i + 1 < uiModel.stats.length) ...[
+              const SizedBox(width: AppDimensions.md),
+              Expanded(
+                child: StatCard(uiModel: uiModel.stats[i + 1]),
+              ),
+            ] else
+              const Expanded(child: SizedBox()),
+          ],
+        ),
+      );
+      
+      // Agregar espaciado entre filas (excepto la última)
+      if (i + 2 < uiModel.stats.length) {
+        rows.add(const SizedBox(height: AppDimensions.md));
+      }
+    }
+    
+    return Column(children: rows);
   }
 
   Widget _buildWeaknessesSection(ThemeData theme) {
