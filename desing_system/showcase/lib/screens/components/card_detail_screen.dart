@@ -23,7 +23,7 @@ class _CardDetailScreenState extends State<CardDetailScreen> {
         children: [
           _buildSectionTitle(context, 'Basic Card'),
           _buildComponentCard(
-            child: AppCard(
+            child: AppCard.fromProperties(
               pokemonName: 'Pikachu',
               pokemonNumber: 25,
               primaryType: PokemonType.electric,
@@ -55,7 +55,7 @@ AppCard(
             child: Row(
               children: [
                 Expanded(
-                  child: AppCard(
+                  child: AppCard.fromProperties(
                     pokemonName: 'Charmander',
                     pokemonNumber: 4,
                     primaryType: PokemonType.fire,
@@ -69,7 +69,7 @@ AppCard(
                 ),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: AppCard(
+                  child: AppCard.fromProperties(
                     pokemonName: 'Squirtle',
                     pokemonNumber: 7,
                     primaryType: PokemonType.water,
@@ -107,7 +107,7 @@ AppCard(
           _buildComponentCard(
             child: Column(
               children: [
-                AppCard(
+                AppCard.fromProperties(
                   pokemonName: 'Bulbasaur',
                   pokemonNumber: 1,
                   primaryType: PokemonType.grass,
@@ -120,7 +120,7 @@ AppCard(
                   style: CardStyle.elevated,
                 ),
                 const SizedBox(height: 16),
-                AppCard(
+                AppCard.fromProperties(
                   pokemonName: 'Charizard',
                   pokemonNumber: 6,
                   primaryType: PokemonType.fire,
@@ -152,7 +152,7 @@ AppCard(
           _buildComponentCard(
             child: Column(
               children: [
-                AppCard(
+                AppCard.fromProperties(
                   pokemonName: 'Mew',
                   pokemonNumber: 151,
                   primaryType: PokemonType.psychic,
@@ -165,7 +165,7 @@ AppCard(
                   elevation: CardElevation.low,
                 ),
                 const SizedBox(height: 16),
-                AppCard(
+                AppCard.fromProperties(
                   pokemonName: 'Rayquaza',
                   pokemonNumber: 384,
                   primaryType: PokemonType.dragon,
@@ -202,7 +202,7 @@ AppCard(
 
           _buildSectionTitle(context, 'Without Pokemon Number'),
           _buildComponentCard(
-            child: AppCard(
+            child: AppCard.fromProperties(
               pokemonName: 'Eevee',
               pokemonNumber: 133,
               primaryType: PokemonType.normal,
@@ -223,7 +223,7 @@ AppCard(
 
           _buildSectionTitle(context, 'Disabled State'),
           _buildComponentCard(
-            child: AppCard(
+            child: AppCard.fromProperties(
               pokemonName: 'Jigglypuff',
               pokemonNumber: 39,
               primaryType: PokemonType.normal,

@@ -14,6 +14,26 @@ class FilterSection {
     required this.options,
     this.initiallyExpanded = true,
   });
+
+  /// Create from JSON
+  factory FilterSection.fromJson(Map<String, dynamic> json) {
+    return FilterSection(
+      title: json['title'] as String,
+      options: (json['options'] as List<dynamic>)
+          .map((option) => FilterOption.fromJson(option as Map<String, dynamic>))
+          .toList(),
+      initiallyExpanded: json['initiallyExpanded'] as bool? ?? true,
+    );
+  }
+
+  /// Convert to JSON
+  Map<String, dynamic> toJson() {
+    return {
+      'title': title,
+      'options': options.map((option) => option.toJson()).toList(),
+      'initiallyExpanded': initiallyExpanded,
+    };
+  }
 }
 
 /// Modelo para una opción de filtro individual
@@ -44,6 +64,24 @@ class FilterOption {
       label: label ?? this.label,
       isSelected: isSelected ?? this.isSelected,
     );
+  }
+
+  /// Create from JSON
+  factory FilterOption.fromJson(Map<String, dynamic> json) {
+    return FilterOption(
+      id: json['id'] as String,
+      label: json['label'] as String,
+      isSelected: json['isSelected'] as bool? ?? false,
+    );
+  }
+
+  /// Convert to JSON
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'label': label,
+      'isSelected': isSelected,
+    };
   }
 
   @override

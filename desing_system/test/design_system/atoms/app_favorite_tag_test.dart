@@ -11,7 +11,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppFavoriteTag(
+              body: AppFavoriteTag.fromProperties(
                 isFavorite: false,
                 onFavoriteChanged: (_) {},
               ),
@@ -27,7 +27,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppFavoriteTag(
+              body: AppFavoriteTag.fromProperties(
                 isFavorite: true,
                 onFavoriteChanged: (_) {},
               ),
@@ -45,7 +45,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppFavoriteTag(
+              body: AppFavoriteTag.fromProperties(
                 isFavorite: false,
                 onFavoriteChanged: (value) {
                   wasToggled = true;
@@ -70,7 +70,7 @@ void main() {
             builder: (context, setState) {
               return MaterialApp(
                 home: Scaffold(
-                  body: AppFavoriteTag(
+                  body: AppFavoriteTag.fromProperties(
                     isFavorite: isFavorite,
                     onFavoriteChanged: (value) {
                       setState(() {
@@ -99,7 +99,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppFavoriteTag(
+              body: AppFavoriteTag.fromProperties(
                 isFavorite: false,
                 onFavoriteChanged: (_) {},
                 size: FavoriteTagSize.small,
@@ -118,7 +118,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppFavoriteTag(
+              body: AppFavoriteTag.fromProperties(
                 isFavorite: false,
                 onFavoriteChanged: (_) {},
                 size: FavoriteTagSize.medium,
@@ -137,7 +137,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppFavoriteTag(
+              body: AppFavoriteTag.fromProperties(
                 isFavorite: false,
                 onFavoriteChanged: (_) {},
                 size: FavoriteTagSize.large,
@@ -163,7 +163,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppFavoriteTag(
+              body: AppFavoriteTag.fromProperties(
                 isFavorite: false,
                 onFavoriteChanged: (_) {},
                 style: FavoriteTagStyle.filled,
@@ -180,7 +180,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppFavoriteTag(
+              body: AppFavoriteTag.fromProperties(
                 isFavorite: false,
                 onFavoriteChanged: (_) {},
                 style: FavoriteTagStyle.outlined,
@@ -197,7 +197,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppFavoriteTag(
+              body: AppFavoriteTag.fromProperties(
                 isFavorite: false,
                 onFavoriteChanged: (_) {},
                 style: FavoriteTagStyle.floating,
@@ -218,7 +218,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppFavoriteTag(
+              body: AppFavoriteTag.fromProperties(
                 isFavorite: true,
                 onFavoriteChanged: (_) {},
                 activeColor: activeColor,
@@ -237,7 +237,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppFavoriteTag(
+              body: AppFavoriteTag.fromProperties(
                 isFavorite: false,
                 onFavoriteChanged: (_) {},
                 inactiveColor: inactiveColor,
@@ -253,7 +253,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppFavoriteTag(
+              body: AppFavoriteTag.fromProperties(
                 isFavorite: false,
                 onFavoriteChanged: (_) {},
                 activeColor: Colors.blue,
@@ -272,7 +272,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppFavoriteTag(
+              body: AppFavoriteTag.fromProperties(
                 isFavorite: false,
                 onFavoriteChanged: (_) {},
                 enableAnimation: true,
@@ -290,7 +290,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppFavoriteTag(
+              body: AppFavoriteTag.fromProperties(
                 isFavorite: false,
                 onFavoriteChanged: (_) {},
                 enableAnimation: false,
@@ -309,7 +309,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppFavoriteTag(
+              body: AppFavoriteTag.fromProperties(
                 isFavorite: false,
                 onFavoriteChanged: (_) {},
                 enableAnimation: true,
@@ -331,7 +331,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppFavoriteTag(
+              body: AppFavoriteTag.fromProperties(
                 isFavorite: false,
                 onFavoriteChanged: (_) {
                   wasToggled = true;
@@ -352,7 +352,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppFavoriteTag(
+              body: AppFavoriteTag.fromProperties(
                 isFavorite: false,
                 onFavoriteChanged: (_) {
                   wasToggled = true;
@@ -374,7 +374,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppFavoriteTag(
+              body: AppFavoriteTag.fromProperties(
                 isFavorite: true,
                 onFavoriteChanged: (_) {},
                 size: FavoriteTagSize.large,
@@ -398,17 +398,17 @@ void main() {
             home: Scaffold(
               body: Row(
                 children: [
-                  AppFavoriteTag(
+                  AppFavoriteTag.fromProperties(
                     isFavorite: true,
                     onFavoriteChanged: (_) {},
                     size: FavoriteTagSize.small,
                   ),
-                  AppFavoriteTag(
+                  AppFavoriteTag.fromProperties(
                     isFavorite: false,
                     onFavoriteChanged: (_) {},
                     size: FavoriteTagSize.medium,
                   ),
-                  AppFavoriteTag(
+                  AppFavoriteTag.fromProperties(
                     isFavorite: true,
                     onFavoriteChanged: (_) {},
                     size: FavoriteTagSize.large,
@@ -430,17 +430,17 @@ void main() {
             home: Scaffold(
               body: Column(
                 children: [
-                  AppFavoriteTag(
+                  AppFavoriteTag.fromProperties(
                     isFavorite: true,
                     onFavoriteChanged: (_) {},
                     style: FavoriteTagStyle.filled,
                   ),
-                  AppFavoriteTag(
+                  AppFavoriteTag.fromProperties(
                     isFavorite: true,
                     onFavoriteChanged: (_) {},
                     style: FavoriteTagStyle.outlined,
                   ),
-                  AppFavoriteTag(
+                  AppFavoriteTag.fromProperties(
                     isFavorite: true,
                     onFavoriteChanged: (_) {},
                     style: FavoriteTagStyle.floating,
@@ -461,7 +461,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppFavoriteTag(
+              body: AppFavoriteTag.fromProperties(
                 isFavorite: false,
                 onFavoriteChanged: (_) {},
               ),
@@ -482,7 +482,7 @@ void main() {
             builder: (context, setState) {
               return MaterialApp(
                 home: Scaffold(
-                  body: AppFavoriteTag(
+                  body: AppFavoriteTag.fromProperties(
                     isFavorite: isFavorite,
                     onFavoriteChanged: (value) {
                       setState(() {

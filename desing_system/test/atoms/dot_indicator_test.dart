@@ -6,9 +6,9 @@ void main() {
   group('DotIndicator', () {
     testWidgets('renders with correct number of dots', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
+        MaterialApp(
           home: Scaffold(
-            body: DotIndicator(
+            body: DotIndicator.fromProperties(
               count: 5,
               currentIndex: 0,
             ),
@@ -21,9 +21,9 @@ void main() {
 
     testWidgets('renders with dots variant by default', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
+        MaterialApp(
           home: Scaffold(
-            body: DotIndicator(
+            body: DotIndicator.fromProperties(
               count: 3,
               currentIndex: 0,
             ),
@@ -37,9 +37,9 @@ void main() {
 
     testWidgets('renders with bars variant', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
+        MaterialApp(
           home: Scaffold(
-            body: DotIndicator(
+            body: DotIndicator.fromProperties(
               count: 4,
               currentIndex: 0,
               variant: DotIndicatorVariant.bars,

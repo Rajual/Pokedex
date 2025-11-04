@@ -107,7 +107,7 @@ class EmptyStateTemplateScreen extends StatelessWidget {
   void _showNoFavorites(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => EmptyStateTemplate(
+        builder: (context) => EmptyStateTemplate.fromProperties(
           imagePath: 'assets/ilustration/PokemonMagikarp.png',
           title: 'No has marcado ningún\nPokémon como favorito',
           description:
@@ -126,7 +126,7 @@ class EmptyStateTemplateScreen extends StatelessWidget {
   void _showComingSoon(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => EmptyStateTemplate(
+        builder: (context) => EmptyStateTemplate.fromProperties(
           imagePath: 'assets/ilustration/PokemonJigglypuff.png',
           title: '¡Muy pronto disponible!',
           description:
@@ -141,7 +141,7 @@ class EmptyStateTemplateScreen extends StatelessWidget {
   void _showConnectionError(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => EmptyStateTemplate(
+        builder: (context) => EmptyStateTemplate.fromProperties(
           imagePath: 'assets/ilustration/PokemonMagikarp.png',
           title: 'Algo salió mal...',
           description:
@@ -161,7 +161,7 @@ class EmptyStateTemplateScreen extends StatelessWidget {
   void _showNoResults(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => EmptyStateTemplate(
+        builder: (context) => EmptyStateTemplate.fromProperties(
           imagePath: 'assets/ilustration/PokemonPsyduck.png',
           title: 'No encontramos resultados',
           description:
@@ -182,7 +182,7 @@ class EmptyStateTemplateScreen extends StatelessWidget {
   void _showPermissionsRequired(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => EmptyStateTemplate(
+        builder: (context) => EmptyStateTemplate.fromProperties(
           imagePath: 'assets/ilustration/PokemonSnorlax.png',
           title: 'Permisos necesarios',
           description:
@@ -206,7 +206,7 @@ class EmptyStateTemplateScreen extends StatelessWidget {
   void _showWithTwoButtons(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => EmptyStateTemplate(
+        builder: (context) => EmptyStateTemplate.fromProperties(
           imagePath: 'assets/ilustration/PokemonCharizard.png',
           title: 'Tu equipo está vacío',
           description:

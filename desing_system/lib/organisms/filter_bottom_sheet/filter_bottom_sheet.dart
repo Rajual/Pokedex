@@ -4,37 +4,36 @@ import '../../atoms/app_button/utils/enum.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_dimensions.dart';
 import 'filter_models.dart';
+import 'models/filter_bottom_sheet_ui_model.dart';
 
 /// Organismo FilterBottomSheet para mostrar filtros en un bottom sheet
-/// 
+///
 /// Reutiliza:
 /// - AppButton: Para botones de Aplicar y Cancelar
 /// - TextTheme: Para títulos, etiquetas y texto
 /// - Checkbox: Widget nativo de Flutter
-/// 
+///
 /// Ejemplo de uso:
 /// ```dart
-/// FilterBottomSheet.show(
-///   context: context,
-///   title: 'Filtra por tus preferencias',
-///   sections: [
-///     FilterSection(
-///       title: 'Tipo',
-///       options: [
-///         FilterOption(id: 'fire', label: 'Fuego'),
-///         FilterOption(id: 'water', label: 'Agua'),
-///       ],
-///     ),
-///   ],
+/// FilterBottomSheet(
+///   uiModel: FilterBottomSheetUiModel(
+///     title: 'Filtra por tus preferencias',
+///     sections: [
+///       FilterSection(
+///         title: 'Tipo',
+///         options: [
+///           FilterOption(id: 'fire', label: 'Fuego'),
+///           FilterOption(id: 'water', label: 'Agua'),
+///         ],
+///       ),
+///     ],
+///   ),
 ///   onApply: (selectedIds) => print(selectedIds),
 /// )
 /// ```
 class FilterBottomSheet extends StatefulWidget {
-  /// Título del bottom sheet
-  final String title;
-
-  /// Secciones de filtros
-  final List<FilterSection> sections;
+  /// UI Model configuration
+  final FilterBottomSheetUiModel uiModel;
 
   /// Callback cuando se aplican los filtros
   final Function(Map<String, List<String>>) onApply;
@@ -42,29 +41,39 @@ class FilterBottomSheet extends StatefulWidget {
   /// Callback cuando se cancela (opcional)
   final VoidCallback? onCancel;
 
-  /// Texto del botón aplicar
-  final String applyButtonText;
-
-  /// Texto del botón cancelar
-  final String cancelButtonText;
-
-  /// Altura máxima del bottom sheet (fracción de pantalla)
-  final double maxHeightFraction;
-
-  /// Si se muestra el handle de arrastre
-  final bool showDragHandle;
-
   const FilterBottomSheet({
     super.key,
-    required this.title,
-    required this.sections,
+    required this.uiModel,
     required this.onApply,
     this.onCancel,
-    this.applyButtonText = 'Aplicar',
-    this.cancelButtonText = 'Cancelar',
-    this.maxHeightFraction = 0.85,
-    this.showDragHandle = true,
   });
+
+  /// Factory constructor for backward compatibility
+  factory FilterBottomSheet.fromProperties({
+    required String title,
+    required List<FilterSection> sections,
+    required Function(Map<String, List<String>>) onApply,
+    VoidCallback? onCancel,
+    String applyButtonText = 'Aplicar',
+    String cancelButtonText = 'Cancelar',
+    double maxHeightFraction = 0.85,
+    bool showDragHandle = true,
+    Key? key,
+  }) {
+    return FilterBottomSheet(
+      uiModel: FilterBottomSheetUiModel(
+        title: title,
+        sections: sections,
+        applyButtonText: applyButtonText,
+        cancelButtonText: cancelButtonText,
+        maxHeightFraction: maxHeightFraction,
+        showDragHandle: showDragHandle,
+      ),
+      onApply: onApply,
+      onCancel: onCancel,
+      key: key,
+    );
+  }
 
   /// Muestra el bottom sheet como modal
   static Future<void> show({
@@ -82,7 +91,7 @@ class FilterBottomSheet extends StatefulWidget {
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (context) => FilterBottomSheet(
+      builder: (context) => FilterBottomSheet.fromProperties(
         title: title,
         sections: sections,
         onApply: onApply,
@@ -107,7 +116,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
     super.initState();
     // Inicializa el estado de las opciones por sección
     _sectionOptions = {};
-    for (var section in widget.sections) {
+    for (var section in widget.uiModel.sections) {
       _sectionOptions[section.title] = List.from(section.options);
     }
   }
@@ -156,7 +165,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final screenHeight = MediaQuery.of(context).size.height;
-    final maxHeight = screenHeight * widget.maxHeightFraction;
+    final maxHeight = screenHeight * widget.uiModel.maxHeightFraction;
 
     return Container(
       constraints: BoxConstraints(
@@ -173,7 +182,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
         mainAxisSize: MainAxisSize.min,
         children: [
           // Drag handle
-          if (widget.showDragHandle)
+          if (widget.uiModel.showDragHandle)
             Padding(
               padding: const EdgeInsets.only(top: 12),
               child: Container(
@@ -190,7 +199,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
           Padding(
             padding: EdgeInsets.fromLTRB(
               AppDimensions.lg,
-              widget.showDragHandle ? AppDimensions.md : AppDimensions.lg,
+              widget.uiModel.showDragHandle ? AppDimensions.md : AppDimensions.lg,
               AppDimensions.sm,
               AppDimensions.md,
             ),
@@ -198,7 +207,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
               children: [
                 Expanded(
                   child: Text(
-                    widget.title,
+                    widget.uiModel.title,
                     style: theme.textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
                       color: AppColors.gray900,
@@ -224,9 +233,9 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                 horizontal: AppDimensions.lg,
                 vertical: AppDimensions.md,
               ),
-              itemCount: widget.sections.length,
+              itemCount: widget.uiModel.sections.length,
               itemBuilder: (context, index) {
-                final section = widget.sections[index];
+                final section = widget.uiModel.sections[index];
                 final options = _sectionOptions[section.title] ?? [];
 
                 return _FilterSectionWidget(
@@ -246,16 +255,16 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
             padding: EdgeInsets.all(AppDimensions.lg),
             child: Column(
               children: [
-                AppButton(
-                  label: widget.applyButtonText,
+                AppButton.fromProperties(
+                  label: widget.uiModel.applyButtonText,
                   onPressed: _onApply,
                   type: ButtonType.primary,
                   size: ButtonSize.large,
                   width: double.infinity,
                 ),
                 SizedBox(height: AppDimensions.sm),
-                AppButton(
-                  label: widget.cancelButtonText,
+                AppButton.fromProperties(
+                  label: widget.uiModel.cancelButtonText,
                   onPressed: _onCancel,
                   type: ButtonType.secondary,
                   size: ButtonSize.large,

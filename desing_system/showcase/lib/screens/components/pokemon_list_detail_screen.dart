@@ -113,7 +113,7 @@ class _PokemonListDetailScreenState extends State<PokemonListDetailScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
-                        child: PokemonListView(
+                        child: PokemonListView.fromProperties(
                           pokemonList: _pokemonList,
                           onFavoriteChanged: (index, isFavorite) {
                             setState(() {
@@ -180,7 +180,7 @@ class _PokemonListDetailScreenState extends State<PokemonListDetailScreen> {
                       const Text('Without Search Bar:', style: TextStyle(fontWeight: FontWeight.bold)),
                       const SizedBox(height: 8),
                       Expanded(
-                        child: PokemonListView(
+                        child: PokemonListView.fromProperties(
                           pokemonList: _pokemonList.take(3).toList(),
                           onFavoriteChanged: (index, isFavorite) {},
                           showSearchBar: false,
@@ -231,7 +231,7 @@ PokemonListView(
                         child: Column(
                           children: [
                             Expanded(
-                              child: PokemonListView(
+                              child: PokemonListView.fromProperties(
                                 pokemonList: _pokemonList.take(1).toList(),
                                 onFavoriteChanged: (index, isFavorite) {},
                                 showSearchBar: false,
@@ -248,7 +248,7 @@ PokemonListView(
                         child: Column(
                           children: [
                             Expanded(
-                              child: PokemonListView(
+                              child: PokemonListView.fromProperties(
                                 pokemonList: _pokemonList.skip(1).take(1).toList(),
                                 onFavoriteChanged: (index, isFavorite) {},
                                 showSearchBar: false,
@@ -265,7 +265,7 @@ PokemonListView(
                         child: Column(
                           children: [
                             Expanded(
-                              child: PokemonListView(
+                              child: PokemonListView.fromProperties(
                                 pokemonList: _pokemonList.skip(2).take(1).toList(),
                                 onFavoriteChanged: (index, isFavorite) {},
                                 showSearchBar: false,

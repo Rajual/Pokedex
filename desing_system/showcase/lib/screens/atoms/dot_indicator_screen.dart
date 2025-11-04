@@ -33,7 +33,7 @@ class _DotIndicatorScreenState extends State<DotIndicatorScreen> {
                 children: [
                   _buildShowcaseCard(
                     label: 'Small Dots',
-                    child: DotIndicator(
+                    child: DotIndicator.fromProperties(
                       count: 5,
                       currentIndex: _dotsCurrentIndex,
                       size: DotIndicatorSize.small,
@@ -48,7 +48,7 @@ class _DotIndicatorScreenState extends State<DotIndicatorScreen> {
                   const SizedBox(height: 16),
                   _buildShowcaseCard(
                     label: 'Medium Dots (Default)',
-                    child: DotIndicator(
+                    child: DotIndicator.fromProperties(
                       count: 5,
                       currentIndex: _dotsCurrentIndex,
                       size: DotIndicatorSize.medium,
@@ -63,7 +63,7 @@ class _DotIndicatorScreenState extends State<DotIndicatorScreen> {
                   const SizedBox(height: 16),
                   _buildShowcaseCard(
                     label: 'Large Dots',
-                    child: DotIndicator(
+                    child: DotIndicator.fromProperties(
                       count: 5,
                       currentIndex: _dotsCurrentIndex,
                       size: DotIndicatorSize.large,
@@ -85,7 +85,7 @@ class _DotIndicatorScreenState extends State<DotIndicatorScreen> {
                 children: [
                   _buildShowcaseCard(
                     label: 'Small Bars',
-                    child: DotIndicator(
+                    child: DotIndicator.fromProperties(
                       count: 4,
                       currentIndex: _barsCurrentIndex,
                       size: DotIndicatorSize.small,
@@ -100,7 +100,7 @@ class _DotIndicatorScreenState extends State<DotIndicatorScreen> {
                   const SizedBox(height: 16),
                   _buildShowcaseCard(
                     label: 'Medium Bars',
-                    child: DotIndicator(
+                    child: DotIndicator.fromProperties(
                       count: 4,
                       currentIndex: _barsCurrentIndex,
                       size: DotIndicatorSize.medium,
@@ -115,7 +115,7 @@ class _DotIndicatorScreenState extends State<DotIndicatorScreen> {
                   const SizedBox(height: 16),
                   _buildShowcaseCard(
                     label: 'Large Bars',
-                    child: DotIndicator(
+                    child: DotIndicator.fromProperties(
                       count: 4,
                       currentIndex: _barsCurrentIndex,
                       size: DotIndicatorSize.large,
@@ -137,7 +137,7 @@ class _DotIndicatorScreenState extends State<DotIndicatorScreen> {
                 children: [
                   _buildShowcaseCard(
                     label: 'Custom Active Color (Success)',
-                    child: DotIndicator(
+                    child: DotIndicator.fromProperties(
                       count: 3,
                       currentIndex: _customCurrentIndex,
                       activeColor: AppColors.success,
@@ -151,7 +151,7 @@ class _DotIndicatorScreenState extends State<DotIndicatorScreen> {
                   const SizedBox(height: 16),
                   _buildShowcaseCard(
                     label: 'Custom Colors (Warning)',
-                    child: DotIndicator(
+                    child: DotIndicator.fromProperties(
                       count: 3,
                       currentIndex: _customCurrentIndex,
                       activeColor: AppColors.warning,
@@ -166,7 +166,7 @@ class _DotIndicatorScreenState extends State<DotIndicatorScreen> {
                   const SizedBox(height: 16),
                   _buildShowcaseCard(
                     label: 'Custom Colors (Error)',
-                    child: DotIndicator(
+                    child: DotIndicator.fromProperties(
                       count: 3,
                       currentIndex: _customCurrentIndex,
                       variant: DotIndicatorVariant.bars,
@@ -189,7 +189,7 @@ class _DotIndicatorScreenState extends State<DotIndicatorScreen> {
                 children: [
                   _buildShowcaseCard(
                     label: 'Tight Spacing (4px)',
-                    child: DotIndicator(
+                    child: DotIndicator.fromProperties(
                       count: 6,
                       currentIndex: 2,
                       spacing: 4.0,
@@ -199,7 +199,7 @@ class _DotIndicatorScreenState extends State<DotIndicatorScreen> {
                   const SizedBox(height: 16),
                   _buildShowcaseCard(
                     label: 'Wide Spacing (24px)',
-                    child: DotIndicator(
+                    child: DotIndicator.fromProperties(
                       count: 4,
                       currentIndex: 1,
                       spacing: 24.0,
@@ -327,7 +327,7 @@ class _DotIndicatorScreenState extends State<DotIndicatorScreen> {
             ),
           ),
           const SizedBox(height: 24),
-          DotIndicator(
+          DotIndicator.fromProperties(
             count: 5,
             currentIndex: _dotsCurrentIndex,
             size: DotIndicatorSize.large,

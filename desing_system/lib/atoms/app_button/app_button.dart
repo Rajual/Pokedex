@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../theme/app_typography.dart';
+import 'models/app_button_ui_model.dart';
 import 'utils/button_color_scheme.dart';
 import 'utils/button_dimensions.dart';
 import 'models/button_colors.dart';
@@ -12,32 +13,47 @@ import 'widgets/jumping_dots_loader.dart';
 
 /// Componente Button reutilizable con múltiples variantes
 class AppButton extends StatelessWidget {
-  final String label;
+  final AppButtonUiModel uiModel;
   final VoidCallback? onPressed;
-  final ButtonType type;
-  final ButtonSize size;
-  final bool isLoading;
-  final bool isEnabled;
-  final IconData? leadingIcon;
-  final IconData? trailingIcon;
-  final double? width;
 
   const AppButton({
-    required this.label,
+    required this.uiModel,
     this.onPressed,
-    this.type = ButtonType.primary,
-    this.size = ButtonSize.medium,
-    this.isLoading = false,
-    this.isEnabled = true,
-    this.leadingIcon,
-    this.trailingIcon,
-    this.width,
     super.key,
   });
 
+  /// Factory constructor for backward compatibility
+  factory AppButton.fromProperties({
+    required String label,
+    VoidCallback? onPressed,
+    ButtonType type = ButtonType.primary,
+    ButtonSize size = ButtonSize.medium,
+    bool isLoading = false,
+    bool isEnabled = true,
+    IconData? leadingIcon,
+    IconData? trailingIcon,
+    double? width,
+    Key? key,
+  }) {
+    return AppButton(
+      uiModel: AppButtonUiModel(
+        label: label,
+        type: type,
+        size: size,
+        isLoading: isLoading,
+        isEnabled: isEnabled,
+        leadingIcon: leadingIcon,
+        trailingIcon: trailingIcon,
+        width: width,
+      ),
+      onPressed: onPressed,
+      key: key,
+    );
+  }
+
   /// Retorna los colores según el tipo de button
   ButtonColors _getColorScheme() {
-    switch (type) {
+    switch (uiModel.type) {
       case ButtonType.primary:
         return ButtonColorScheme.primary;
       case ButtonType.secondary:
@@ -49,7 +65,7 @@ class AppButton extends StatelessWidget {
 
   /// Retorna las dimensiones según el tamaño
   ButtonDimensionsModel _getSizeDimensions() {
-    switch (size) {
+    switch (uiModel.size) {
       case ButtonSize.small:
         return ButtonDimensions.small;
       case ButtonSize.medium:
@@ -63,25 +79,25 @@ class AppButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = _getColorScheme();
     final dimensions = _getSizeDimensions();
-    final state = ButtonState(isEnabled: isEnabled, isLoading: isLoading);
+    final state = ButtonState(isEnabled: uiModel.isEnabled, isLoading: uiModel.isLoading);
 
     final backgroundColor = colors.getBackgroundColor(state.canPress);
     final textColor = colors.getTextColor(state.canPress);
     final borderColor = colors.getBorderColor(state.canPress);
 
     // Decidir qué widget usar basado en el tipo
-    if (type == ButtonType.secondary) {
+    if (uiModel.type == ButtonType.secondary) {
       return _OutlinedButtonWidget(
         backgroundColor: backgroundColor,
         textColor: textColor,
         borderColor: borderColor,
         state: state,
         dimensions: dimensions,
-        width: width,
+        width: uiModel.width,
         onPressed: onPressed,
-        label: label,
-        leadingIcon: leadingIcon,
-        trailingIcon: trailingIcon,
+        label: uiModel.label,
+        leadingIcon: uiModel.leadingIcon,
+        trailingIcon: uiModel.trailingIcon,
       );
     }
 
@@ -91,11 +107,11 @@ class AppButton extends StatelessWidget {
         textColor: textColor,
         state: state,
         dimensions: dimensions,
-        width: width,
+        width: uiModel.width,
         onPressed: onPressed,
-        label: label,
-        leadingIcon: leadingIcon,
-        trailingIcon: trailingIcon,
+        label: uiModel.label,
+        leadingIcon: uiModel.leadingIcon,
+        trailingIcon: uiModel.trailingIcon,
       ),
     );
   }

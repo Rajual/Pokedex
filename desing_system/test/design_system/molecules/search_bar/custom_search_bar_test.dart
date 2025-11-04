@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import '../../../../lib/molecules/search_bar/search_bar.dart';
+import '../../../../lib/molecules/search_bar/models/custom_search_bar_ui_model.dart';
 
 void main() {
   group('CustomSearchBar', () {
@@ -8,7 +9,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: CustomSearchBar(
+            body: CustomSearchBar.fromProperties(
               onChanged: (_) {},
             ),
           ),
@@ -25,7 +26,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: CustomSearchBar(
+            body: CustomSearchBar.fromProperties(
               hintText: hintText,
               onChanged: (_) {},
             ),
@@ -42,7 +43,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: CustomSearchBar(
+            body: CustomSearchBar.fromProperties(
               onChanged: (value) => changedValue = value,
             ),
           ),
@@ -59,7 +60,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: CustomSearchBar(
+            body: CustomSearchBar.fromProperties(
               onChanged: (_) {},
               showClearIcon: true,
             ),
@@ -85,7 +86,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: CustomSearchBar(
+            body: CustomSearchBar.fromProperties(
               onChanged: (value) => changedValue = value,
               onClear: () => clearCalled = true,
               showClearIcon: true,
@@ -112,7 +113,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: CustomSearchBar(
+            body: CustomSearchBar.fromProperties(
               onChanged: (_) {},
               showClearIcon: false,
             ),
@@ -130,7 +131,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: CustomSearchBar(
+            body: CustomSearchBar.fromProperties(
               onChanged: (_) {},
               showSearchIcon: true,
             ),
@@ -145,7 +146,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: CustomSearchBar(
+            body: CustomSearchBar.fromProperties(
               onChanged: (_) {},
               showSearchIcon: false,
             ),
@@ -162,7 +163,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: CustomSearchBar(
+            body: CustomSearchBar.fromProperties(
               onChanged: (_) {},
               onSearch: (value) => searchValue = value,
               showSearchIcon: true,
@@ -185,7 +186,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: CustomSearchBar(
+            body: CustomSearchBar.fromProperties(
               onChanged: (_) {},
               size: SearchBarSize.small,
             ),
@@ -203,7 +204,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: CustomSearchBar(
+            body: CustomSearchBar.fromProperties(
               onChanged: (_) {},
               size: SearchBarSize.medium,
             ),
@@ -218,7 +219,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: CustomSearchBar(
+            body: CustomSearchBar.fromProperties(
               onChanged: (_) {},
               size: SearchBarSize.large,
             ),
@@ -235,7 +236,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: CustomSearchBar(
+            body: CustomSearchBar.fromProperties(
               onChanged: (_) {},
               backgroundColor: bgColor,
             ),
@@ -250,7 +251,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: CustomSearchBar(
+            body: CustomSearchBar.fromProperties(
               onChanged: (_) {},
               isEnabled: false,
             ),
@@ -268,7 +269,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: CustomSearchBar(
+            body: CustomSearchBar.fromProperties(
               onChanged: (_) {},
               hasBorder: true,
             ),
@@ -285,7 +286,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: CustomSearchBar(
+            body: CustomSearchBar.fromProperties(
               onChanged: (_) {},
               initialText: initialText,
             ),
@@ -304,7 +305,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: CustomSearchBar(
+            body: CustomSearchBar.fromProperties(
               onChanged: (value) => latestValue = value,
             ),
           ),
@@ -328,7 +329,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: CustomSearchBar(
+            body: CustomSearchBar.fromProperties(
               onChanged: (_) {},
               onSearch: (value) => searchText = value,
             ),
@@ -352,11 +353,11 @@ void main() {
           home: Scaffold(
             body: Column(
               children: [
-                CustomSearchBar(
+                CustomSearchBar.fromProperties(
                   onChanged: (value) => value1 = value,
                   hintText: 'First',
                 ),
-                CustomSearchBar(
+                CustomSearchBar.fromProperties(
                   onChanged: (value) => value2 = value,
                   hintText: 'Second',
                 ),
@@ -388,7 +389,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: CustomSearchBar(
+            body: CustomSearchBar.fromProperties(
               onChanged: (value) => values.add(value),
             ),
           ),

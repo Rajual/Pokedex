@@ -1,2 +1,2 @@
 export 'app_card.dart';
-export 'card_enums.dart';
+export 'models/app_card_ui_model.dart' show CardSize, CardStyle, CardElevation;

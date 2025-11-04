@@ -1,105 +1,71 @@
 import 'package:flutter/material.dart';
+import 'models/app_image_ui_model.dart';
 
-/// Tamaños disponibles para AppImage
-enum AppImageSize {
-  small,      // 80x80
-  medium,     // 120x120
-  large,      // 160x160
-  extraLarge, // 200x200
-}
-
-extension AppImageSizeExtension on AppImageSize {
-  double get dimension {
-    return switch (this) {
-      AppImageSize.small => 80,
-      AppImageSize.medium => 120,
-      AppImageSize.large => 160,
-      AppImageSize.extraLarge => 200,
-    };
-  }
-}
-
-/// Modo de ajuste de imagen
-enum AppImageFit {
-  cover,
-  contain,
-  fill,
-  fitWidth,
-  fitHeight,
-}
-
-extension AppImageFitExtension on AppImageFit {
-  BoxFit get boxFit {
-    return switch (this) {
-      AppImageFit.cover => BoxFit.cover,
-      AppImageFit.contain => BoxFit.contain,
-      AppImageFit.fill => BoxFit.fill,
-      AppImageFit.fitWidth => BoxFit.fitWidth,
-      AppImageFit.fitHeight => BoxFit.fitHeight,
-    };
-  }
-}
+// Enums moved to models/app_image_ui_model.dart
+export 'models/app_image_ui_model.dart' show AppImageSize, AppImageFit;
 
 /// Componente para renderizar imágenes PNG desde assets
-/// 
+///
 /// Ejemplo:
 /// ```dart
 /// AppImage(
-///   assetPath: 'assets/ilustration/PokemonCharizard.png',
-///   size: AppImageSize.medium,
+///   uiModel: AppImageUiModel(
+///     assetPath: 'assets/ilustration/PokemonCharizard.png',
+///     size: AppImageSize.medium,
+///   ),
 /// )
 /// ```
 class AppImage extends StatelessWidget {
-  /// Ruta del asset de imagen (ej: 'assets/ilustration/PokemonCharizard.png')
-  final String assetPath;
+  final AppImageUiModel uiModel;
 
-  /// Tamaño de la imagen
-  final AppImageSize size;
-
-  /// Modo de ajuste de la imagen
-  final AppImageFit fit;
-
-  /// Border radius de la imagen
-  final double borderRadius;
-
-  /// Shadow para elevar la imagen
-  final bool showShadow;
-
-  /// Color de fondo detrás de la imagen
-  final Color? backgroundColor;
-
-  /// Errores al cargar la imagen
-  final bool showErrorIcon;
-
-  const AppImage(
-    this.assetPath, {
-    this.size = AppImageSize.medium,
-    this.fit = AppImageFit.cover,
-    this.borderRadius = 8.0,
-    this.showShadow = false,
-    this.backgroundColor,
-    this.showErrorIcon = true,
+  const AppImage({
+    required this.uiModel,
     Key? key,
   }) : super(key: key);
 
+  /// Factory constructor for backward compatibility
+  factory AppImage.fromProperties(
+    String assetPath, {
+    AppImageSize size = AppImageSize.medium,
+    AppImageFit fit = AppImageFit.cover,
+    double borderRadius = 8.0,
+    bool showShadow = false,
+    Color? backgroundColor,
+    bool showErrorIcon = true,
+    Key? key,
+  }) {
+    return AppImage(
+      uiModel: AppImageUiModel(
+        assetPath: assetPath,
+        size: size,
+        fit: fit,
+        borderRadius: borderRadius,
+        showShadow: showShadow,
+        backgroundColor: backgroundColor,
+        showErrorIcon: showErrorIcon,
+      ),
+      key: key,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final dimension = size.dimension;
+    final dimension = uiModel.size.dimension;
 
     final imageWidget = ClipRRect(
-      borderRadius: BorderRadius.circular(borderRadius),
+      borderRadius: BorderRadius.circular(uiModel.borderRadius),
       child: Image.asset(
-        assetPath,
+        uiModel.assetPath,
         width: dimension,
         height: dimension,
-        fit: fit.boxFit,
+        fit: uiModel.fit.boxFit,
         errorBuilder: (context, error, stackTrace) {
-          debugPrint('Error loading image: $assetPath - $error');
+          debugPrint('Error loading image: ${uiModel.assetPath} - $error');
           return Container(
             width: dimension,
             height: dimension,
             color: Colors.grey[300],
-            child: showErrorIcon
+            child: uiModel.showErrorIcon
                 ? const Center(
                     child: Icon(
                       Icons.broken_image,
@@ -113,22 +79,22 @@ class AppImage extends StatelessWidget {
       ),
     );
 
-    if (backgroundColor != null) {
+    if (uiModel.backgroundColor != null) {
       return Container(
         width: dimension,
         height: dimension,
         decoration: BoxDecoration(
-          color: backgroundColor,
-          borderRadius: BorderRadius.circular(borderRadius),
+          color: uiModel.backgroundColor,
+          borderRadius: BorderRadius.circular(uiModel.borderRadius),
         ),
         child: imageWidget,
       );
     }
 
-    if (showShadow) {
+    if (uiModel.showShadow) {
       return Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(borderRadius),
+          borderRadius: BorderRadius.circular(uiModel.borderRadius),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.15),

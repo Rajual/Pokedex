@@ -18,7 +18,7 @@ class SvgDetailScreen extends StatelessWidget {
           _buildComponentCard(
             child: Column(
               children: [
-                AppSvg(
+                AppSvg.fromProperties(
                   'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/25.svg',
                   size: SvgSize.small,
                 ),
@@ -27,16 +27,16 @@ class SvgDetailScreen extends StatelessWidget {
               ],
             ),
             codeSnippet: '''
-AppSvg(
-  'https://example.com/image.svg',
-  size: SvgSize.small,
+AppSvg.fromProperties(
+ assetPath: 'https://example.com/image.svg',
+ size: SvgSize.small,
 )''',
           ),
 
           _buildComponentCard(
             child: Column(
               children: [
-                AppSvg(
+                AppSvg.fromProperties(
                   'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg',
                   size: SvgSize.medium,
                 ),
@@ -45,16 +45,16 @@ AppSvg(
               ],
             ),
             codeSnippet: '''
-AppSvg(
-  'https://example.com/image.svg',
-  size: SvgSize.medium,
+AppSvg.fromProperties(
+ assetPath: 'https://example.com/image.svg',
+ size: SvgSize.medium,
 )''',
           ),
 
           _buildComponentCard(
             child: Column(
               children: [
-                AppSvg(
+                AppSvg.fromProperties(
                   'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/6.svg',
                   size: SvgSize.large,
                 ),
@@ -63,9 +63,9 @@ AppSvg(
               ],
             ),
             codeSnippet: '''
-AppSvg(
-  'https://example.com/image.svg',
-  size: SvgSize.large,
+AppSvg.fromProperties(
+ assetPath: 'https://example.com/image.svg',
+ size: SvgSize.large,
 )''',
           ),
 
@@ -76,7 +76,7 @@ AppSvg(
               children: [
                 Column(
                   children: [
-                    AppSvg(
+                    AppSvg.fromProperties(
                       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/4.svg',
                       size: SvgSize.small,
                     ),
@@ -86,7 +86,7 @@ AppSvg(
                 ),
                 Column(
                   children: [
-                    AppSvg(
+                    AppSvg.fromProperties(
                       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/4.svg',
                       size: SvgSize.medium,
                     ),
@@ -96,7 +96,7 @@ AppSvg(
                 ),
                 Column(
                   children: [
-                    AppSvg(
+                    AppSvg.fromProperties(
                       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/4.svg',
                       size: SvgSize.large,
                     ),
@@ -121,7 +121,7 @@ AppSvg('image.svg', size: SvgSize.large)''',
           _buildComponentCard(
             child: Column(
               children: [
-                AppSvg(
+                AppSvg.fromProperties(
                   'https://invalid-url-that-does-not-exist.com/image.svg',
                   size: SvgSize.medium,
                 ),

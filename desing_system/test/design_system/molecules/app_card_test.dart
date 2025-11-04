@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import '../../../lib/molecules/app_card/app_card.dart';
-import '../../../lib/molecules/app_card/card_enums.dart';
+import '../../../lib/molecules/app_card/models/app_card_ui_model.dart';
 import '../../../lib/molecules/app_type_tag/app_type_tag.dart';
 
 void main() {
@@ -12,7 +12,7 @@ void main() {
           MaterialApp(
             home: Scaffold(
               body: Center(
-                child: AppCard(
+                child: AppCard.fromProperties(
                   pokemonName: 'Bulbasaur',
                   pokemonNumber: 1,
                   primaryType: PokemonType.grass,
@@ -35,7 +35,7 @@ void main() {
           MaterialApp(
             home: Scaffold(
               body: Center(
-                child: AppCard(
+                child: AppCard.fromProperties(
                   pokemonName: 'Bulbasaur',
                   pokemonNumber: 1,
                   primaryType: PokemonType.grass,
@@ -59,7 +59,7 @@ void main() {
           MaterialApp(
             home: Scaffold(
               body: Center(
-                child: AppCard(
+                child: AppCard.fromProperties(
                   pokemonName: 'Bulbasaur',
                   pokemonNumber: 1,
                   primaryType: PokemonType.grass,
@@ -82,7 +82,7 @@ void main() {
           MaterialApp(
             home: Scaffold(
               body: Center(
-                child: AppCard(
+                child: AppCard.fromProperties(
                   pokemonName: 'Bulbasaur',
                   pokemonNumber: 1,
                   primaryType: PokemonType.grass,
@@ -105,7 +105,7 @@ void main() {
           MaterialApp(
             home: Scaffold(
               body: Center(
-                child: AppCard(
+                child: AppCard.fromProperties(
                   pokemonName: 'Bulbasaur',
                   pokemonNumber: 1,
                   primaryType: PokemonType.grass,
@@ -131,7 +131,7 @@ void main() {
           MaterialApp(
             home: Scaffold(
               body: Center(
-                child: AppCard(
+                child: AppCard.fromProperties(
                   pokemonName: 'Bulbasaur',
                   pokemonNumber: 1,
                   primaryType: PokemonType.grass,
@@ -156,7 +156,7 @@ void main() {
           MaterialApp(
             home: Scaffold(
               body: Center(
-                child: AppCard(
+                child: AppCard.fromProperties(
                   pokemonName: 'Bulbasaur',
                   pokemonNumber: 1,
                   primaryType: PokemonType.grass,
@@ -180,7 +180,7 @@ void main() {
           MaterialApp(
             home: Scaffold(
               body: Center(
-                child: AppCard(
+                child: AppCard.fromProperties(
                   pokemonName: 'Bulbasaur',
                   pokemonNumber: 1,
                   primaryType: PokemonType.grass,
@@ -226,7 +226,7 @@ void main() {
           MaterialApp(
             home: Scaffold(
               body: Center(
-                child: AppCard(
+                child: AppCard.fromProperties(
                   pokemonName: 'Bulbasaur',
                   pokemonNumber: 1,
                   primaryType: PokemonType.grass,
@@ -250,7 +250,7 @@ void main() {
           MaterialApp(
             home: Scaffold(
               body: Center(
-                child: AppCard(
+                child: AppCard.fromProperties(
                   pokemonName: 'Bulbasaur',
                   pokemonNumber: 1,
                   primaryType: PokemonType.grass,
@@ -273,7 +273,7 @@ void main() {
           MaterialApp(
             home: Scaffold(
               body: Center(
-                child: AppCard(
+                child: AppCard.fromProperties(
                   pokemonName: 'Bulbasaur',
                   pokemonNumber: 1,
                   primaryType: PokemonType.grass,
@@ -307,7 +307,7 @@ void main() {
           MaterialApp(
             home: Scaffold(
               body: Center(
-                child: AppCard(
+                child: AppCard.fromProperties(
                   pokemonName: 'Bulbasaur',
                   pokemonNumber: 1,
                   primaryType: PokemonType.grass,
@@ -333,7 +333,7 @@ void main() {
           MaterialApp(
             home: Scaffold(
               body: Center(
-                child: AppCard(
+                child: AppCard.fromProperties(
                   pokemonName: 'Bulbasaur',
                   pokemonNumber: 1,
                   primaryType: PokemonType.grass,
@@ -359,7 +359,7 @@ void main() {
           MaterialApp(
             home: Scaffold(
               body: Center(
-                child: AppCard(
+                child: AppCard.fromProperties(
                   pokemonName: 'Bulbasaur',
                   pokemonNumber: 1,
                   primaryType: PokemonType.grass,
@@ -394,7 +394,7 @@ void main() {
           MaterialApp(
             home: Scaffold(
               body: Center(
-                child: AppCard(
+                child: AppCard.fromProperties(
                   pokemonName: 'Bulbasaur',
                   pokemonNumber: 1,
                   primaryType: PokemonType.grass,
@@ -425,7 +425,7 @@ void main() {
           MaterialApp(
             home: Scaffold(
               body: Center(
-                child: AppCard(
+                child: AppCard.fromProperties(
                   pokemonName: 'Bulbasaur',
                   pokemonNumber: 1,
                   primaryType: PokemonType.grass,
@@ -448,7 +448,7 @@ void main() {
           MaterialApp(
             home: Scaffold(
               body: Center(
-                child: AppCard(
+                child: AppCard.fromProperties(
                   pokemonName: 'Bulbasaur',
                   pokemonNumber: 1,
                   primaryType: PokemonType.grass,
@@ -475,7 +475,7 @@ void main() {
           MaterialApp(
             home: Scaffold(
               body: Center(
-                child: AppCard(
+                child: AppCard.fromProperties(
                   pokemonName: 'Bulbasaur',
                   pokemonNumber: 1,
                   primaryType: PokemonType.grass,
@@ -500,7 +500,7 @@ void main() {
           MaterialApp(
             home: Scaffold(
               body: Center(
-                child: AppCard(
+                child: AppCard.fromProperties(
                   pokemonName: 'Squirtle',
                   pokemonNumber: 7,
                   primaryType: PokemonType.water,
@@ -525,7 +525,7 @@ void main() {
           MaterialApp(
             home: Scaffold(
               body: Center(
-                child: AppCard(
+                child: AppCard.fromProperties(
                   pokemonName: 'Bulbasaur',
                   pokemonNumber: 1,
                   primaryType: PokemonType.grass,
@@ -557,7 +557,7 @@ void main() {
             home: Scaffold(
               body: ListView(
                 children: [
-                  AppCard(
+                  AppCard.fromProperties(
                     pokemonName: 'Bulbasaur',
                     pokemonNumber: 1,
                     primaryType: PokemonType.grass,
@@ -566,7 +566,7 @@ void main() {
                     isFavorite: false,
                     onFavoriteChanged: (_) {},
                   ),
-                  AppCard(
+                  AppCard.fromProperties(
                     pokemonName: 'Charmeleon',
                     pokemonNumber: 5,
                     primaryType: PokemonType.fire,
@@ -592,7 +592,7 @@ void main() {
             home: Scaffold(
               body: Row(
                 children: [
-                  AppCard(
+                  AppCard.fromProperties(
                     pokemonName: 'Bulbasaur',
                     pokemonNumber: 1,
                     primaryType: PokemonType.grass,
@@ -602,7 +602,7 @@ void main() {
                     onFavoriteChanged: (_) {},
                     size: CardSize.small,
                   ),
-                  AppCard(
+                  AppCard.fromProperties(
                     pokemonName: 'Bulbasaur',
                     pokemonNumber: 1,
                     primaryType: PokemonType.grass,
@@ -629,7 +629,7 @@ void main() {
           MaterialApp(
             home: Scaffold(
               body: Center(
-                child: AppCard(
+                child: AppCard.fromProperties(
                   pokemonName: 'Bulbasaur',
                   pokemonNumber: 1,
                   primaryType: PokemonType.grass,
@@ -652,7 +652,7 @@ void main() {
           MaterialApp(
             home: Scaffold(
               body: Center(
-                child: AppCard(
+                child: AppCard.fromProperties(
                   pokemonName: 'Charizard',
                   pokemonNumber: 6,
                   primaryType: PokemonType.fire,

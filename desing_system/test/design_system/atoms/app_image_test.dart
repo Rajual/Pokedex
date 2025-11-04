@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import '../../../lib/atoms/app_image/app_image.dart';
+import '../../../lib/atoms/app_image/models/app_image_ui_model.dart';
 
 void main() {
   group('AppImage', () {
@@ -10,7 +11,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppImage(
+              body: AppImage.fromProperties(
                 'assets/ilustration/PokemonCharizard.png',
                 size: AppImageSize.small,
               ),
@@ -27,7 +28,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppImage(
+              body: AppImage.fromProperties(
                 'assets/ilustration/PokemonCharizard.png',
                 size: AppImageSize.medium,
               ),
@@ -43,7 +44,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppImage(
+              body: AppImage.fromProperties(
                 'assets/ilustration/PokemonCharizard.png',
                 size: AppImageSize.large,
               ),
@@ -59,7 +60,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppImage(
+              body: AppImage.fromProperties(
                 'assets/ilustration/PokemonCharizard.png',
                 size: AppImageSize.extraLarge,
               ),
@@ -84,7 +85,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppImage(
+              body: AppImage.fromProperties(
                 'assets/ilustration/PokemonCharizard.png',
                 fit: AppImageFit.cover,
               ),
@@ -100,7 +101,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppImage(
+              body: AppImage.fromProperties(
                 'assets/ilustration/PokemonCharizard.png',
                 fit: AppImageFit.contain,
               ),
@@ -116,7 +117,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppImage(
+              body: AppImage.fromProperties(
                 'assets/ilustration/PokemonCharizard.png',
                 fit: AppImageFit.fill,
               ),
@@ -142,7 +143,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppImage(
+              body: AppImage.fromProperties(
                 'assets/ilustration/PokemonCharizard.png',
               ),
             ),
@@ -157,7 +158,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppImage(
+              body: AppImage.fromProperties(
                 'assets/ilustration/PokemonCharizard.png',
                 borderRadius: 16.0,
               ),
@@ -173,7 +174,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppImage(
+              body: AppImage.fromProperties(
                 'assets/ilustration/PokemonCharizard.png',
                 borderRadius: 0.0,
               ),
@@ -190,7 +191,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppImage(
+              body: AppImage.fromProperties(
                 'assets/ilustration/PokemonCharizard.png',
                 showShadow: false,
               ),
@@ -206,7 +207,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppImage(
+              body: AppImage.fromProperties(
                 'assets/ilustration/PokemonCharizard.png',
                 showShadow: true,
               ),
@@ -224,7 +225,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppImage(
+              body: AppImage.fromProperties(
                 'assets/ilustration/PokemonCharizard.png',
               ),
             ),
@@ -239,7 +240,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppImage(
+              body: AppImage.fromProperties(
                 'assets/ilustration/PokemonCharizard.png',
                 backgroundColor: Colors.grey[100],
               ),
@@ -258,7 +259,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppImage(
+              body: AppImage.fromProperties(
                 'assets/invalid/path.png',
                 showErrorIcon: true,
               ),
@@ -275,7 +276,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppImage(
+              body: AppImage.fromProperties(
                 'assets/invalid/path.png',
                 showErrorIcon: false,
               ),
@@ -295,7 +296,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppImage(
+              body: AppImage.fromProperties(
                 'assets/ilustration/PokemonCharizard.png',
                 size: AppImageSize.large,
                 fit: AppImageFit.cover,
@@ -319,15 +320,15 @@ void main() {
             home: Scaffold(
               body: Row(
                 children: [
-                  AppImage(
+                  AppImage.fromProperties(
                     'assets/ilustration/PokemonCharizard.png',
                     size: AppImageSize.small,
                   ),
-                  AppImage(
+                  AppImage.fromProperties(
                     'assets/ilustration/PokemonPikachu.png',
                     size: AppImageSize.medium,
                   ),
-                  AppImage(
+                  AppImage.fromProperties(
                     'assets/ilustration/PokemonSquirtle.png',
                     size: AppImageSize.large,
                   ),
@@ -348,15 +349,15 @@ void main() {
             home: Scaffold(
               body: Column(
                 children: [
-                  AppImage(
+                  AppImage.fromProperties(
                     'assets/ilustration/PokemonCharizard.png',
                     size: AppImageSize.small,
                   ),
-                  AppImage(
+                  AppImage.fromProperties(
                     'assets/ilustration/PokemonCharizard.png',
                     size: AppImageSize.medium,
                   ),
-                  AppImage(
+                  AppImage.fromProperties(
                     'assets/ilustration/PokemonCharizard.png',
                     size: AppImageSize.large,
                   ),
@@ -384,7 +385,7 @@ void main() {
           await tester.pumpWidget(
             MaterialApp(
               home: Scaffold(
-                body: AppImage(asset),
+                body: AppImage.fromProperties(asset),
               ),
             ),
           );
@@ -399,7 +400,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppImage(assetPath),
+              body: AppImage.fromProperties(assetPath),
             ),
           ),
         );

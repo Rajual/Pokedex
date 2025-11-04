@@ -25,46 +25,46 @@ class _ButtonDetailScreenState extends State<ButtonDetailScreen> {
         children: [
           _buildSectionTitle('Primary Button'),
           _buildComponentCard(
-            child: AppButton(
+            child: AppButton.fromProperties(
               label: 'Primary Button',
               onPressed: () => _showSnackBar('Primary button pressed'),
               type: ButtonType.primary,
             ),
             codeSnippet: '''
-AppButton(
-  label: 'Primary Button',
-  onPressed: () => print('Pressed'),
-  type: ButtonType.primary,
+AppButton.fromProperties(
+ label: 'Primary Button',
+ onPressed: () => print('Pressed'),
+ type: ButtonType.primary,
 )''',
           ),
 
           _buildSectionTitle('Secondary Button'),
           _buildComponentCard(
-            child: AppButton(
+            child: AppButton.fromProperties(
               label: 'Secondary Button',
               onPressed: () => _showSnackBar('Secondary button pressed'),
               type: ButtonType.secondary,
             ),
             codeSnippet: '''
-AppButton(
-  label: 'Secondary Button',
-  onPressed: () => print('Pressed'),
-  type: ButtonType.secondary,
+AppButton.fromProperties(
+ label: 'Secondary Button',
+ onPressed: () => print('Pressed'),
+ type: ButtonType.secondary,
 )''',
           ),
 
           _buildSectionTitle('Tertiary Button'),
           _buildComponentCard(
-            child: AppButton(
+            child: AppButton.fromProperties(
               label: 'Tertiary Button',
               onPressed: () => _showSnackBar('Tertiary button pressed'),
               type: ButtonType.tertiary,
             ),
             codeSnippet: '''
-AppButton(
-  label: 'Tertiary Button',
-  onPressed: () => print('Pressed'),
-  type: ButtonType.tertiary,
+AppButton.fromProperties(
+ label: 'Tertiary Button',
+ onPressed: () => print('Pressed'),
+ type: ButtonType.tertiary,
 )''',
           ),
 
@@ -72,7 +72,7 @@ AppButton(
           _buildComponentCard(
             child: Column(
               children: [
-                AppButton(
+                AppButton.fromProperties(
                   label: _isLoading ? 'Loading...' : 'Toggle Loading',
                   onPressed: _toggleLoading,
                   isLoading: _isLoading,
@@ -83,11 +83,11 @@ AppButton(
               ],
             ),
             codeSnippet: '''
-AppButton(
-  label: 'Loading Button',
-  onPressed: () => print('Pressed'),
-  isLoading: true,
-  type: ButtonType.primary,
+AppButton.fromProperties(
+ label: 'Loading Button',
+ onPressed: () => print('Pressed'),
+ isLoading: true,
+ type: ButtonType.primary,
 )''',
           ),
 
@@ -95,7 +95,7 @@ AppButton(
           _buildComponentCard(
             child: Column(
               children: [
-                AppButton(
+                AppButton.fromProperties(
                   label: _isEnabled ? 'Disable Me' : 'Enable Me',
                   onPressed: _toggleEnabled,
                   isEnabled: _isEnabled,
@@ -106,11 +106,11 @@ AppButton(
               ],
             ),
             codeSnippet: '''
-AppButton(
-  label: 'Disabled Button',
-  onPressed: () => print('Pressed'),
-  isEnabled: false,
-  type: ButtonType.primary,
+AppButton.fromProperties(
+ label: 'Disabled Button',
+ onPressed: () => print('Pressed'),
+ isEnabled: false,
+ type: ButtonType.primary,
 )''',
           ),
 
@@ -118,21 +118,21 @@ AppButton(
           _buildComponentCard(
             child: Column(
               children: [
-                AppButton(
+                AppButton.fromProperties(
                   label: 'Leading Icon',
                   onPressed: () => _showSnackBar('Leading icon pressed'),
                   leadingIcon: Icons.star,
                   type: ButtonType.primary,
                 ),
                 const SizedBox(height: 8),
-                AppButton(
+                AppButton.fromProperties(
                   label: 'Trailing Icon',
                   onPressed: () => _showSnackBar('Trailing icon pressed'),
                   trailingIcon: Icons.arrow_forward,
                   type: ButtonType.secondary,
                 ),
                 const SizedBox(height: 8),
-                AppButton(
+                AppButton.fromProperties(
                   label: 'Both Icons',
                   onPressed: () => _showSnackBar('Both icons pressed'),
                   leadingIcon: Icons.favorite,
@@ -142,12 +142,12 @@ AppButton(
               ],
             ),
             codeSnippet: '''
-AppButton(
-  label: 'With Icons',
-  onPressed: () => print('Pressed'),
-  leadingIcon: Icons.star,
-  trailingIcon: Icons.arrow_forward,
-  type: ButtonType.primary,
+AppButton.fromProperties(
+ label: 'With Icons',
+ onPressed: () => print('Pressed'),
+ leadingIcon: Icons.star,
+ trailingIcon: Icons.arrow_forward,
+ type: ButtonType.primary,
 )''',
           ),
 
@@ -155,21 +155,21 @@ AppButton(
           _buildComponentCard(
             child: Column(
               children: [
-                AppButton(
+                AppButton.fromProperties(
                   label: 'Small Button',
                   onPressed: () => _showSnackBar('Small pressed'),
                   size: ButtonSize.small,
                   type: ButtonType.primary,
                 ),
                 const SizedBox(height: 8),
-                AppButton(
+                AppButton.fromProperties(
                   label: 'Medium Button',
                   onPressed: () => _showSnackBar('Medium pressed'),
                   size: ButtonSize.medium,
                   type: ButtonType.primary,
                 ),
                 const SizedBox(height: 8),
-                AppButton(
+                AppButton.fromProperties(
                   label: 'Large Button',
                   onPressed: () => _showSnackBar('Large pressed'),
                   size: ButtonSize.large,
@@ -178,25 +178,25 @@ AppButton(
               ],
             ),
             codeSnippet: '''
-AppButton(
-  label: 'Small Button',
-  onPressed: () => print('Pressed'),
-  size: ButtonSize.small,
-  type: ButtonType.primary,
+AppButton.fromProperties(
+ label: 'Small Button',
+ onPressed: () => print('Pressed'),
+ size: ButtonSize.small,
+ type: ButtonType.primary,
 )
 
-AppButton(
-  label: 'Medium Button',
-  onPressed: () => print('Pressed'),
-  size: ButtonSize.medium,
-  type: ButtonType.primary,
+AppButton.fromProperties(
+ label: 'Medium Button',
+ onPressed: () => print('Pressed'),
+ size: ButtonSize.medium,
+ type: ButtonType.primary,
 )
 
-AppButton(
-  label: 'Large Button',
-  onPressed: () => print('Pressed'),
-  size: ButtonSize.large,
-  type: ButtonType.primary,
+AppButton.fromProperties(
+ label: 'Large Button',
+ onPressed: () => print('Pressed'),
+ size: ButtonSize.large,
+ type: ButtonType.primary,
 )''',
           ),
         ],

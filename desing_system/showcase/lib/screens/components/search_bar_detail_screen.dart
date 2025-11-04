@@ -27,7 +27,7 @@ class _SearchBarDetailScreenState extends State<SearchBarDetailScreen> {
           _buildComponentCard(
             child: Column(
               children: [
-                CustomSearchBar(
+                CustomSearchBar.fromProperties(
                   hintText: 'Search Pokémon...',
                   onChanged: (query) => setState(() => _searchQuery = query),
                   showClearIcon: _showClearIcon,
@@ -55,7 +55,7 @@ CustomSearchBar(
               children: [
                 const Text('With both icons:', style: TextStyle(fontWeight: FontWeight.bold)),
                 const SizedBox(height: 8),
-                CustomSearchBar(
+                CustomSearchBar.fromProperties(
                   hintText: 'Search with icons...',
                   onChanged: (query) {},
                   showClearIcon: true,
@@ -64,7 +64,7 @@ CustomSearchBar(
                 const SizedBox(height: 16),
                 const Text('Search icon only:', style: TextStyle(fontWeight: FontWeight.bold)),
                 const SizedBox(height: 8),
-                CustomSearchBar(
+                CustomSearchBar.fromProperties(
                   hintText: 'Search icon only...',
                   onChanged: (query) {},
                   showClearIcon: false,
@@ -73,7 +73,7 @@ CustomSearchBar(
                 const SizedBox(height: 16),
                 const Text('Clear icon only:', style: TextStyle(fontWeight: FontWeight.bold)),
                 const SizedBox(height: 8),
-                CustomSearchBar(
+                CustomSearchBar.fromProperties(
                   hintText: 'Clear icon only...',
                   onChanged: (query) {},
                   showClearIcon: true,
@@ -82,7 +82,7 @@ CustomSearchBar(
                 const SizedBox(height: 16),
                 const Text('No icons:', style: TextStyle(fontWeight: FontWeight.bold)),
                 const SizedBox(height: 8),
-                CustomSearchBar(
+                CustomSearchBar.fromProperties(
                   hintText: 'No icons...',
                   onChanged: (query) {},
                   showClearIcon: false,
@@ -128,17 +128,17 @@ CustomSearchBar(
           _buildComponentCard(
             child: Column(
               children: [
-                CustomSearchBar(
+                CustomSearchBar.fromProperties(
                   hintText: 'Buscar Pokémon...',
                   onChanged: (query) {},
                 ),
                 const SizedBox(height: 16),
-                CustomSearchBar(
+                CustomSearchBar.fromProperties(
                   hintText: 'Find your favorite Pokemon',
                   onChanged: (query) {},
                 ),
                 const SizedBox(height: 16),
-                CustomSearchBar(
+                CustomSearchBar.fromProperties(
                   hintText: 'Search by name or number',
                   onChanged: (query) {},
                 ),
@@ -165,7 +165,7 @@ CustomSearchBar(
           _buildComponentCard(
             child: Column(
               children: [
-                CustomSearchBar(
+                CustomSearchBar.fromProperties(
                   hintText: 'Type to see real-time search...',
                   onChanged: (query) => setState(() => _searchQuery = query),
                   showClearIcon: true,

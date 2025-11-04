@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'models/app_favorite_tag_ui_model.dart';
 import 'utils/favorite_tag_enums.dart';
 import 'utils/favorite_tag_styles.dart' as styles;
 
 /// Componente interactivo para marcar/desmarcar favoritos
-/// 
+///
 /// Ejemplo:
 /// ```dart
 /// AppFavoriteTag(
-///   isFavorite: true,
+///   uiModel: AppFavoriteTagUiModel(isFavorite: true),
 ///   onFavoriteChanged: (isFav) {
 ///     setState(() {
 ///       isFavorite = isFav;
@@ -16,45 +17,45 @@ import 'utils/favorite_tag_styles.dart' as styles;
 /// )
 /// ```
 class AppFavoriteTag extends StatefulWidget {
-  /// Si está marcado como favorito
-  final bool isFavorite;
+  final AppFavoriteTagUiModel uiModel;
 
   /// Callback cuando cambia el estado
   final Function(bool) onFavoriteChanged;
 
-  /// Tamaño del botón
-  final FavoriteTagSize size;
-
-  /// Estilo del botón
-  final FavoriteTagStyle style;
-
-  /// Color cuando está activo (favorito)
-  final Color activeColor;
-
-  /// Color cuando está inactivo
-  final Color inactiveColor;
-
-  /// Habilita animación al cambiar estado
-  final bool enableAnimation;
-
-  /// Duración de la animación
-  final Duration animationDuration;
-
-  /// Si el botón está habilitado para interacción
-  final bool isEnabled;
-
   const AppFavoriteTag({
-    required this.isFavorite,
+    required this.uiModel,
     required this.onFavoriteChanged,
-    this.size = FavoriteTagSize.medium,
-    this.style = FavoriteTagStyle.floating,
-    this.activeColor = const Color(0xFFEF4444), // Red
-    this.inactiveColor = const Color(0xFF9CA3AF), // Gray
-    this.enableAnimation = true,
-    this.animationDuration = const Duration(milliseconds: 300),
-    this.isEnabled = true,
     super.key,
   });
+
+  /// Factory constructor for backward compatibility
+  factory AppFavoriteTag.fromProperties({
+    required bool isFavorite,
+    required Function(bool) onFavoriteChanged,
+    FavoriteTagSize size = FavoriteTagSize.medium,
+    FavoriteTagStyle style = FavoriteTagStyle.floating,
+    Color activeColor = const Color(0xFFEF4444),
+    Color inactiveColor = const Color(0xFF9CA3AF),
+    bool enableAnimation = true,
+    Duration animationDuration = const Duration(milliseconds: 300),
+    bool isEnabled = true,
+    Key? key,
+  }) {
+    return AppFavoriteTag(
+      uiModel: AppFavoriteTagUiModel(
+        isFavorite: isFavorite,
+        size: size,
+        style: style,
+        activeColor: activeColor,
+        inactiveColor: inactiveColor,
+        enableAnimation: enableAnimation,
+        animationDuration: animationDuration,
+        isEnabled: isEnabled,
+      ),
+      onFavoriteChanged: onFavoriteChanged,
+      key: key,
+    );
+  }
 
   @override
   State<AppFavoriteTag> createState() => _AppFavoriteTagState();
@@ -69,7 +70,7 @@ class _AppFavoriteTagState extends State<AppFavoriteTag>
   void initState() {
     super.initState();
     _animationController = AnimationController(
-      duration: widget.animationDuration,
+      duration: widget.uiModel.animationDuration,
       vsync: this,
     );
 
@@ -85,35 +86,35 @@ class _AppFavoriteTagState extends State<AppFavoriteTag>
   }
 
   void _toggleFavorite() {
-    if (!widget.isEnabled) return;
+    if (!widget.uiModel.isEnabled) return;
 
-    if (widget.enableAnimation) {
+    if (widget.uiModel.enableAnimation) {
       _animationController.forward().then((_) {
         _animationController.reverse();
       });
     }
 
-    widget.onFavoriteChanged(!widget.isFavorite);
+    widget.onFavoriteChanged(!widget.uiModel.isFavorite);
   }
 
   @override
   Widget build(BuildContext context) {
-    final dimension = widget.size.dimension;
-    final iconSize = widget.size.iconSize;
+    final dimension = widget.uiModel.size.dimension;
+    final iconSize = widget.uiModel.size.iconSize;
     final currentColor =
-        widget.isFavorite ? widget.activeColor : widget.inactiveColor;
+        widget.uiModel.isFavorite ? widget.uiModel.activeColor : widget.uiModel.inactiveColor;
 
     final button = styles.FavoriteTagStyleFactory.create(
-      style: widget.style,
+      style: widget.uiModel.style,
       dimension: dimension,
       iconSize: iconSize,
       currentColor: currentColor,
-      isFavorite: widget.isFavorite,
+      isFavorite: widget.uiModel.isFavorite,
       onTap: _toggleFavorite,
-      isEnabled: widget.isEnabled,
+      isEnabled: widget.uiModel.isEnabled,
     );
 
-    if (widget.enableAnimation) {
+    if (widget.uiModel.enableAnimation) {
       return ScaleTransition(
         scale: _scaleAnimation,
         child: button,

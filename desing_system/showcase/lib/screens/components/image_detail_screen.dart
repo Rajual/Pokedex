@@ -18,7 +18,7 @@ class ImageDetailScreen extends StatelessWidget {
           _buildComponentCard(
             child: Column(
               children: [
-                AppImage(
+                AppImage.fromProperties(
                   'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png',
                   size: AppImageSize.small,
                   fit: AppImageFit.contain,
@@ -28,17 +28,17 @@ class ImageDetailScreen extends StatelessWidget {
               ],
             ),
             codeSnippet: '''
-AppImage(
-  'https://example.com/image.png',
-  size: AppImageSize.small,
-  fit: AppImageFit.contain,
+AppImage.fromProperties(
+ assetPath: 'https://example.com/image.png',
+ size: AppImageSize.small,
+ fit: AppImageFit.contain,
 )''',
           ),
 
           _buildComponentCard(
             child: Column(
               children: [
-                AppImage(
+                AppImage.fromProperties(
                   'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
                   size: AppImageSize.medium,
                   fit: AppImageFit.cover,
@@ -48,17 +48,17 @@ AppImage(
               ],
             ),
             codeSnippet: '''
-AppImage(
-  'https://example.com/image.png',
-  size: AppImageSize.medium,
-  fit: AppImageFit.cover,
+AppImage.fromProperties(
+ assetPath: 'https://example.com/image.png',
+ size: AppImageSize.medium,
+ fit: AppImageFit.cover,
 )''',
           ),
 
           _buildComponentCard(
             child: Column(
               children: [
-                AppImage(
+                AppImage.fromProperties(
                   'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png',
                   size: AppImageSize.large,
                   fit: AppImageFit.contain,
@@ -69,11 +69,11 @@ AppImage(
               ],
             ),
             codeSnippet: '''
-AppImage(
-  'https://example.com/image.png',
-  size: AppImageSize.large,
-  fit: AppImageFit.contain,
-  showShadow: true,
+AppImage.fromProperties(
+ assetPath: 'https://example.com/image.png',
+ size: AppImageSize.large,
+ fit: AppImageFit.contain,
+ showShadow: true,
 )''',
           ),
 
@@ -84,7 +84,7 @@ AppImage(
                 Expanded(
                   child: Column(
                     children: [
-                      AppImage(
+                      AppImage.fromProperties(
                         'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png',
                         size: AppImageSize.medium,
                         fit: AppImageFit.contain,
@@ -98,7 +98,7 @@ AppImage(
                 Expanded(
                   child: Column(
                     children: [
-                      AppImage(
+                      AppImage.fromProperties(
                         'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png',
                         size: AppImageSize.medium,
                         fit: AppImageFit.cover,
@@ -112,7 +112,7 @@ AppImage(
                 Expanded(
                   child: Column(
                     children: [
-                      AppImage(
+                      AppImage.fromProperties(
                         'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png',
                         size: AppImageSize.medium,
                         fit: AppImageFit.fill,
@@ -152,7 +152,7 @@ AppImage(
                 color: Colors.blue[50],
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: AppImage(
+              child: AppImage.fromProperties(
                 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png',
                 size: AppImageSize.medium,
                 fit: AppImageFit.contain,
@@ -172,7 +172,7 @@ AppImage(
           _buildComponentCard(
             child: Column(
               children: [
-                AppImage(
+                AppImage.fromProperties(
                   'https://invalid-url-that-does-not-exist.com/image.png',
                   size: AppImageSize.medium,
                   fit: AppImageFit.contain,

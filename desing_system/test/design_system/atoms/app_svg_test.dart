@@ -7,9 +7,9 @@ void main() {
   group('AppSvg - Size Tests', () {
     testWidgets('small size renders correctly', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
+        MaterialApp(
           home: Scaffold(
-            body: AppSvg('assets/test.svg', size: SvgSize.small),
+            body: AppSvg.fromProperties('assets/test.svg', size: SvgSize.small),
           ),
         ),
       );
@@ -31,9 +31,9 @@ void main() {
 
     testWidgets('medium size renders correctly', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
+        MaterialApp(
           home: Scaffold(
-            body: AppSvg('assets/test.svg', size: SvgSize.medium),
+            body: AppSvg.fromProperties('assets/test.svg', size: SvgSize.medium),
           ),
         ),
       );
@@ -49,9 +49,9 @@ void main() {
 
     testWidgets('large size renders correctly', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
+        MaterialApp(
           home: Scaffold(
-            body: AppSvg('assets/test.svg', size: SvgSize.large),
+            body: AppSvg.fromProperties('assets/test.svg', size: SvgSize.large),
           ),
         ),
       );
@@ -69,9 +69,9 @@ void main() {
   group('AppSvg - Color Tests', () {
     testWidgets('renders without color when color is null', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
+        MaterialApp(
           home: Scaffold(
-            body: AppSvg('assets/test.svg', color: null),
+            body: AppSvg.fromProperties('assets/test.svg', color: null),
           ),
         ),
       );
@@ -82,9 +82,9 @@ void main() {
 
     testWidgets('renders with color when color is provided', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
+        MaterialApp(
           home: Scaffold(
-            body: AppSvg(
+            body: AppSvg.fromProperties(
               'assets/test.svg',
               color: Color(0xFFFF0000),
             ),
@@ -100,9 +100,9 @@ void main() {
   group('AppSvg - Fit Tests', () {
     testWidgets('contain fit renders correctly', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
+        MaterialApp(
           home: Scaffold(
-            body: AppSvg(
+            body: AppSvg.fromProperties(
               'assets/test.svg',
               fit: BoxFit.contain,
             ),
@@ -116,9 +116,9 @@ void main() {
 
     testWidgets('cover fit renders correctly', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
+        MaterialApp(
           home: Scaffold(
-            body: AppSvg(
+            body: AppSvg.fromProperties(
               'assets/test.svg',
               fit: BoxFit.cover,
             ),
@@ -134,9 +134,9 @@ void main() {
   group('AppSvg - Placeholder Tests', () {
     testWidgets('no placeholder when showPlaceholder is false', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
+        MaterialApp(
           home: Scaffold(
-            body: AppSvg(
+            body: AppSvg.fromProperties(
               'assets/test.svg',
               showPlaceholder: false,
             ),
@@ -150,9 +150,9 @@ void main() {
 
     testWidgets('shows placeholder when showPlaceholder is true', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
+        MaterialApp(
           home: Scaffold(
-            body: AppSvg(
+            body: AppSvg.fromProperties(
               'assets/test.svg',
               showPlaceholder: true,
             ),
@@ -169,9 +169,9 @@ void main() {
   group('AppSvg - Combination Tests', () {
     testWidgets('all properties combined work correctly', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
+        MaterialApp(
           home: Scaffold(
-            body: AppSvg(
+            body: AppSvg.fromProperties(
               'assets/pokemon.svg',
               size: SvgSize.large,
               color: Color(0xFF0052CC),
@@ -193,9 +193,9 @@ void main() {
 
     testWidgets('default values work correctly', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
+        MaterialApp(
           home: Scaffold(
-            body: AppSvg('assets/test.svg'),
+            body: AppSvg.fromProperties('assets/test.svg'),
           ),
         ),
       );

@@ -7,9 +7,6 @@ export 'gateways/base_pokeapi_gateway.dart';
 export 'gateways/pokemon_list_gateway.dart';
 export 'gateways/pokemon_detail_gateway.dart';
 
-// Legacy - Mantener por compatibilidad (deprecated)
-// PokeApiException está ahora en base_pokeapi_gateway.dart
-export 'gateways/pokeapi_gateway.dart' hide PokeApiException;
 
 // Mappers
 export 'mappers/pokemon_mapper.dart';

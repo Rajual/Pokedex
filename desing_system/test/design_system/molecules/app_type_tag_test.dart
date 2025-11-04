@@ -9,7 +9,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppTypeTag(type: PokemonType.water),
+              body: AppTypeTag.fromProperties(type: PokemonType.water),
             ),
           ),
         );
@@ -22,7 +22,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppTypeTag(type: PokemonType.fire),
+              body: AppTypeTag.fromProperties(type: PokemonType.fire),
             ),
           ),
         );
@@ -58,7 +58,7 @@ void main() {
           await tester.pumpWidget(
             MaterialApp(
               home: Scaffold(
-                body: AppTypeTag(type: types[i]),
+                body: AppTypeTag.fromProperties(type: types[i]),
               ),
             ),
           );
@@ -74,7 +74,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppTypeTag(
+              body: AppTypeTag.fromProperties(
                 type: PokemonType.fire,
                 size: TypeTagSize.small,
               ),
@@ -94,7 +94,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppTypeTag(
+              body: AppTypeTag.fromProperties(
                 type: PokemonType.fire,
                 size: TypeTagSize.medium,
               ),
@@ -114,7 +114,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppTypeTag(
+              body: AppTypeTag.fromProperties(
                 type: PokemonType.fire,
                 size: TypeTagSize.large,
               ),
@@ -138,7 +138,7 @@ void main() {
           await tester.pumpWidget(
             MaterialApp(
               home: Scaffold(
-                body: AppTypeTag(
+                body: AppTypeTag.fromProperties(
                   type: PokemonType.water,
                   size: sizes[i],
                 ),
@@ -161,7 +161,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppTypeTag(type: PokemonType.water),
+              body: AppTypeTag.fromProperties(type: PokemonType.water),
             ),
           ),
         );
@@ -178,7 +178,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppTypeTag(type: PokemonType.fire),
+              body: AppTypeTag.fromProperties(type: PokemonType.fire),
             ),
           ),
         );
@@ -205,7 +205,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppTypeTag(type: PokemonType.grass),
+              body: AppTypeTag.fromProperties(type: PokemonType.grass),
             ),
           ),
         );
@@ -223,7 +223,7 @@ void main() {
           MaterialApp(
             home: Scaffold(
               body: Center(
-                child: AppTypeTag(
+                child: AppTypeTag.fromProperties(
                   type: PokemonType.electric,
                   fullWidth: false,
                 ),
@@ -242,7 +242,7 @@ void main() {
             home: Scaffold(
               body: Padding(
                 padding: const EdgeInsets.all(16),
-                child: AppTypeTag(
+                child: AppTypeTag.fromProperties(
                   type: PokemonType.electric,
                   fullWidth: true,
                 ),
@@ -261,7 +261,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppTypeTag(type: PokemonType.dragon),
+              body: AppTypeTag.fromProperties(type: PokemonType.dragon),
             ),
           ),
         );
@@ -274,7 +274,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppTypeTag(type: PokemonType.psychic),
+              body: AppTypeTag.fromProperties(type: PokemonType.psychic),
             ),
           ),
         );
@@ -291,7 +291,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: AppTypeTag(type: PokemonType.grass),
+              body: AppTypeTag.fromProperties(type: PokemonType.grass),
             ),
           ),
         );
@@ -353,9 +353,9 @@ void main() {
             home: Scaffold(
               body: Column(
                 children: [
-                  AppTypeTag(type: PokemonType.fire),
-                  AppTypeTag(type: PokemonType.water),
-                  AppTypeTag(type: PokemonType.grass),
+                  AppTypeTag.fromProperties(type: PokemonType.fire),
+                  AppTypeTag.fromProperties(type: PokemonType.water),
+                  AppTypeTag.fromProperties(type: PokemonType.grass),
                 ],
               ),
             ),
@@ -374,15 +374,15 @@ void main() {
             home: Scaffold(
               body: Column(
                 children: [
-                  AppTypeTag(
+                  AppTypeTag.fromProperties(
                     type: PokemonType.electric,
                     size: TypeTagSize.small,
                   ),
-                  AppTypeTag(
+                  AppTypeTag.fromProperties(
                     type: PokemonType.electric,
                     size: TypeTagSize.medium,
                   ),
-                  AppTypeTag(
+                  AppTypeTag.fromProperties(
                     type: PokemonType.electric,
                     size: TypeTagSize.large,
                   ),

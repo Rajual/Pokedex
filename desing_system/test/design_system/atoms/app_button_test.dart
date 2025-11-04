@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import '../../../lib/atoms/app_button/app_button.dart';
+import '../../../lib/atoms/app_button/models/app_button_ui_model.dart';
 import '../../../lib/atoms/app_button/utils/enum.dart';
 import '../../../lib/atoms/app_button/widgets/jumping_dots_loader.dart';
 
@@ -13,7 +14,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: AppButton(
+            body: AppButton.fromProperties(
               label: 'Press Me',
               onPressed: () => callCount++,
             ),
@@ -34,7 +35,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: AppButton(
+            body: AppButton.fromProperties(
               label: 'Disabled Button',
               isEnabled: false,
               onPressed: () => callCount++,
@@ -56,7 +57,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: AppButton(
+            body: AppButton.fromProperties(
               label: 'Loading Button',
               isLoading: true,
               onPressed: () => callCount++,
@@ -83,17 +84,17 @@ void main() {
             body: SingleChildScrollView(
               child: Column(
                 children: [
-                  AppButton(
+                  AppButton.fromProperties(
                     label: 'Primary',
                     type: ButtonType.primary,
                     onPressed: () => primaryCount++,
                   ),
-                  AppButton(
+                  AppButton.fromProperties(
                     label: 'Secondary',
                     type: ButtonType.secondary,
                     onPressed: () => secondaryCount++,
                   ),
-                  AppButton(
+                  AppButton.fromProperties(
                     label: 'Tertiary',
                     type: ButtonType.tertiary,
                     onPressed: () => tertiaryCount++,
@@ -129,7 +130,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: AppButton(
+            body: AppButton.fromProperties(
               label: 'Primary Button',
               type: ButtonType.primary,
               onPressed: () {},
@@ -147,7 +148,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: AppButton(
+            body: AppButton.fromProperties(
               label: 'Secondary Button',
               type: ButtonType.secondary,
               onPressed: () {},
@@ -164,7 +165,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: AppButton(
+            body: AppButton.fromProperties(
               label: 'Tertiary Button',
               type: ButtonType.tertiary,
               onPressed: () {},
@@ -184,17 +185,17 @@ void main() {
             body: SingleChildScrollView(
               child: Column(
                 children: [
-                  AppButton(
+                  AppButton.fromProperties(
                     label: 'Primary',
                     type: ButtonType.primary,
                     onPressed: () {},
                   ),
-                  AppButton(
+                  AppButton.fromProperties(
                     label: 'Secondary',
                     type: ButtonType.secondary,
                     onPressed: () {},
                   ),
-                  AppButton(
+                  AppButton.fromProperties(
                     label: 'Tertiary',
                     type: ButtonType.tertiary,
                     onPressed: () {},
@@ -219,7 +220,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: AppButton(
+            body: AppButton.fromProperties(
               label: 'Small Button',
               size: ButtonSize.small,
               onPressed: () {},
@@ -236,7 +237,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: AppButton(
+            body: AppButton.fromProperties(
               label: 'Medium Button',
               size: ButtonSize.medium,
               onPressed: () {},
@@ -253,7 +254,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: AppButton(
+            body: AppButton.fromProperties(
               label: 'Large Button',
               size: ButtonSize.large,
               onPressed: () {},
@@ -274,17 +275,17 @@ void main() {
             body: SingleChildScrollView(
               child: Column(
                 children: [
-                  AppButton(
+                  AppButton.fromProperties(
                     label: 'Small',
                     size: ButtonSize.small,
                     onPressed: () {},
                   ),
-                  AppButton(
+                  AppButton.fromProperties(
                     label: 'Medium',
                     size: ButtonSize.medium,
                     onPressed: () {},
                   ),
-                  AppButton(
+                  AppButton.fromProperties(
                     label: 'Large',
                     size: ButtonSize.large,
                     onPressed: () {},
@@ -310,7 +311,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: AppButton(
+            body: AppButton.fromProperties(
               label: 'Enabled Button',
               isEnabled: true,
               onPressed: () => callCount++,
@@ -332,7 +333,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: AppButton(
+            body: AppButton.fromProperties(
               label: 'Disabled Button',
               isEnabled: false,
               onPressed: () => callCount++,
@@ -353,7 +354,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: AppButton(
+            body: AppButton.fromProperties(
               label: 'Loading Button',
               isLoading: true,
               onPressed: () {},
@@ -372,7 +373,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: AppButton(
+            body: AppButton.fromProperties(
               label: 'Not Loading Button',
               isLoading: false,
               onPressed: () {},
@@ -393,7 +394,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: AppButton(
+            body: AppButton.fromProperties(
               label: 'Loading Button',
               isEnabled: true,
               isLoading: true,
@@ -416,7 +417,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: AppButton(
+            body: AppButton.fromProperties(
               label: 'Disabled Loading Button',
               isEnabled: false,
               isLoading: true,
@@ -440,7 +441,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: AppButton(
+            body: AppButton.fromProperties(
               label: 'With Leading Icon',
               leadingIcon: Icons.add,
               onPressed: () {},
@@ -458,7 +459,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: AppButton(
+            body: AppButton.fromProperties(
               label: 'With Trailing Icon',
               trailingIcon: Icons.arrow_forward,
               onPressed: () {},
@@ -476,7 +477,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: AppButton(
+            body: AppButton.fromProperties(
               label: 'With Both Icons',
               leadingIcon: Icons.add,
               trailingIcon: Icons.arrow_forward,
@@ -496,7 +497,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: AppButton(
+            body: AppButton.fromProperties(
               label: 'Loading with Icons',
               leadingIcon: Icons.add,
               trailingIcon: Icons.arrow_forward,
@@ -517,7 +518,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: AppButton(
+            body: AppButton.fromProperties(
               label: 'Text',
               leadingIcon: Icons.add,
               onPressed: () {},
@@ -536,7 +537,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: AppButton(
+            body: AppButton.fromProperties(
               label: 'Text',
               trailingIcon: Icons.arrow_forward,
               onPressed: () {},
@@ -554,7 +555,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: AppButton(
+            body: AppButton.fromProperties(
               label: 'No Icons',
               leadingIcon: null,
               trailingIcon: null,
@@ -577,7 +578,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: AppButton(
+            body: AppButton.fromProperties(
               label: 'Complete Button',
               type: ButtonType.primary,
               size: ButtonSize.medium,
@@ -608,7 +609,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: AppButton(
+            body: AppButton.fromProperties(
               label: 'State Change Button',
               isEnabled: true,
               isLoading: false,

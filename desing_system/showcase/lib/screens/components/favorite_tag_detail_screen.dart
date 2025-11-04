@@ -1,3 +1,4 @@
+import 'package:desing_system/atoms/app_favorite_tag/utils/favorite_tag_enums.dart';
 import 'package:flutter/material.dart';
 import 'package:desing_system/desing_system.dart';
 
@@ -30,7 +31,7 @@ class _FavoriteTagDetailScreenState extends State<FavoriteTagDetailScreen> {
               children: [
                 Column(
                   children: [
-                    AppFavoriteTag(
+                    AppFavoriteTag.fromProperties(
                       isFavorite: _isFavoriteFilled,
                       onFavoriteChanged: (value) => setState(() => _isFavoriteFilled = value),
                       size: FavoriteTagSize.medium,
@@ -42,7 +43,7 @@ class _FavoriteTagDetailScreenState extends State<FavoriteTagDetailScreen> {
                 ),
                 Column(
                   children: [
-                    AppFavoriteTag(
+                    AppFavoriteTag.fromProperties(
                       isFavorite: _isFavoriteOutlined,
                       onFavoriteChanged: (value) => setState(() => _isFavoriteOutlined = value),
                       size: FavoriteTagSize.medium,
@@ -77,7 +78,7 @@ AppFavoriteTag(
               children: [
                 Column(
                   children: [
-                    AppFavoriteTag(
+                    AppFavoriteTag.fromProperties(
                       isFavorite: true,
                       onFavoriteChanged: (value) {},
                       size: FavoriteTagSize.small,
@@ -89,7 +90,7 @@ AppFavoriteTag(
                 ),
                 Column(
                   children: [
-                    AppFavoriteTag(
+                    AppFavoriteTag.fromProperties(
                       isFavorite: true,
                       onFavoriteChanged: (value) {},
                       size: FavoriteTagSize.medium,
@@ -101,7 +102,7 @@ AppFavoriteTag(
                 ),
                 Column(
                   children: [
-                    AppFavoriteTag(
+                    AppFavoriteTag.fromProperties(
                       isFavorite: true,
                       onFavoriteChanged: (value) {},
                       size: FavoriteTagSize.large,
@@ -143,7 +144,7 @@ AppFavoriteTag(
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    AppFavoriteTag(
+                    AppFavoriteTag.fromProperties(
                       isFavorite: _isFavoriteAnimated,
                       onFavoriteChanged: (value) => setState(() => _isFavoriteAnimated = value),
                       size: FavoriteTagSize.large,
@@ -151,7 +152,7 @@ AppFavoriteTag(
                       enableAnimation: true,
                     ),
                     const SizedBox(width: 16),
-                    AppFavoriteTag(
+                    AppFavoriteTag.fromProperties(
                       isFavorite: !_isFavoriteAnimated,
                       onFavoriteChanged: (value) => setState(() => _isFavoriteAnimated = !value),
                       size: FavoriteTagSize.large,
@@ -179,7 +180,7 @@ AppFavoriteTag(
               children: [
                 Column(
                   children: [
-                    AppFavoriteTag(
+                    AppFavoriteTag.fromProperties(
                       isFavorite: true,
                       onFavoriteChanged: (value) {},
                       size: FavoriteTagSize.medium,
@@ -193,7 +194,7 @@ AppFavoriteTag(
                 ),
                 Column(
                   children: [
-                    AppFavoriteTag(
+                    AppFavoriteTag.fromProperties(
                       isFavorite: true,
                       onFavoriteChanged: (value) {},
                       size: FavoriteTagSize.medium,
@@ -207,7 +208,7 @@ AppFavoriteTag(
                 ),
                 Column(
                   children: [
-                    AppFavoriteTag(
+                    AppFavoriteTag.fromProperties(
                       isFavorite: true,
                       onFavoriteChanged: (value) {},
                       size: FavoriteTagSize.medium,
@@ -235,7 +236,7 @@ AppFavoriteTag(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                AppFavoriteTag(
+                AppFavoriteTag.fromProperties(
                   isFavorite: true,
                   onFavoriteChanged: (value) {},
                   size: FavoriteTagSize.medium,
@@ -243,7 +244,7 @@ AppFavoriteTag(
                   isEnabled: false,
                 ),
                 const SizedBox(width: 16),
-                AppFavoriteTag(
+                AppFavoriteTag.fromProperties(
                   isFavorite: false,
                   onFavoriteChanged: (value) {},
                   size: FavoriteTagSize.medium,

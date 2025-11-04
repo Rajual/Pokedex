@@ -263,10 +263,10 @@ AppTypeTag(type: PokemonType.water)
         Text('$pokemonName:', style: const TextStyle(fontSize: 14)),
         const SizedBox(width: 8),
         AppTypeTag(type: primary, size: TypeTagSize.small),
-        if (secondary != null) ...[
-          const SizedBox(width: 4),
-          AppTypeTag(type: secondary, size: TypeTagSize.small),
-        ],
+         if (secondary != null) ...[
+           const SizedBox(width: 4),
+           AppTypeTag(type: secondary, size: TypeTagSize.small),
+         ],
       ],
     );
   }

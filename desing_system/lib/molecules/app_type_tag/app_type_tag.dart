@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../theme/app_colors.dart';
 import '../../atoms/app_svg/app_svg.dart';
-import '../../atoms/app_svg/utils/enums.dart';
+import '../../atoms/app_svg/models/app_svg_ui_model.dart';
+import 'models/app_type_tag_ui_model.dart';
 
 enum PokemonType {
   water,
@@ -176,6 +177,33 @@ class AppTypeTag extends StatelessWidget {
     this.fullWidth = false,
   }) : super(key: key);
 
+  /// Default constructor using uiModel (recommended)
+  factory AppTypeTag.fromUiModel(AppTypeTagUiModel uiModel, {Key? key}) {
+    return AppTypeTag(
+      type: uiModel.type,
+      size: uiModel.size,
+      fullWidth: uiModel.fullWidth,
+      key: key,
+    );
+  }
+
+
+
+  /// Factory constructor for backward compatibility
+  factory AppTypeTag.fromProperties({
+    required PokemonType type,
+    TypeTagSize size = TypeTagSize.medium,
+    bool fullWidth = false,
+    Key? key,
+  }) {
+    return AppTypeTag(
+      type: type,
+      size: size,
+      fullWidth: fullWidth,
+      key: key,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -192,9 +220,11 @@ class AppTypeTag extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: size.horizontalPadding),
             child: AppSvg(
-              type.svgAsset,
-              size: size.iconSize,
-              color: Colors.white,
+              uiModel: AppSvgUiModel(
+                assetPath: type.svgAsset,
+                size: size.iconSize,
+                color: Colors.white,
+              ),
             ),
           ),
           Text(

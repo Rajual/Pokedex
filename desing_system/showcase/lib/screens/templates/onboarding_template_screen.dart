@@ -93,7 +93,7 @@ class OnboardingTemplateScreen extends StatelessWidget {
   void _showOnboarding1(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => OnboardingTemplate(
+        builder: (context) => OnboardingTemplate.fromProperties(
           pages: const [
             OnboardingPageModel(
               imagePath: 'assets/ilustration/PokemonCharizard.png',
@@ -121,7 +121,7 @@ class OnboardingTemplateScreen extends StatelessWidget {
   void _showOnboarding2(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => OnboardingTemplate(
+        builder: (context) => OnboardingTemplate.fromProperties(
           pages: const [
             OnboardingPageModel(
               imagePath: 'assets/ilustration/PokemonCharizard.png',
@@ -159,7 +159,7 @@ class OnboardingTemplateScreen extends StatelessWidget {
   void _showOnboarding3(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => OnboardingTemplate(
+        builder: (context) => OnboardingTemplate.fromProperties(
           pages: const [
             OnboardingPageModel(
               imagePath: 'assets/ilustration/PokemonCharizard.png',
@@ -192,7 +192,7 @@ class OnboardingTemplateScreen extends StatelessWidget {
   void _showOnboarding4(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => OnboardingTemplate(
+        builder: (context) => OnboardingTemplate.fromProperties(
           pages: const [
             OnboardingPageModel(
               imagePath: 'assets/ilustration/PokemonCharizard.png',

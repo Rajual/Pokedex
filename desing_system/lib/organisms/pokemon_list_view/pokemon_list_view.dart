@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../molecules/app_card/app_card.dart';
-import '../../molecules/app_card/card_enums.dart';
+import '../../molecules/app_card/models/app_card_ui_model.dart';
 import '../../molecules/app_type_tag/app_type_tag.dart';
 import '../../molecules/search_bar/search_bar.dart' show CustomSearchBar;
+import '../../molecules/search_bar/models/custom_search_bar_ui_model.dart';
+import 'models/pokemon_list_view_ui_model.dart';
 
 /// Modelo de Pokémon para el listado
 /// 
@@ -32,10 +34,11 @@ class Pokemon {
 }
 
 /// Organism que combina SearchBar + ListView de AppCards
-/// 
+///
 /// Ejemplo:
 /// ```dart
 /// PokemonListView(
+///   uiModel: PokemonListViewUiModel(),
 ///   pokemonList: pokemonList,
 ///   onFavoriteChanged: (index, isFav) {
 ///     setState(() => pokemonList[index].isFavorite = isFav);
@@ -46,6 +49,8 @@ class Pokemon {
 /// )
 /// ```
 class PokemonListView extends StatefulWidget {
+  final PokemonListViewUiModel uiModel;
+
   /// Lista de Pokémon a mostrar
   final List<Pokemon> pokemonList;
 
@@ -55,28 +60,38 @@ class PokemonListView extends StatefulWidget {
   /// Callback cuando cambia la búsqueda
   final Function(String query)? onSearchChanged;
 
-  /// Placeholder de búsqueda
-  final String searchPlaceholder;
-
-  /// Tamaño del card
-  final CardSize cardSize;
-
-  /// Mostrar SearchBar
-  final bool showSearchBar;
-
-  /// Si está filtrando
-  final bool isSearching;
-
   const PokemonListView({
+    required this.uiModel,
     required this.pokemonList,
     required this.onFavoriteChanged,
     this.onSearchChanged,
-    this.searchPlaceholder = 'Procurar Pokémon...',
-    this.cardSize = CardSize.medium,
-    this.showSearchBar = true,
-    this.isSearching = false,
     super.key,
   });
+
+  /// Factory constructor for backward compatibility
+  factory PokemonListView.fromProperties({
+    required List<Pokemon> pokemonList,
+    required Function(int index, bool isFavorite) onFavoriteChanged,
+    Function(String query)? onSearchChanged,
+    String searchPlaceholder = 'Procurar Pokémon...',
+    CardSize cardSize = CardSize.medium,
+    bool showSearchBar = true,
+    bool isSearching = false,
+    Key? key,
+  }) {
+    return PokemonListView(
+      uiModel: PokemonListViewUiModel(
+        searchPlaceholder: searchPlaceholder,
+        cardSize: cardSize,
+        showSearchBar: showSearchBar,
+        isSearching: isSearching,
+      ),
+      pokemonList: pokemonList,
+      onFavoriteChanged: onFavoriteChanged,
+      onSearchChanged: onSearchChanged,
+      key: key,
+    );
+  }
 
   @override
   State<PokemonListView> createState() => _PokemonListViewState();
@@ -128,14 +143,14 @@ class _PokemonListViewState extends State<PokemonListView> {
     return Column(
       children: [
         // SearchBar
-        if (widget.showSearchBar)
+        if (widget.uiModel.showSearchBar)
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: CustomSearchBar(
-              hintText: widget.searchPlaceholder,
+              uiModel: CustomSearchBarUiModel(
+                hintText: widget.uiModel.searchPlaceholder,
+              ),
               onChanged: _filterList,
-              showClearIcon: true,
-              showSearchIcon: true,
             ),
           ),
         // Empty state
@@ -183,7 +198,7 @@ class _PokemonListViewState extends State<PokemonListView> {
 
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 12.0),
-                  child: AppCard(
+                  child: AppCard.fromProperties(
                     pokemonName: pokemon.name,
                     pokemonNumber: pokemon.number,
                     primaryType: pokemon.primaryType,
@@ -197,7 +212,7 @@ class _PokemonListViewState extends State<PokemonListView> {
                       });
                       widget.onFavoriteChanged(originalIndex, isFav);
                     },
-                    size: widget.cardSize,
+                    size: widget.uiModel.cardSize,
                     style: CardStyle.elevated,
                   ),
                 );

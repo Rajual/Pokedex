@@ -49,16 +49,16 @@ class _MyHomePageState extends State<MyHomePage> {
               spacing: 8,
               runSpacing: 8,
               children: [
-                AppButton(
+                AppButton.fromProperties(
                   label: 'Primary',
                   onPressed: () {},
                 ),
-                AppButton(
+                AppButton.fromProperties(
                   label: 'Secondary',
                   type: ButtonType.secondary,
                   onPressed: () {},
                 ),
-                AppButton(
+                AppButton.fromProperties(
                   label: 'Tertiary',
                   type: ButtonType.tertiary,
                   onPressed: () {},
@@ -70,17 +70,17 @@ class _MyHomePageState extends State<MyHomePage> {
               spacing: 8,
               runSpacing: 8,
               children: [
-                AppButton(
+                AppButton.fromProperties(
                   label: 'Loading',
                   isLoading: true,
                   onPressed: () {},
                 ),
-                AppButton(
+                AppButton.fromProperties(
                   label: 'Disabled',
                   isEnabled: false,
                   onPressed: () {},
                 ),
-                AppButton(
+                AppButton.fromProperties(
                   label: 'With Icon',
                   leadingIcon: Icons.favorite,
                   onPressed: () {},
@@ -107,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     const Text('Filled', style: TextStyle(fontSize: 12)),
                     const SizedBox(height: 8),
-                    AppFavoriteTag(
+                    AppFavoriteTag.fromProperties(
                       isFavorite: isFavorite,
                       onFavoriteChanged: (value) {
                         setState(() {
@@ -123,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     const Text('Outlined', style: TextStyle(fontSize: 12)),
                     const SizedBox(height: 8),
-                    AppFavoriteTag(
+                    AppFavoriteTag.fromProperties(
                       isFavorite: isFavorite,
                       onFavoriteChanged: (value) {
                         setState(() {
@@ -139,7 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     const Text('Floating', style: TextStyle(fontSize: 12)),
                     const SizedBox(height: 8),
-                    AppFavoriteTag(
+                    AppFavoriteTag.fromProperties(
                       isFavorite: isFavorite,
                       onFavoriteChanged: (value) {
                         setState(() {
@@ -166,7 +166,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     const Text('Small', style: TextStyle(fontSize: 12)),
                     const SizedBox(height: 8),
-                    AppFavoriteTag(
+                    AppFavoriteTag.fromProperties(
                       isFavorite: isFavorite,
                       onFavoriteChanged: (value) {
                         setState(() {
@@ -181,7 +181,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     const Text('Medium', style: TextStyle(fontSize: 12)),
                     const SizedBox(height: 8),
-                    AppFavoriteTag(
+                    AppFavoriteTag.fromProperties(
                       isFavorite: isFavorite,
                       onFavoriteChanged: (value) {
                         setState(() {
@@ -196,7 +196,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     const Text('Large', style: TextStyle(fontSize: 12)),
                     const SizedBox(height: 8),
-                    AppFavoriteTag(
+                    AppFavoriteTag.fromProperties(
                       isFavorite: isFavorite,
                       onFavoriteChanged: (value) {
                         setState(() {
@@ -226,25 +226,25 @@ class _MyHomePageState extends State<MyHomePage> {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  AppImage(
+                  AppImage.fromProperties(
                     'assets/ilustration/PokemonCharizard.png',
                     size: AppImageSize.small,
                     showShadow: true,
                   ),
                   const SizedBox(width: 8),
-                  AppImage(
+                  AppImage.fromProperties(
                     'assets/ilustration/PokemonPikachu.png',
                     size: AppImageSize.small,
                     showShadow: true,
                   ),
                   const SizedBox(width: 8),
-                  AppImage(
+                  AppImage.fromProperties(
                     'assets/ilustration/PokemonSquirtle.png',
                     size: AppImageSize.small,
                     showShadow: true,
                   ),
                   const SizedBox(width: 8),
-                  AppImage(
+                  AppImage.fromProperties(
                     'assets/ilustration/PokemonVenusaur.png',
                     size: AppImageSize.small,
                     showShadow: true,
@@ -265,47 +265,47 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisSpacing: 8,
               crossAxisSpacing: 8,
               children: [
-                AppImage(
+                AppImage.fromProperties(
                   'assets/ilustration/PokemonCharizard.png',
                   size: AppImageSize.medium,
                   showShadow: true,
                 ),
-                AppImage(
+                AppImage.fromProperties(
                   'assets/ilustration/PokemonPikachu.png',
                   size: AppImageSize.medium,
                   showShadow: true,
                 ),
-                AppImage(
+                AppImage.fromProperties(
                   'assets/ilustration/PokemonSquirtle.png',
                   size: AppImageSize.medium,
                   showShadow: true,
                 ),
-                AppImage(
+                AppImage.fromProperties(
                   'assets/ilustration/PokemonVenusaur.png',
                   size: AppImageSize.medium,
                   showShadow: true,
                 ),
-                AppImage(
+                AppImage.fromProperties(
                   'assets/ilustration/PokemonBlastoise.png',
                   size: AppImageSize.medium,
                   showShadow: true,
                 ),
-                AppImage(
+                AppImage.fromProperties(
                   'assets/ilustration/PokemonMew.png',
                   size: AppImageSize.medium,
                   showShadow: true,
                 ),
-                AppImage(
+                AppImage.fromProperties(
                   'assets/ilustration/PokemonLucario.png',
                   size: AppImageSize.medium,
                   showShadow: true,
                 ),
-                AppImage(
+                AppImage.fromProperties(
                   'assets/ilustration/PokemonRayquaza.png',
                   size: AppImageSize.medium,
                   showShadow: true,
                 ),
-                AppImage(
+                AppImage.fromProperties(
                   'assets/ilustration/PokemonZoroark.png',
                   size: AppImageSize.medium,
                   showShadow: true,
@@ -322,19 +322,19 @@ class _MyHomePageState extends State<MyHomePage> {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  AppImage(
+                  AppImage.fromProperties(
                     'assets/ilustration/PokemonCharizard.png',
                     size: AppImageSize.large,
                     borderRadius: 12,
                   ),
                   const SizedBox(width: 8),
-                  AppImage(
+                  AppImage.fromProperties(
                     'assets/ilustration/PokemonPikachu.png',
                     size: AppImageSize.large,
                     borderRadius: 12,
                   ),
                   const SizedBox(width: 8),
-                  AppImage(
+                  AppImage.fromProperties(
                     'assets/ilustration/PokemonSquirtle.png',
                     size: AppImageSize.large,
                     borderRadius: 12,
@@ -359,12 +359,42 @@ class _MyHomePageState extends State<MyHomePage> {
               spacing: 8,
               runSpacing: 8,
               children: [
-                AppTypeTag(type: PokemonType.fire, size: TypeTagSize.small),
-                AppTypeTag(type: PokemonType.water, size: TypeTagSize.small),
-                AppTypeTag(type: PokemonType.grass, size: TypeTagSize.small),
-                AppTypeTag(type: PokemonType.electric, size: TypeTagSize.small),
-                AppTypeTag(type: PokemonType.ice, size: TypeTagSize.small),
-                AppTypeTag(type: PokemonType.flying, size: TypeTagSize.small),
+                AppTypeTag.fromUiModel(
+                  uiModel: AppTypeTagUiModel(
+                    type: PokemonType.fire,
+                    size: TypeTagSize.small,
+                  ),
+                ),
+                AppTypeTag.fromUiModel(
+                  uiModel: AppTypeTagUiModel(
+                    type: PokemonType.water,
+                    size: TypeTagSize.small,
+                  ),
+                ),
+                AppTypeTag.fromUiModel(
+                  uiModel: AppTypeTagUiModel(
+                    type: PokemonType.grass,
+                    size: TypeTagSize.small,
+                  ),
+                ),
+                AppTypeTag.fromUiModel(
+                  uiModel: AppTypeTagUiModel(
+                    type: PokemonType.electric,
+                    size: TypeTagSize.small,
+                  ),
+                ),
+                AppTypeTag.fromUiModel(
+                  uiModel: AppTypeTagUiModel(
+                    type: PokemonType.ice,
+                    size: TypeTagSize.small,
+                  ),
+                ),
+                AppTypeTag.fromUiModel(
+                  uiModel: AppTypeTagUiModel(
+                    type: PokemonType.flying,
+                    size: TypeTagSize.small,
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 16),
@@ -377,14 +407,46 @@ class _MyHomePageState extends State<MyHomePage> {
               spacing: 8,
               runSpacing: 8,
               children: [
-                AppTypeTag(type: PokemonType.fire),
-                AppTypeTag(type: PokemonType.water),
-                AppTypeTag(type: PokemonType.grass),
-                AppTypeTag(type: PokemonType.electric),
-                AppTypeTag(type: PokemonType.dragon),
-                AppTypeTag(type: PokemonType.psychic),
-                AppTypeTag(type: PokemonType.fighting),
-                AppTypeTag(type: PokemonType.dark),
+                AppTypeTag.fromUiModel(
+                  uiModel: AppTypeTagUiModel(
+                    type: PokemonType.fire,
+                  ),
+                ),
+                AppTypeTag.fromUiModel(
+                  uiModel: AppTypeTagUiModel(
+                    type: PokemonType.water,
+                  ),
+                ),
+                AppTypeTag.fromUiModel(
+                  uiModel: AppTypeTagUiModel(
+                    type: PokemonType.grass,
+                  ),
+                ),
+                AppTypeTag.fromUiModel(
+                  uiModel: AppTypeTagUiModel(
+                    type: PokemonType.electric,
+                  ),
+                ),
+                AppTypeTag.fromUiModel(
+                  uiModel: AppTypeTagUiModel(
+                    type: PokemonType.dragon,
+                  ),
+                ),
+                AppTypeTag.fromUiModel(
+                  uiModel: AppTypeTagUiModel(
+                    type: PokemonType.psychic,
+                  ),
+                ),
+                AppTypeTag.fromUiModel(
+                  uiModel: AppTypeTagUiModel(
+                    type: PokemonType.fighting,
+                  ),
+                ),
+                AppTypeTag.fromUiModel(
+                  uiModel: AppTypeTagUiModel(
+                    type: PokemonType.dark,
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 16),
@@ -397,12 +459,42 @@ class _MyHomePageState extends State<MyHomePage> {
               spacing: 8,
               runSpacing: 8,
               children: [
-                AppTypeTag(type: PokemonType.bug, size: TypeTagSize.large),
-                AppTypeTag(type: PokemonType.rock, size: TypeTagSize.large),
-                AppTypeTag(type: PokemonType.ground, size: TypeTagSize.large),
-                AppTypeTag(type: PokemonType.poison, size: TypeTagSize.large),
-                AppTypeTag(type: PokemonType.ghost, size: TypeTagSize.large),
-                AppTypeTag(type: PokemonType.steel, size: TypeTagSize.large),
+                AppTypeTag.fromUiModel(
+                  uiModel: AppTypeTagUiModel(
+                    type: PokemonType.bug,
+                    size: TypeTagSize.large,
+                  ),
+                ),
+                AppTypeTag.fromUiModel(
+                  uiModel: AppTypeTagUiModel(
+                    type: PokemonType.rock,
+                    size: TypeTagSize.large,
+                  ),
+                ),
+                AppTypeTag.fromUiModel(
+                  uiModel: AppTypeTagUiModel(
+                    type: PokemonType.ground,
+                    size: TypeTagSize.large,
+                  ),
+                ),
+                AppTypeTag.fromUiModel(
+                  uiModel: AppTypeTagUiModel(
+                    type: PokemonType.poison,
+                    size: TypeTagSize.large,
+                  ),
+                ),
+                AppTypeTag.fromUiModel(
+                  uiModel: AppTypeTagUiModel(
+                    type: PokemonType.ghost,
+                    size: TypeTagSize.large,
+                  ),
+                ),
+                AppTypeTag.fromUiModel(
+                  uiModel: AppTypeTagUiModel(
+                    type: PokemonType.steel,
+                    size: TypeTagSize.large,
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 16),
@@ -411,9 +503,19 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
             ),
             const SizedBox(height: 8),
-            AppTypeTag(type: PokemonType.fairy, fullWidth: true),
+            AppTypeTag.fromUiModel(
+              uiModel: AppTypeTagUiModel(
+                type: PokemonType.fairy,
+                fullWidth: true,
+              ),
+            ),
             const SizedBox(height: 8),
-            AppTypeTag(type: PokemonType.normal, fullWidth: true),
+            AppTypeTag.fromUiModel(
+              uiModel: AppTypeTagUiModel(
+                type: PokemonType.normal,
+                fullWidth: true,
+              ),
+            ),
             const SizedBox(height: 32),
 
             // AppCard Component
@@ -431,7 +533,7 @@ class _MyHomePageState extends State<MyHomePage> {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  AppCard(
+                  AppCard.fromProperties(
                     pokemonName: 'Bulbasaur',
                     pokemonNumber: 1,
                     primaryType: PokemonType.grass,
@@ -446,7 +548,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: CardStyle.elevated,
                   ),
                   const SizedBox(width: 8),
-                  AppCard(
+                  AppCard.fromProperties(
                     pokemonName: 'Bulbasaur',
                     pokemonNumber: 1,
                     primaryType: PokemonType.grass,
@@ -461,7 +563,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: CardStyle.elevated,
                   ),
                   const SizedBox(width: 8),
-                  AppCard(
+                  AppCard.fromProperties(
                     pokemonName: 'Bulbasaur',
                     pokemonNumber: 1,
                     primaryType: PokemonType.grass,
@@ -488,7 +590,7 @@ class _MyHomePageState extends State<MyHomePage> {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  AppCard(
+                  AppCard.fromProperties(
                     pokemonName: 'Charmeleon',
                     pokemonNumber: 5,
                     primaryType: PokemonType.fire,
@@ -500,7 +602,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: CardStyle.elevated,
                   ),
                   const SizedBox(width: 8),
-                  AppCard(
+                  AppCard.fromProperties(
                     pokemonName: 'Squirtle',
                     pokemonNumber: 7,
                     primaryType: PokemonType.water,
@@ -512,7 +614,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: CardStyle.elevated,
                   ),
                   const SizedBox(width: 8),
-                  AppCard(
+                  AppCard.fromProperties(
                     pokemonName: 'Pikachu',
                     pokemonNumber: 25,
                     primaryType: PokemonType.electric,
@@ -536,7 +638,7 @@ class _MyHomePageState extends State<MyHomePage> {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  AppCard(
+                  AppCard.fromProperties(
                     pokemonName: 'Bulbasaur',
                     pokemonNumber: 1,
                     primaryType: PokemonType.grass,
@@ -548,7 +650,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: CardStyle.elevated,
                   ),
                   const SizedBox(width: 8),
-                  AppCard(
+                  AppCard.fromProperties(
                     pokemonName: 'Bulbasaur',
                     pokemonNumber: 1,
                     primaryType: PokemonType.grass,
@@ -560,7 +662,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: CardStyle.outlined,
                   ),
                   const SizedBox(width: 8),
-                  AppCard(
+                  AppCard.fromProperties(
                     pokemonName: 'Bulbasaur',
                     pokemonNumber: 1,
                     primaryType: PokemonType.grass,

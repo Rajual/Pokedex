@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../theme/app_colors.dart';
+import 'models/dot_indicator_ui_model.dart';
 
 /// Tamaño del DotIndicator
 enum DotIndicatorSize {
@@ -15,65 +16,69 @@ enum DotIndicatorVariant {
 }
 
 /// Componente DotIndicator para indicar paginación o progreso
-/// 
+///
 /// Soporta dos variantes:
 /// - dots: Puntos circulares
 /// - bars: Barras horizontales
-/// 
+///
 /// Ejemplo de uso:
 /// ```dart
 /// DotIndicator(
-///   count: 5,
-///   currentIndex: 2,
-///   variant: DotIndicatorVariant.dots,
-///   size: DotIndicatorSize.medium,
+///   uiModel: DotIndicatorUiModel(
+///     count: 5,
+///     currentIndex: 2,
+///     variant: DotIndicatorVariant.dots,
+///     size: DotIndicatorSize.medium,
+///   ),
+///   onTap: (index) => print('Tapped $index'),
 /// )
 /// ```
 class DotIndicator extends StatelessWidget {
-  /// Número total de indicadores
-  final int count;
-
-  /// Índice actual (0-indexed)
-  final int currentIndex;
-
-  /// Tamaño del indicador
-  final DotIndicatorSize size;
-
-  /// Variante visual
-  final DotIndicatorVariant variant;
-
-  /// Color del indicador activo
-  final Color? activeColor;
-
-  /// Color del indicador inactivo
-  final Color? inactiveColor;
-
-  /// Espaciado entre indicadores
-  final double? spacing;
+  /// UI Model configuration
+  final DotIndicatorUiModel uiModel;
 
   /// Callback cuando se toca un indicador
   final void Function(int index)? onTap;
 
   const DotIndicator({
     super.key,
-    required this.count,
-    required this.currentIndex,
-    this.size = DotIndicatorSize.medium,
-    this.variant = DotIndicatorVariant.dots,
-    this.activeColor,
-    this.inactiveColor,
-    this.spacing,
+    required this.uiModel,
     this.onTap,
-  })  : assert(count > 0, 'count debe ser mayor a 0'),
-        assert(currentIndex >= 0 && currentIndex < count,
-            'currentIndex debe estar entre 0 y count-1');
+  });
+
+  /// Factory constructor for backward compatibility
+  factory DotIndicator.fromProperties({
+    required int count,
+    required int currentIndex,
+    DotIndicatorSize size = DotIndicatorSize.medium,
+    DotIndicatorVariant variant = DotIndicatorVariant.dots,
+    Color? activeColor,
+    Color? inactiveColor,
+    double? spacing,
+    void Function(int index)? onTap,
+    Key? key,
+  }) {
+    return DotIndicator(
+      uiModel: DotIndicatorUiModel(
+        count: count,
+        currentIndex: currentIndex,
+        size: size,
+        variant: variant,
+        activeColor: activeColor,
+        inactiveColor: inactiveColor,
+        spacing: spacing,
+      ),
+      onTap: onTap,
+      key: key,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: List.generate(
-        count,
+        uiModel.count,
         (index) => Padding(
           padding: EdgeInsets.symmetric(horizontal: _getSpacing() / 2),
           child: GestureDetector(
@@ -86,9 +91,9 @@ class DotIndicator extends StatelessWidget {
   }
 
   Widget _buildIndicator(int index) {
-    final isActive = index == currentIndex;
+    final isActive = index == uiModel.currentIndex;
 
-    return switch (variant) {
+    return switch (uiModel.variant) {
       DotIndicatorVariant.dots => _buildDot(isActive),
       DotIndicatorVariant.bars => _buildBar(isActive),
     };
@@ -121,7 +126,7 @@ class DotIndicator extends StatelessWidget {
   }
 
   double _getDotSize(bool isActive) {
-    final baseSize = switch (size) {
+    final baseSize = switch (uiModel.size) {
       DotIndicatorSize.small => 6.0,
       DotIndicatorSize.medium => 8.0,
       DotIndicatorSize.large => 10.0,
@@ -131,7 +136,7 @@ class DotIndicator extends StatelessWidget {
   }
 
   double _getBarWidth(bool isActive) {
-    final baseWidth = switch (size) {
+    final baseWidth = switch (uiModel.size) {
       DotIndicatorSize.small => 16.0,
       DotIndicatorSize.medium => 20.0,
       DotIndicatorSize.large => 24.0,
@@ -141,7 +146,7 @@ class DotIndicator extends StatelessWidget {
   }
 
   double _getBarHeight() {
-    return switch (size) {
+    return switch (uiModel.size) {
       DotIndicatorSize.small => 4.0,
       DotIndicatorSize.medium => 5.0,
       DotIndicatorSize.large => 6.0,
@@ -149,9 +154,9 @@ class DotIndicator extends StatelessWidget {
   }
 
   double _getSpacing() {
-    if (spacing != null) return spacing!;
+    if (uiModel.spacing != null) return uiModel.spacing!;
 
-    return switch (size) {
+    return switch (uiModel.size) {
       DotIndicatorSize.small => 8.0,
       DotIndicatorSize.medium => 12.0,
       DotIndicatorSize.large => 16.0,
@@ -159,10 +164,10 @@ class DotIndicator extends StatelessWidget {
   }
 
   Color _getActiveColor() {
-    return activeColor ?? AppColors.primary;
+    return uiModel.activeColor ?? AppColors.primary;
   }
 
   Color _getInactiveColor() {
-    return inactiveColor ?? AppColors.gray300;
+    return uiModel.inactiveColor ?? AppColors.gray300;
   }
 }

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import '../../atoms/app_favorite_tag/app_favorite_tag.dart';
+import '../../atoms/app_favorite_tag/models/app_favorite_tag_ui_model.dart';
 import '../../atoms/app_favorite_tag/utils/favorite_tag_enums.dart';
 import '../../atoms/app_image/app_image.dart';
+import '../../atoms/app_image/models/app_image_ui_model.dart';
 import '../app_type_tag/app_type_tag.dart';
-import 'card_enums.dart';
+import 'models/app_card_ui_model.dart';
 
 /// Card component that displays a Pokemon with:
 /// - Background with gradient or solid color
@@ -16,98 +18,95 @@ import 'card_enums.dart';
 /// Example:
 /// ```dart
 /// AppCard(
-///   pokemonName: 'Bulbasaur',
-///   pokemonNumber: 1,
-///   primaryType: PokemonType.grass,
-///   secondaryType: PokemonType.poison,
-///   imagePath: 'assets/ilustration/PokemonBulbasaur.png',
-///   backgroundColor: Color(0xFF78C850),
-///   isFavorite: true,
+///   uiModel: AppCardUiModel(
+///     pokemonName: 'Bulbasaur',
+///     pokemonNumber: 1,
+///     primaryType: PokemonType.grass,
+///     secondaryType: PokemonType.poison,
+///     imagePath: 'assets/ilustration/PokemonBulbasaur.png',
+///     backgroundColor: Color(0xFF78C850),
+///     isFavorite: true,
+///   ),
 ///   onFavoriteChanged: (value) {
 ///     setState(() => isFavorite = value);
 ///   },
+///   onTap: () => print('Card tapped'),
 /// )
 /// ```
 class AppCard extends StatelessWidget {
-  /// Nome do Pokémon
-  final String pokemonName;
-
-  /// Número da Pokédex
-  final int pokemonNumber;
-
-  /// Tipo primário
-  final PokemonType primaryType;
-
-  /// Tipo secundário (opcional)
-  final PokemonType? secondaryType;
-
-  /// Caminho da imagem do Pokémon
-  final String imagePath;
-
-  /// Cor de fundo do card
-  final Color backgroundColor;
-
-  /// Se está marcado como favorito
-  final bool isFavorite;
+  final AppCardUiModel uiModel;
 
   /// Callback quando o favorito muda
   final Function(bool) onFavoriteChanged;
 
-  /// Tamaño do card
-  final CardSize size;
-
-  /// Estilo do card
-  final CardStyle style;
-
-  /// Elevação do card
-  final CardElevation elevation;
-
   /// Callback ao tocar no card
   final VoidCallback? onTap;
 
-  /// Se o card está habilitado
-  final bool isEnabled;
-
-  /// Mostrar número da Pokédex
-  final bool showPokemonNumber;
-
   const AppCard({
-    required this.pokemonName,
-    required this.pokemonNumber,
-    required this.primaryType,
-    required this.imagePath,
-    required this.backgroundColor,
-    required this.isFavorite,
+    required this.uiModel,
     required this.onFavoriteChanged,
-    this.secondaryType,
-    this.size = CardSize.medium,
-    this.style = CardStyle.elevated,
-    this.elevation = CardElevation.medium,
     this.onTap,
-    this.isEnabled = true,
-    this.showPokemonNumber = true,
     super.key,
   });
 
+  /// Factory constructor for backward compatibility
+  factory AppCard.fromProperties({
+    required String pokemonName,
+    required int pokemonNumber,
+    required PokemonType primaryType,
+    required String imagePath,
+    required Color backgroundColor,
+    required bool isFavorite,
+    required Function(bool) onFavoriteChanged,
+    PokemonType? secondaryType,
+    CardSize size = CardSize.medium,
+    CardStyle style = CardStyle.elevated,
+    CardElevation elevation = CardElevation.medium,
+    VoidCallback? onTap,
+    bool isEnabled = true,
+    bool showPokemonNumber = true,
+    Key? key,
+  }) {
+    return AppCard(
+      uiModel: AppCardUiModel(
+        pokemonName: pokemonName,
+        pokemonNumber: pokemonNumber,
+        primaryType: primaryType,
+        secondaryType: secondaryType,
+        imagePath: imagePath,
+        backgroundColor: backgroundColor,
+        isFavorite: isFavorite,
+        size: size,
+        style: style,
+        elevation: elevation,
+        isEnabled: isEnabled,
+        showPokemonNumber: showPokemonNumber,
+      ),
+      onFavoriteChanged: onFavoriteChanged,
+      onTap: onTap,
+      key: key,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final cardWidth = size.width;
-    final cardHeight = size.height;
-    final padding = size.padding;
-    final borderRadius = size.borderRadius;
+    final cardWidth = uiModel.size.width;
+    final cardHeight = uiModel.size.height;
+    final padding = uiModel.size.padding;
+    final borderRadius = uiModel.size.borderRadius;
 
     // Format Pokemon number
-    final pokemonNumberStr = pokemonNumber.toString().padLeft(4, '0');
+    final pokemonNumberStr = uiModel.pokemonNumber.toString().padLeft(4, '0');
 
     // Build the card content
     Widget cardContent = Container(
       width: cardWidth,
       height: cardHeight,
       decoration: BoxDecoration(
-        color: backgroundColor,
+        color: uiModel.backgroundColor,
         borderRadius: BorderRadius.circular(borderRadius),
-        border: style == CardStyle.outlined
-            ? Border.all(color: backgroundColor.withOpacity(0.5), width: 2)
+        border: uiModel.style == CardStyle.outlined
+            ? Border.all(color: uiModel.backgroundColor.withOpacity(0.5), width: 2)
             : null,
       ),
       child: Padding(
@@ -121,7 +120,7 @@ class AppCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Pokemon number
-                if (showPokemonNumber)
+                if (uiModel.showPokemonNumber)
                   Expanded(
                     child: Text(
                       'Nº$pokemonNumberStr',
@@ -138,15 +137,15 @@ class AppCard extends StatelessWidget {
                 SizedBox(
                   width: 32,
                   height: 32,
-                  child: AppFavoriteTag(
-                    isFavorite: isFavorite,
+                  child: AppFavoriteTag.fromProperties(
+                    isFavorite: uiModel.isFavorite,
                     onFavoriteChanged: onFavoriteChanged,
                     size: FavoriteTagSize.small,
                     style: FavoriteTagStyle.outlined,
                     activeColor: Colors.white,
                     inactiveColor: Colors.white70,
                     enableAnimation: true,
-                    isEnabled: isEnabled,
+                    isEnabled: uiModel.isEnabled,
                   ),
                 ),
               ],
@@ -157,11 +156,13 @@ class AppCard extends StatelessWidget {
               flex: 2,
               child: Center(
                 child: AppImage(
-                  imagePath,
-                  size: AppImageSize.medium,
-                  fit: AppImageFit.contain,
-                  showShadow: false,
-                  backgroundColor: Colors.transparent,
+                  uiModel: AppImageUiModel(
+                    assetPath: uiModel.imagePath,
+                    size: AppImageSize.medium,
+                    fit: AppImageFit.contain,
+                    showShadow: false,
+                    backgroundColor: Colors.transparent,
+                  ),
                 ),
               ),
             ),
@@ -175,7 +176,7 @@ class AppCard extends StatelessWidget {
                 children: [
                   // Pokemon name
                   Text(
-                    pokemonName,
+                    uiModel.pokemonName,
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -194,12 +195,12 @@ class AppCard extends StatelessWidget {
                         runSpacing: 2,
                         children: [
                           AppTypeTag(
-                            type: primaryType,
+                            type: uiModel.primaryType,
                             size: TypeTagSize.small,
                           ),
-                          if (secondaryType != null)
+                          if (uiModel.secondaryType != null)
                             AppTypeTag(
-                              type: secondaryType!,
+                              type: uiModel.secondaryType!,
                               size: TypeTagSize.small,
                             ),
                         ],
@@ -215,16 +216,16 @@ class AppCard extends StatelessWidget {
     );
 
     // Apply onTap and elevation styling
-    if (style == CardStyle.elevated) {
+    if (uiModel.style == CardStyle.elevated) {
       cardContent = Material(
-        elevation: elevation.value,
+        elevation: uiModel.elevation.value,
         borderRadius: BorderRadius.circular(borderRadius),
         child: cardContent,
       );
     }
 
     // Wrap with GestureDetector if onTap is provided
-    if (onTap != null && isEnabled) {
+    if (onTap != null && uiModel.isEnabled) {
       cardContent = GestureDetector(
         onTap: onTap,
         child: cardContent,

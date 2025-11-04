@@ -4,51 +4,30 @@ import '../../atoms/app_button/utils/enum.dart';
 import '../../atoms/app_image/app_image.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_dimensions.dart';
+import 'models/empty_state_template_ui_model.dart';
 
 /// Template para mostrar estados vacíos o informativos
-/// 
+///
 /// Reutiliza:
 /// - AppImage: Para la ilustración
 /// - AppButton: Para acciones (opcional)
 /// - TextTheme: Para título, descripción y hint
-/// 
+///
 /// Ejemplo de uso:
 /// ```dart
 /// EmptyStateTemplate(
-///   imagePath: 'assets/ilustration/PokemonMagikarp.png',
-///   title: 'No has marcado ningún\nPokémon como favorito',
-///   description: 'Haz clic en el ícono de corazón de tus\nPokémon favoritos y aparecerán aquí.',
-///   actionLabel: 'Explorar Pokémon',
-///   onAction: () => Navigator.push(...),
+///   uiModel: EmptyStateTemplateUiModel(
+///     imagePath: 'assets/ilustration/PokemonMagikarp.png',
+///     title: 'No has marcado ningún\nPokémon como favorito',
+///     description: 'Haz clic en el ícono de corazón de tus\nPokémon favoritos y aparecerán aquí.',
+///     actionLabel: 'Explorar Pokémon',
+///     onAction: () => Navigator.push(...),
+///   ),
 /// )
 /// ```
 class EmptyStateTemplate extends StatelessWidget {
-  /// Ruta de la imagen (ilustración)
-  final String imagePath;
-
-  /// Título principal
-  final String title;
-
-  /// Descripción (opcional)
-  final String? description;
-
-  /// Texto de hint/ayuda adicional (opcional)
-  final String? hint;
-
-  /// Etiqueta del botón de acción (opcional)
-  final String? actionLabel;
-
-  /// Callback del botón de acción
-  final VoidCallback? onAction;
-
-  /// Etiqueta del botón secundario (opcional)
-  final String? secondaryActionLabel;
-
-  /// Callback del botón secundario
-  final VoidCallback? onSecondaryAction;
-
-  /// Tamaño de la imagen
-  final AppImageSize imageSize;
+  /// UI Model configuration
+  final EmptyStateTemplateUiModel uiModel;
 
   /// Color de fondo
   final Color? backgroundColor;
@@ -56,35 +35,49 @@ class EmptyStateTemplate extends StatelessWidget {
   /// Alineación del contenido
   final CrossAxisAlignment alignment;
 
-  /// Padding horizontal
-  final double horizontalPadding;
-
-  /// Espaciado entre elementos
-  final double spacing;
-
   const EmptyStateTemplate({
     super.key,
-    required this.imagePath,
-    required this.title,
-    this.description,
-    this.hint,
-    this.actionLabel,
-    this.onAction,
-    this.secondaryActionLabel,
-    this.onSecondaryAction,
-    this.imageSize = AppImageSize.extraLarge,
+    required this.uiModel,
     this.backgroundColor,
     this.alignment = CrossAxisAlignment.center,
-    this.horizontalPadding = 24.0,
-    this.spacing = 16.0,
-  }) : assert(
-          actionLabel == null || onAction != null,
-          'onAction debe estar definido si actionLabel está presente',
-        ),
-        assert(
-          secondaryActionLabel == null || onSecondaryAction != null,
-          'onSecondaryAction debe estar definido si secondaryActionLabel está presente',
-        );
+  });
+
+  /// Factory constructor for backward compatibility
+  factory EmptyStateTemplate.fromProperties({
+    required String imagePath,
+    required String title,
+    String? description,
+    String? hint,
+    String? actionLabel,
+    VoidCallback? onAction,
+    String? secondaryActionLabel,
+    VoidCallback? onSecondaryAction,
+    AppImageSize imageSize = AppImageSize.extraLarge,
+    Color? backgroundColor,
+    CrossAxisAlignment alignment = CrossAxisAlignment.center,
+    double horizontalPadding = 24.0,
+    double spacing = 16.0,
+    Key? key,
+  }) {
+    return EmptyStateTemplate(
+      uiModel: EmptyStateTemplateUiModel(
+        imagePath: imagePath,
+        title: title,
+        description: description,
+        hint: hint,
+        actionLabel: actionLabel,
+        secondaryActionLabel: secondaryActionLabel,
+        imageSize: imageSize,
+        horizontalPadding: horizontalPadding,
+        spacing: spacing,
+        onAction: onAction,
+        onSecondaryAction: onSecondaryAction,
+      ),
+      backgroundColor: backgroundColor,
+      alignment: alignment,
+      key: key,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +89,7 @@ class EmptyStateTemplate extends StatelessWidget {
         child: Center(
           child: SingleChildScrollView(
             padding: EdgeInsets.symmetric(
-              horizontal: horizontalPadding,
+              horizontal: uiModel.horizontalPadding,
               vertical: AppDimensions.xl,
             ),
             child: Column(
@@ -104,17 +97,17 @@ class EmptyStateTemplate extends StatelessWidget {
               crossAxisAlignment: alignment,
               children: [
                 // Imagen/Ilustración
-                AppImage(
-                  imagePath,
-                  size: imageSize,
+                AppImage.fromProperties(
+                  uiModel.imagePath,
+                  size: uiModel.imageSize,
                   showErrorIcon: false,
                 ),
 
-                SizedBox(height: spacing * 2),
+                SizedBox(height: uiModel.spacing * 2),
 
                 // Título
                 Text(
-                  title,
+                  uiModel.title,
                   style: theme.textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: AppColors.gray900,
@@ -122,12 +115,12 @@ class EmptyStateTemplate extends StatelessWidget {
                   textAlign: _getTextAlign(),
                 ),
 
-                if (description != null) ...[
-                  SizedBox(height: spacing),
+                if (uiModel.description != null) ...[
+                  SizedBox(height: uiModel.spacing),
 
                   // Descripción
                   Text(
-                    description!,
+                    uiModel.description!,
                     style: theme.textTheme.bodyLarge?.copyWith(
                       color: AppColors.gray600,
                     ),
@@ -135,12 +128,12 @@ class EmptyStateTemplate extends StatelessWidget {
                   ),
                 ],
 
-                if (hint != null) ...[
-                  SizedBox(height: spacing / 2),
+                if (uiModel.hint != null) ...[
+                  SizedBox(height: uiModel.spacing / 2),
 
                   // Hint adicional
                   Text(
-                    hint!,
+                    uiModel.hint!,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: AppColors.gray500,
                       fontStyle: FontStyle.italic,
@@ -150,8 +143,8 @@ class EmptyStateTemplate extends StatelessWidget {
                 ],
 
                 // Botones de acción
-                if (actionLabel != null || secondaryActionLabel != null) ...[
-                  SizedBox(height: spacing * 2),
+                if (uiModel.actionLabel != null || uiModel.secondaryActionLabel != null) ...[
+                  SizedBox(height: uiModel.spacing * 2),
 
                   _buildActions(),
                 ],
@@ -165,10 +158,10 @@ class EmptyStateTemplate extends StatelessWidget {
 
   Widget _buildActions() {
     // Si solo hay un botón
-    if (actionLabel != null && secondaryActionLabel == null) {
-      return AppButton(
-        label: actionLabel!,
-        onPressed: onAction,
+    if (uiModel.actionLabel != null && uiModel.secondaryActionLabel == null) {
+      return AppButton.fromProperties(
+        label: uiModel.actionLabel!,
+        onPressed: uiModel.onAction,
         type: ButtonType.primary,
         size: ButtonSize.large,
         width: double.infinity,
@@ -176,10 +169,10 @@ class EmptyStateTemplate extends StatelessWidget {
     }
 
     // Si solo hay botón secundario
-    if (actionLabel == null && secondaryActionLabel != null) {
-      return AppButton(
-        label: secondaryActionLabel!,
-        onPressed: onSecondaryAction,
+    if (uiModel.actionLabel == null && uiModel.secondaryActionLabel != null) {
+      return AppButton.fromProperties(
+        label: uiModel.secondaryActionLabel!,
+        onPressed: uiModel.onSecondaryAction,
         type: ButtonType.secondary,
         size: ButtonSize.large,
         width: double.infinity,
@@ -189,17 +182,17 @@ class EmptyStateTemplate extends StatelessWidget {
     // Si hay ambos botones
     return Column(
       children: [
-        AppButton(
-          label: actionLabel!,
-          onPressed: onAction,
+        AppButton.fromProperties(
+          label: uiModel.actionLabel!,
+          onPressed: uiModel.onAction,
           type: ButtonType.primary,
           size: ButtonSize.large,
           width: double.infinity,
         ),
-        SizedBox(height: spacing),
-        AppButton(
-          label: secondaryActionLabel!,
-          onPressed: onSecondaryAction,
+        SizedBox(height: uiModel.spacing),
+        AppButton.fromProperties(
+          label: uiModel.secondaryActionLabel!,
+          onPressed: uiModel.onSecondaryAction,
           type: ButtonType.secondary,
           size: ButtonSize.large,
           width: double.infinity,

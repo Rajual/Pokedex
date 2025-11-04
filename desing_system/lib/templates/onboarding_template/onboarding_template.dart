@@ -6,32 +6,35 @@ import '../../atoms/dot_indicator/dot_indicator.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_dimensions.dart';
 import 'onboarding_page_model.dart';
+import 'models/onboarding_template_ui_model.dart';
 
 /// Template para pantallas de onboarding con scroll horizontal
-/// 
+///
 /// Características:
 /// - PageView para navegación horizontal
 /// - DotIndicator para mostrar progreso
 /// - AppImage para las ilustraciones
 /// - AppButton para navegación
 /// - TextTheme nativo de Flutter para textos
-/// 
+///
 /// Ejemplo de uso:
 /// ```dart
 /// OnboardingTemplate(
-///   pages: [
-///     OnboardingPageModel(
-///       imagePath: 'assets/onboarding1.png',
-///       title: 'Bienvenido',
-///       description: 'Descripción...',
-///     ),
-///   ],
+///   uiModel: OnboardingTemplateUiModel(
+///     pages: [
+///       OnboardingPageModel(
+///         imagePath: 'assets/onboarding1.png',
+///         title: 'Bienvenido',
+///         description: 'Descripción...',
+///       ),
+///     ],
+///   ),
 ///   onFinish: () => Navigator.pushReplacement(...),
 /// )
 /// ```
 class OnboardingTemplate extends StatefulWidget {
-  /// Lista de páginas del onboarding
-  final List<OnboardingPageModel> pages;
+  /// UI Model configuration
+  final OnboardingTemplateUiModel uiModel;
 
   /// Callback cuando se completa el onboarding
   final VoidCallback onFinish;
@@ -39,40 +42,43 @@ class OnboardingTemplate extends StatefulWidget {
   /// Callback opcional cuando se salta el onboarding
   final VoidCallback? onSkip;
 
-  /// Texto del botón de continuar (default: "Continuar")
-  final String continueButtonText;
-
-  /// Texto del botón de saltar (default: "Saltar")
-  final String skipButtonText;
-
-  /// Texto del botón final (default: "Empezar")
-  final String finishButtonText;
-
-  /// Tamaño del DotIndicator
-  final DotIndicatorSize indicatorSize;
-
-  /// Variante del DotIndicator
-  final DotIndicatorVariant indicatorVariant;
-
-  /// Si se muestra el botón de saltar
-  final bool showSkipButton;
-
-  /// Padding horizontal del contenido
-  final double horizontalPadding;
-
   const OnboardingTemplate({
     super.key,
-    required this.pages,
+    required this.uiModel,
     required this.onFinish,
     this.onSkip,
-    this.continueButtonText = 'Continuar',
-    this.skipButtonText = 'Saltar',
-    this.finishButtonText = 'Empezamos',
-    this.indicatorSize = DotIndicatorSize.medium,
-    this.indicatorVariant = DotIndicatorVariant.dots,
-    this.showSkipButton = true,
-    this.horizontalPadding = 24.0,
-  }) : assert(pages.length > 0, 'pages debe tener al menos un elemento');
+  });
+
+  /// Factory constructor for backward compatibility
+  factory OnboardingTemplate.fromProperties({
+    required List<OnboardingPageModel> pages,
+    required VoidCallback onFinish,
+    VoidCallback? onSkip,
+    String continueButtonText = 'Continuar',
+    String skipButtonText = 'Saltar',
+    String finishButtonText = 'Empezamos',
+    DotIndicatorSize indicatorSize = DotIndicatorSize.medium,
+    DotIndicatorVariant indicatorVariant = DotIndicatorVariant.dots,
+    bool showSkipButton = true,
+    double horizontalPadding = 24.0,
+    Key? key,
+  }) {
+    return OnboardingTemplate(
+      uiModel: OnboardingTemplateUiModel(
+        pages: pages,
+        continueButtonText: continueButtonText,
+        skipButtonText: skipButtonText,
+        finishButtonText: finishButtonText,
+        indicatorSize: indicatorSize.name,
+        indicatorVariant: indicatorVariant.name,
+        showSkipButton: showSkipButton,
+        horizontalPadding: horizontalPadding,
+      ),
+      onFinish: onFinish,
+      onSkip: onSkip,
+      key: key,
+    );
+  }
 
   @override
   State<OnboardingTemplate> createState() => _OnboardingTemplateState();
@@ -101,7 +107,7 @@ class _OnboardingTemplateState extends State<OnboardingTemplate> {
   }
 
   void _nextPage() {
-    if (_currentPage < widget.pages.length - 1) {
+    if (_currentPage < widget.uiModel.pages.length - 1) {
       _pageController.nextPage(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
@@ -119,7 +125,7 @@ class _OnboardingTemplateState extends State<OnboardingTemplate> {
     }
   }
 
-  bool get _isLastPage => _currentPage == widget.pages.length - 1;
+  bool get _isLastPage => _currentPage == widget.uiModel.pages.length - 1;
 
   @override
   Widget build(BuildContext context) {
@@ -131,10 +137,10 @@ class _OnboardingTemplateState extends State<OnboardingTemplate> {
         child: Column(
           children: [
             // Header con botón de saltar
-            if (widget.showSkipButton && !_isLastPage)
+            if (widget.uiModel.showSkipButton && !_isLastPage)
               Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: widget.horizontalPadding,
+                  horizontal: widget.uiModel.horizontalPadding,
                   vertical: AppDimensions.md,
                 ),
                 child: Row(
@@ -143,7 +149,7 @@ class _OnboardingTemplateState extends State<OnboardingTemplate> {
                     TextButton(
                       onPressed: _skipOnboarding,
                       child: Text(
-                        widget.skipButtonText,
+                        widget.uiModel.skipButtonText,
                         style: theme.textTheme.bodyMedium?.copyWith(
                           color: AppColors.gray500,
                           fontWeight: FontWeight.w600,
@@ -161,11 +167,11 @@ class _OnboardingTemplateState extends State<OnboardingTemplate> {
               child: PageView.builder(
                 controller: _pageController,
                 onPageChanged: _onPageChanged,
-                itemCount: widget.pages.length,
+                itemCount: widget.uiModel.pages.length,
                 itemBuilder: (context, index) {
                   return _OnboardingPage(
-                    page: widget.pages[index],
-                    horizontalPadding: widget.horizontalPadding,
+                    page: widget.uiModel.pages[index],
+                    horizontalPadding: widget.uiModel.horizontalPadding,
                   );
                 },
               ),
@@ -176,11 +182,11 @@ class _OnboardingTemplateState extends State<OnboardingTemplate> {
               padding: EdgeInsets.symmetric(
                 vertical: AppDimensions.lg,
               ),
-              child: DotIndicator(
-                count: widget.pages.length,
+              child: DotIndicator.fromProperties(
+                count: widget.uiModel.pages.length,
                 currentIndex: _currentPage,
-                size: widget.indicatorSize,
-                variant: widget.indicatorVariant,
+                size: _getIndicatorSize(),
+                variant: _getIndicatorVariant(),
                 onTap: (index) {
                   _pageController.animateToPage(
                     index,
@@ -194,15 +200,15 @@ class _OnboardingTemplateState extends State<OnboardingTemplate> {
             // Botón de navegación
             Padding(
               padding: EdgeInsets.fromLTRB(
-                widget.horizontalPadding,
+                widget.uiModel.horizontalPadding,
                 0,
-                widget.horizontalPadding,
+                widget.uiModel.horizontalPadding,
                 AppDimensions.lg,
               ),
-              child: AppButton(
+              child: AppButton.fromProperties(
                 label: _isLastPage
-                    ? widget.finishButtonText
-                    : widget.continueButtonText,
+                    ? widget.uiModel.finishButtonText
+                    : widget.uiModel.continueButtonText,
                 onPressed: _nextPage,
                 size: ButtonSize.large,
                 type: ButtonType.primary,
@@ -213,6 +219,28 @@ class _OnboardingTemplateState extends State<OnboardingTemplate> {
         ),
       ),
     );
+  }
+
+  DotIndicatorSize _getIndicatorSize() {
+    switch (widget.uiModel.indicatorSize) {
+      case 'small':
+        return DotIndicatorSize.small;
+      case 'large':
+        return DotIndicatorSize.large;
+      case 'medium':
+      default:
+        return DotIndicatorSize.medium;
+    }
+  }
+
+  DotIndicatorVariant _getIndicatorVariant() {
+    switch (widget.uiModel.indicatorVariant) {
+      case 'bars':
+        return DotIndicatorVariant.bars;
+      case 'dots':
+      default:
+        return DotIndicatorVariant.dots;
+    }
   }
 }
 
@@ -239,7 +267,7 @@ class _OnboardingPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // Imagen
-            AppImage(
+            AppImage.fromProperties(
               page.imagePath,
               size: AppImageSize.extraLarge,
               showErrorIcon: false,
