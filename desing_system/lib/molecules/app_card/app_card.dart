@@ -214,7 +214,6 @@ class _AppCardState extends State<AppCard> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final cardWidth = widget.uiModel.size.width;
     final cardHeight = widget.uiModel.size.height;
     final padding = widget.uiModel.size.padding;
     final borderRadius = widget.uiModel.size.borderRadius;
@@ -224,8 +223,9 @@ class _AppCardState extends State<AppCard> with SingleTickerProviderStateMixin {
 
     // Build the card content
     Widget cardContent = Container(
-      width: cardWidth,
+      width: double.infinity, // Ocupar todo el ancho disponible
       height: cardHeight,
+      alignment: Alignment.center,
       decoration: BoxDecoration(
         color: widget.uiModel.backgroundColor,
         borderRadius: BorderRadius.circular(borderRadius),
@@ -364,42 +364,43 @@ class _AppCardState extends State<AppCard> with SingleTickerProviderStateMixin {
         onHorizontalDragEnd: _handleDragEnd,
         child: Stack(
           children: [
-            // Background con la acción
-            Positioned.fill(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: widget.swipeAction!.backgroundColor,
-                  borderRadius: BorderRadius.circular(borderRadius),
-                ),
-                alignment: Alignment.centerRight,
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+            // Background con la acción - solo visible cuando está deslizando
+            if (_isDragging || _swipeController!.value > 0)
+              Positioned.fill(
                 child: AnimatedOpacity(
-                  opacity: _swipeController!.value > 0.1 ? 1.0 : 0.0,
+                  opacity: _swipeController!.value,
                   duration: const Duration(milliseconds: 150),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        widget.swipeAction!.icon,
-                        color: widget.swipeAction!.iconColor,
-                        size: 32,
-                      ),
-                      if (widget.swipeAction!.label != null) ...[
-                        const SizedBox(height: 4),
-                        Text(
-                          widget.swipeAction!.label!,
-                          style: TextStyle(
-                            color: widget.swipeAction!.iconColor,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                          ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: widget.swipeAction!.backgroundColor,
+                      borderRadius: BorderRadius.circular(borderRadius),
+                    ),
+                    alignment: Alignment.centerRight,
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          widget.swipeAction!.icon,
+                          color: widget.swipeAction!.iconColor,
+                          size: 32,
                         ),
+                        if (widget.swipeAction!.label != null) ...[
+                          const SizedBox(height: 4),
+                          Text(
+                            widget.swipeAction!.label!,
+                            style: TextStyle(
+                              color: widget.swipeAction!.iconColor,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
                       ],
-                    ],
+                    ),
                   ),
                 ),
               ),
-            ),
             // Card que se desliza
             SlideTransition(
               position: _slideAnimation!,

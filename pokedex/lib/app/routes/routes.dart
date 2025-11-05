@@ -6,7 +6,6 @@ import '../../features/error/domain/entities/error_entity.dart';
 import '../../features/details/presentation/view/pokemon_detail_screen.dart';
 import '../../features/favorites/presentation/view/favorites_screen.dart';
 import '../../features/home/presentation/view/home_screen.dart';
-import '../../main.dart';
 
 /// Route names constants
 class RouteNames {
@@ -24,11 +23,6 @@ class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case RouteNames.home:
-        return MaterialPageRoute(
-          builder: (_) => const MyHomePage(),
-          settings: settings,
-        );
-
       case RouteNames.homeNavigation:
         return MaterialPageRoute(
           builder: (_) => const HomeScreen(),
@@ -84,7 +78,7 @@ class AppRouter {
       default:
         // Fallback to home if route not found
         return MaterialPageRoute(
-          builder: (_) => const MyHomePage(),
+          builder: (_) => const HomeScreen(),
           settings: settings,
         );
     }
@@ -93,12 +87,11 @@ class AppRouter {
   /// Get all routes map for MaterialApp.routes
   static Map<String, WidgetBuilder> getRoutes() {
     return {
-      RouteNames.home: (context) => const MyHomePage(),
+      RouteNames.home: (context) => const HomeScreen(),
       RouteNames.homeNavigation: (context) => const HomeScreen(),
       RouteNames.onboarding: (context) => const OnboardingScreen(),
       RouteNames.listing: (context) => const ListingScreen(),
       RouteNames.favorites: (context) => const FavoritesScreen(),
-      // Error route requires arguments, so it's handled in generateRoute
     };
   }
 }

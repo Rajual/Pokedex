@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:desing_system/molecules/app_type_tag/app_type_tag.dart';
-import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../core/common/result.dart';
 import '../../domain/entities/favorites_entity.dart';
@@ -15,13 +14,6 @@ class FavoritesRepositoryImpl implements FavoritesRepository {
     try {
       final prefs = await SharedPreferences.getInstance();
       final favoritesJson = prefs.getStringList(_favoritesKey) ?? [];
-
-      // Debug: Add some sample data if empty
-      if (favoritesJson.isEmpty) {
-        await _addDebugData(prefs);
-        final updatedJson = prefs.getStringList(_favoritesKey) ?? [];
-        favoritesJson.addAll(updatedJson);
-      }
 
       final favorites = favoritesJson.map((json) {
         final data = jsonDecode(json) as Map<String, dynamic>;
@@ -149,54 +141,5 @@ class FavoritesRepositoryImpl implements FavoritesRepository {
     } catch (e) {
       return Result.failure(FavoritesFailure.saveError(e.toString()));
     }
-  }
-
-  /// Adds debug sample data for testing
-  Future<void> _addDebugData(SharedPreferences prefs) async {
-    final debugFavorites = [
-      FavoritePokemon(
-        id: '1',
-        name: 'Bulbasaur',
-        number: '001',
-        imageUrl: 'assets/ilustration/PokemonVenusaur.png',
-        types: [PokemonType.grass, PokemonType.poison],
-        addedAt: DateTime.now().subtract(const Duration(days: 2)),
-      ),
-      FavoritePokemon(
-        id: '4',
-        name: 'Charmander',
-        number: '004',
-        imageUrl: 'assets/ilustration/PokemonCharizard.png',
-        types: [PokemonType.fire],
-        addedAt: DateTime.now().subtract(const Duration(days: 1)),
-      ),
-      FavoritePokemon(
-        id: '7',
-        name: 'Squirtle',
-        number: '007',
-        imageUrl: 'assets/ilustration/PokemonBlastoise.png',
-        types: [PokemonType.water],
-        addedAt: DateTime.now().subtract(const Duration(hours: 12)),
-      ),
-      FavoritePokemon(
-        id: '25',
-        name: 'Pikachu',
-        number: '025',
-        imageUrl: 'assets/ilustration/PokemonPikachu.png',
-        types: [PokemonType.electric],
-        addedAt: DateTime.now().subtract(const Duration(hours: 6)),
-      ),
-    ];
-
-    final favoritesJson = debugFavorites.map((pokemon) => jsonEncode({
-      'id': pokemon.id,
-      'name': pokemon.name,
-      'number': pokemon.number,
-      'imageUrl': pokemon.imageUrl,
-      'types': pokemon.types.map((type) => type.name).toList(),
-      'addedAt': pokemon.addedAt.toIso8601String(),
-    })).toList();
-
-    await prefs.setStringList(_favoritesKey, favoritesJson);
   }
 }

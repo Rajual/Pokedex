@@ -3,8 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:desing_system/molecules/app_bottom_navigation_bar/models/app_bottom_navigation_item_ui_model.dart';
 import 'package:desing_system/templates/home_template/home_template.dart';
 import 'package:desing_system/templates/home_template/models/home_template_ui_model.dart';
+import 'package:desing_system/templates/empty_state_template/empty_state_template.dart';
+import 'package:desing_system/templates/empty_state_template/models/empty_state_template_ui_model.dart';
 
 import '../../../../core/common/result.dart';
+import '../../../../core/common/preferences.dart';
 import '../../domain/entities/home_entity.dart';
 import '../../domain/repositories/home_repository.dart';
 import '../../../listing/presentation/view/listing_screen.dart';
@@ -21,11 +24,86 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   Result<(HomeData, HomeConfig), HomeFailure>? _result;
+  static bool _hasShownDialogThisSession = false;
 
   @override
   void initState() {
     super.initState();
     _loadHomeSetup();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Show onboarding prompt dialog after first build, only once per session
+    if (!_hasShownDialogThisSession && _result != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _showOnboardingPromptIfNeeded();
+      });
+    }
+  }
+
+  Future<void> _showOnboardingPromptIfNeeded() async {
+    // Mark as shown for this session
+    if (_hasShownDialogThisSession) return;
+    _hasShownDialogThisSession = true;
+    
+    final prefsAsync = ref.read(preferencesServiceProvider);
+    
+    prefsAsync.when(
+      data: (prefs) {
+        // Only show if onboarding was completed (meaning user has seen it before)
+        if (prefs.isOnboardingCompleted && mounted) {
+          _showOnboardingDialog();
+        }
+      },
+      loading: () {},
+      error: (_, __) {},
+    );
+  }
+
+  void _showOnboardingDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('¿Quieres ver el tutorial?'),
+        content: const Text(
+          '¿Te gustaría volver a ver el tutorial de introducción a la aplicación?',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('No, gracias'),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              Navigator.of(context).pop();
+              // Reset onboarding and navigate to it
+              final prefsAsync = ref.read(preferencesServiceProvider);
+              
+              prefsAsync.when(
+                data: (prefs) async {
+                  await prefs.setOnboardingCompleted(false);
+                  
+                  if (mounted) {
+                    // Navigate to onboarding screen
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      '/',
+                      (route) => false,
+                    );
+                  }
+                },
+                loading: () {},
+                error: (_, __) {},
+              );
+            },
+            child: const Text('Sí, mostrar'),
+          ),
+        ],
+      ),
+    );
   }
 
   Future<void> _loadHomeSetup() async {
@@ -68,15 +146,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
     // Parse colors from hex strings
     final activeColor = homeConfig.activeColorHex != null
-        ? Color(int.parse(homeConfig.activeColorHex!.replaceFirst('#', ''), radix: 16))
+        ? _parseColor(homeConfig.activeColorHex!)
         : null;
 
     final inactiveColor = homeConfig.inactiveColorHex != null
-        ? Color(int.parse(homeConfig.inactiveColorHex!.replaceFirst('#', ''), radix: 16))
+        ? _parseColor(homeConfig.inactiveColorHex!)
         : null;
 
     final navigationBarBackgroundColor = homeConfig.navigationBarBackgroundColorHex != null
-        ? Color(int.parse(homeConfig.navigationBarBackgroundColorHex!.replaceFirst('#', ''), radix: 16))
+        ? _parseColor(homeConfig.navigationBarBackgroundColorHex!)
         : null;
 
     return HomeTemplate(
@@ -88,24 +166,39 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         inactiveColor: inactiveColor,
         navigationBarBackgroundColor: navigationBarBackgroundColor,
         keepPagesAlive: homeConfig.keepPagesAlive,
-        onPageChanged: (index) {
-          debugPrint('Page changed to index: $index');
-        },
       ),
     );
   }
 
   Widget _buildPageForRoute(String route) {
-    // This is a simplified implementation
-    // In a real app, you'd use proper routing/navigation
     switch (route) {
       case '/listing':
         return const ListingScreen();
       case '/favorites':
         return const FavoritesScreen();
+      case '/regions':
+      case '/profile':
+        return _buildComingSoonPage();
       default:
-        return const Center(child: Text('Unknown Route'));
+        return Center(
+          child: Text('Unknown route: $route'),
+        );
     }
+  }
+
+  Widget _buildComingSoonPage() {
+    return EmptyStateTemplate(
+      uiModel: EmptyStateTemplateUiModel(
+        title: 'Coming Soon',
+        description: 'This feature will be available in a future update',
+        imagePath: 'assets/ilustration/PokemonMew.png',
+      ),
+    );
+  }
+
+  Color _parseColor(String hexColor) {
+    final hex = hexColor.replaceFirst('#', '');
+    return Color(int.parse('FF$hex', radix: 16));
   }
 
   IconData _getIconData(String iconName) {
@@ -118,12 +211,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       case 'favorite':
       case 'favorites':
         return Icons.favorite;
-      case 'details':
-        return Icons.info;
+      case 'map':
+        return Icons.map;
+      case 'person':
+      case 'profile':
+        return Icons.person;
       case 'search':
         return Icons.search;
       default:
-        return Icons.circle;
+        return Icons.help_outline;
     }
   }
 
@@ -133,7 +229,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Error: ${error.toString()}'),
+            const Icon(Icons.error_outline, size: 64, color: Colors.red),
+            const SizedBox(height: 16),
+            Text('Error loading home: ${error.toString()}'),
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: _loadHomeSetup,

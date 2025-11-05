@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pokedex/features/details/domain/entities/pokemon_detail_entity.dart';
+import 'package:desing_system/molecules/app_type_tag/app_type_tag.dart';
 
 void main() {
   group('PokemonDetailEntity', () {

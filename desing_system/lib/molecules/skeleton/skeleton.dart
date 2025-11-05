@@ -194,7 +194,9 @@ class SkeletonCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          Skeleton(width: double.infinity, height: 60),
+          Expanded(
+            child: Skeleton(width: double.infinity, height: 60),
+          ),
         ],
       ),
     );

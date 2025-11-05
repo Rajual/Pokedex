@@ -7,7 +7,7 @@ void main() {
     testWidgets('renders with correct number of pages', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: OnboardingTemplate(
+          home: OnboardingTemplate.fromProperties(
             pages: const [
               OnboardingPageModel(
                 imagePath: 'assets/test1.png',
@@ -40,7 +40,7 @@ void main() {
     testWidgets('shows skip button by default on first page', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: OnboardingTemplate(
+          home: OnboardingTemplate.fromProperties(
             pages: const [
               OnboardingPageModel(
                 imagePath: 'assets/test.png',
@@ -66,7 +66,7 @@ void main() {
     testWidgets('hides skip button when showSkipButton is false', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: OnboardingTemplate(
+          home: OnboardingTemplate.fromProperties(
             pages: const [
               OnboardingPageModel(
                 imagePath: 'assets/test.png',
@@ -88,7 +88,7 @@ void main() {
     testWidgets('shows continue button on first pages', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: OnboardingTemplate(
+          home: OnboardingTemplate.fromProperties(
             pages: const [
               OnboardingPageModel(
                 imagePath: 'assets/test.png',
@@ -114,7 +114,7 @@ void main() {
     testWidgets('shows finish button on last page', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: OnboardingTemplate(
+          home: OnboardingTemplate.fromProperties(
             pages: const [
               OnboardingPageModel(
                 imagePath: 'assets/test.png',
@@ -144,7 +144,7 @@ void main() {
     testWidgets('uses custom button texts', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: OnboardingTemplate(
+          home: OnboardingTemplate.fromProperties(
             pages: const [
               OnboardingPageModel(
                 imagePath: 'assets/test.png',
@@ -172,7 +172,7 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
-          home: OnboardingTemplate(
+          home: OnboardingTemplate.fromProperties(
             pages: const [
               OnboardingPageModel(
                 imagePath: 'assets/test.png',
@@ -200,7 +200,7 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
-          home: OnboardingTemplate(
+          home: OnboardingTemplate.fromProperties(
             pages: const [
               OnboardingPageModel(
                 imagePath: 'assets/test.png',
@@ -232,7 +232,7 @@ void main() {
     testWidgets('navigates to next page when continue is tapped', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: OnboardingTemplate(
+          home: OnboardingTemplate.fromProperties(
             pages: const [
               OnboardingPageModel(
                 imagePath: 'assets/test1.png',
@@ -266,7 +266,7 @@ void main() {
     testWidgets('renders with dots variant by default', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: OnboardingTemplate(
+          home: OnboardingTemplate.fromProperties(
             pages: const [
               OnboardingPageModel(
                 imagePath: 'assets/test.png',
@@ -287,7 +287,7 @@ void main() {
     testWidgets('renders with bars variant when specified', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: OnboardingTemplate(
+          home: OnboardingTemplate.fromProperties(
             pages: const [
               OnboardingPageModel(
                 imagePath: 'assets/test.png',
@@ -309,7 +309,7 @@ void main() {
     testWidgets('allows tapping on dot indicators to navigate', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: OnboardingTemplate(
+          home: OnboardingTemplate.fromProperties(
             pages: const [
               OnboardingPageModel(
                 imagePath: 'assets/test1.png',
@@ -349,7 +349,7 @@ void main() {
     testWidgets('renders page content correctly', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: OnboardingTemplate(
+          home: OnboardingTemplate.fromProperties(
             pages: const [
               OnboardingPageModel(
                 imagePath: 'assets/test.png',
@@ -372,7 +372,7 @@ void main() {
     testWidgets('uses custom horizontal padding', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: OnboardingTemplate(
+          home: OnboardingTemplate.fromProperties(
             pages: const [
               OnboardingPageModel(
                 imagePath: 'assets/test.png',
@@ -394,7 +394,7 @@ void main() {
 
     test('asserts pages is not empty', () {
       expect(
-        () => OnboardingTemplate(
+        () => OnboardingTemplate.fromProperties(
           pages: const [],
           onFinish: () {},
         ),

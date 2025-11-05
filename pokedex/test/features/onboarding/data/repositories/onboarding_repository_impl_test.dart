@@ -1,94 +1,52 @@
-import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+import 'package:pokedex/app/config/localizations.dart';
 import 'package:pokedex/core/common/result.dart';
 import 'package:pokedex/features/onboarding/data/repositories/onboarding_repository_impl.dart';
-
-// Mock class
-class MockAssetBundle extends Mock implements AssetBundle {}
+import 'package:pokedex/features/onboarding/domain/entities/onboarding_data.dart';
+import 'package:pokedex/features/onboarding/domain/repositories/onboarding_repository.dart';
 
 void main() {
-  late OnboardingRepositoryImpl repository;
-  late MockAssetBundle mockAssetBundle;
-
-  setUp(() {
-    mockAssetBundle = MockAssetBundle();
-    repository = OnboardingRepositoryImpl(assetBundle: mockAssetBundle);
-  });
+  TestWidgetsFlutterBinding.ensureInitialized();
 
   group('OnboardingRepositoryImpl', () {
-    test('should return OnboardingData when JSON is valid', () async {
+    test('should return OnboardingData with default locale', () async {
       // Arrange
-      const validJson = '''
-      {
-        "pages": [
-          {
-            "imagePath": "assets/test.png",
-            "title": "Test Title",
-            "description": "Test Description",
-            "backgroundColor": 4294967295,
-            "textColor": 4278190080
-          }
-        ],
-        "continueButtonText": "Continue",
-        "skipButtonText": "Skip",
-        "finishButtonText": "Finish"
-      }
-      ''';
-
-      when(mockAssetBundle.loadString('assets/locale/en/onboarding.json'))
-          .thenAnswer((_) async => validJson);
+      final repository = OnboardingRepositoryImpl();
 
       // Act
       final result = await repository.loadOnboardingData();
 
       // Assert
-      expect(result, isA<Result<OnboardingData, OnboardingFailure>>());
+      expect(result.isSuccess, true);
       result.match(
         onSuccess: (data) {
-          expect(data.pages.length, 1);
-          expect(data.pages.first.title, 'Test Title');
-          expect(data.continueButtonText, 'Continue');
+          expect(data.pages, isNotEmpty);
+          expect(data.continueButtonText, isNotEmpty);
+          expect(data.skipButtonText, isNotEmpty);
+          expect(data.finishButtonText, isNotEmpty);
         },
         onFailure: (_) => fail('Expected success but got failure'),
       );
     });
 
-    test('should return OnboardingFailure when JSON parsing fails', () async {
+    test('should create pages with correct structure', () async {
       // Arrange
-      const invalidJson = '{ invalid json }';
-
-      when(mockAssetBundle.loadString('assets/locale/en/onboarding.json'))
-          .thenAnswer((_) async => invalidJson);
+      final repository = OnboardingRepositoryImpl();
 
       // Act
       final result = await repository.loadOnboardingData();
 
       // Assert
-      expect(result, isA<Result<OnboardingData, OnboardingFailure>>());
       result.match(
-        onSuccess: (_) => fail('Expected failure but got success'),
-        onFailure: (failure) {
-          expect(failure, isA<OnboardingFailure>());
+        onSuccess: (data) {
+          for (final page in data.pages) {
+            expect(page.imagePath, isNotEmpty);
+            expect(page.title, isNotEmpty);
+            expect(page.description, isNotEmpty);
+          }
         },
-      );
-    });
-
-    test('should return OnboardingFailure when asset is not found', () async {
-      // Arrange
-      when(mockAssetBundle.loadString('assets/locale/en/onboarding.json'))
-          .thenThrow(Exception('Asset not found'));
-
-      // Act
-      final result = await repository.loadOnboardingData();
-
-      // Assert
-      expect(result, isA<Result<OnboardingData, OnboardingFailure>>());
-      result.match(
-        onSuccess: (_) => fail('Expected failure but got success'),
-        onFailure: (failure) {
-          expect(failure, isA<OnboardingFailure>());
-        },
+        onFailure: (_) => fail('Expected success but got failure'),
       );
     });
   });

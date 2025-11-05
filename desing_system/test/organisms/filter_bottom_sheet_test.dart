@@ -1,3 +1,4 @@
+import 'package:desing_system/organisms/filter_bottom_sheet/models/filter_bottom_sheet_ui_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:desing_system/desing_system.dart';
@@ -8,16 +9,17 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: FilterBottomSheet(
-              title: 'Filtrar',
-              sections: const [
-                FilterSection(
-                  title: 'Tipo',
-                  options: [
-                    FilterOption(id: 'fire', label: 'Fuego'),
-                  ],
-                ),
-              ],
+            body: FilterBottomSheet(uiModel: FilterBottomSheetUiModel(
+                title: 'Filtrar',
+                sections: const [
+                  FilterSection(
+                    title: 'Tipo',
+                    options: [
+                      FilterOption(id: 'fire', label: 'Fuego'),
+                    ],
+                  ),
+                ],
+              ),
               onApply: (_) {},
             ),
           ),
@@ -35,9 +37,10 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: FilterBottomSheet(
-              title: 'Filtra por tus preferencias',
-              sections: const [],
+            body: FilterBottomSheet(uiModel: FilterBottomSheetUiModel(
+                title: 'Filtra por tus preferencias',
+                sections: const [],
+              ),
               onApply: (_) {},
             ),
           ),
@@ -53,22 +56,23 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: FilterBottomSheet(
-              title: 'Filtros',
-              sections: const [
-                FilterSection(
-                  title: 'Tipo',
-                  options: [
-                    FilterOption(id: 'fire', label: 'Fuego'),
-                  ],
-                ),
-                FilterSection(
-                  title: 'Generación',
-                  options: [
-                    FilterOption(id: 'gen1', label: 'Gen I'),
-                  ],
-                ),
-              ],
+            body: FilterBottomSheet(uiModel: FilterBottomSheetUiModel(
+                title: 'Filtros',
+                sections: const [
+                  FilterSection(
+                    title: 'Tipo',
+                    options: [
+                      FilterOption(id: 'fire', label: 'Fuego'),
+                    ],
+                  ),
+                  FilterSection(
+                    title: 'Generación',
+                    options: [
+                      FilterOption(id: 'gen1', label: 'Gen I'),
+                    ],
+                  ),
+                ],
+              ),
               onApply: (_) {},
             ),
           ),
@@ -85,8 +89,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: FilterBottomSheet(
-              title: 'Filtros',
+            body: FilterBottomSheet.fromProperties(              title: 'Filtros',
               sections: const [
                 FilterSection(
                   title: 'Tipo',
@@ -114,8 +117,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: FilterBottomSheet(
-              title: 'Filtros',
+            body: FilterBottomSheet.fromProperties(              title: 'Filtros',
               sections: const [],
               onApply: (_) {},
             ),
@@ -132,8 +134,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: FilterBottomSheet(
-              title: 'Filtros',
+            body: FilterBottomSheet.fromProperties(              title: 'Filtros',
               sections: const [],
               onApply: (_) {},
             ),
@@ -150,8 +151,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: FilterBottomSheet(
-              title: 'Filtros',
+            body: FilterBottomSheet.fromProperties(              title: 'Filtros',
               sections: const [],
               onApply: (_) {},
               applyButtonText: 'Confirmar',
@@ -169,8 +169,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: FilterBottomSheet(
-              title: 'Filtros',
+            body: FilterBottomSheet.fromProperties(              title: 'Filtros',
               sections: const [],
               onApply: (_) {},
               cancelButtonText: 'Cerrar',
@@ -188,8 +187,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: FilterBottomSheet(
-              title: 'Filtros',
+            body: FilterBottomSheet.fromProperties(              title: 'Filtros',
               sections: const [],
               onApply: (_) {},
             ),
@@ -207,8 +205,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: FilterBottomSheet(
-              title: 'Filtros',
+            body: FilterBottomSheet.fromProperties(              title: 'Filtros',
               sections: const [],
               onApply: (_) {},
               showDragHandle: false,
@@ -226,8 +223,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: FilterBottomSheet(
-              title: 'Filtros',
+            body: FilterBottomSheet.fromProperties(              title: 'Filtros',
               sections: const [
                 FilterSection(
                   title: 'Tipo',
@@ -252,8 +248,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: FilterBottomSheet(
-              title: 'Filtros',
+            body: FilterBottomSheet.fromProperties(              title: 'Filtros',
               sections: const [
                 FilterSection(
                   title: 'Tipo',
@@ -278,8 +273,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: FilterBottomSheet(
-              title: 'Filtros',
+            body: FilterBottomSheet.fromProperties(              title: 'Filtros',
               sections: const [
                 FilterSection(
                   title: 'Tipo',
@@ -304,8 +298,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: FilterBottomSheet(
-              title: 'Filtros',
+            body: FilterBottomSheet.fromProperties(              title: 'Filtros',
               sections: const [
                 FilterSection(
                   title: 'Tipo',
@@ -339,8 +332,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: FilterBottomSheet(
-              title: 'Filtros',
+            body: FilterBottomSheet.fromProperties(              title: 'Filtros',
               sections: const [
                 FilterSection(
                   title: 'Tipo',
@@ -380,8 +372,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: FilterBottomSheet(
-              title: 'Filtros',
+            body: FilterBottomSheet.fromProperties(              title: 'Filtros',
               sections: const [
                 FilterSection(
                   title: 'Tipo',
@@ -407,8 +398,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: FilterBottomSheet(
-              title: 'Filtros',
+            body: FilterBottomSheet.fromProperties(              title: 'Filtros',
               sections: const [],
               onApply: (_) {},
             ),
@@ -425,8 +415,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: FilterBottomSheet(
-              title: 'Filtros',
+            body: FilterBottomSheet.fromProperties(              title: 'Filtros',
               sections: const [],
               onApply: (_) {},
             ),

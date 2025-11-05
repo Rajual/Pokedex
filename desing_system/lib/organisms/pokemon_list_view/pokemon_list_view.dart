@@ -60,11 +60,15 @@ class PokemonListView extends StatefulWidget {
   /// Callback cuando cambia la búsqueda
   final Function(String query)? onSearchChanged;
 
+  /// Callback cuando se hace tap en una card
+  final Function(int index)? onTap;
+
   const PokemonListView({
     required this.uiModel,
     required this.pokemonList,
     required this.onFavoriteChanged,
     this.onSearchChanged,
+    this.onTap,
     super.key,
   });
 
@@ -73,6 +77,7 @@ class PokemonListView extends StatefulWidget {
     required List<Pokemon> pokemonList,
     required Function(int index, bool isFavorite) onFavoriteChanged,
     Function(String query)? onSearchChanged,
+    Function(int index)? onTap,
     String searchPlaceholder = 'Procurar Pokémon...',
     CardSize cardSize = CardSize.medium,
     bool showSearchBar = true,
@@ -89,6 +94,7 @@ class PokemonListView extends StatefulWidget {
       pokemonList: pokemonList,
       onFavoriteChanged: onFavoriteChanged,
       onSearchChanged: onSearchChanged,
+      onTap: onTap,
       key: key,
     );
   }
@@ -188,37 +194,38 @@ class _PokemonListViewState extends State<PokemonListView> {
           )
         else
           // ListView
-          Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              itemCount: _filteredList.length,
-              itemBuilder: (context, index) {
-                final pokemon = _filteredList[index];
-                final originalIndex = _getOriginalIndex(pokemon);
-
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 12.0),
-                  child: AppCard.fromProperties(
-                    pokemonName: pokemon.name,
-                    pokemonNumber: pokemon.number,
-                    primaryType: pokemon.primaryType,
-                    secondaryType: pokemon.secondaryType,
-                    imagePath: pokemon.imagePath,
-                    backgroundColor: pokemon.backgroundColor,
-                    isFavorite: pokemon.isFavorite,
-                    onFavoriteChanged: (isFav) {
-                      setState(() {
-                        pokemon.isFavorite = isFav;
-                      });
-                      widget.onFavoriteChanged(originalIndex, isFav);
-                    },
-                    size: widget.uiModel.cardSize,
-                    style: CardStyle.elevated,
-                  ),
-                );
-              },
+            Expanded(
+              child: ListView.builder(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
+                itemCount: _filteredList.length,
+                itemBuilder: (context, index) {
+                  final pokemon = _filteredList[index];
+                  final originalIndex = _getOriginalIndex(pokemon);
+  
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 12.0),
+                    child: AppCard.fromProperties(
+                      pokemonName: pokemon.name,
+                      pokemonNumber: pokemon.number,
+                      primaryType: pokemon.primaryType,
+                      secondaryType: pokemon.secondaryType,
+                      imagePath: pokemon.imagePath,
+                      backgroundColor: pokemon.backgroundColor,
+                      isFavorite: pokemon.isFavorite,
+                      onFavoriteChanged: (isFav) {
+                        setState(() {
+                          pokemon.isFavorite = isFav;
+                        });
+                        widget.onFavoriteChanged(originalIndex, isFav);
+                      },
+                      onTap: widget.onTap != null ? () => widget.onTap!(originalIndex) : null,
+                      size: widget.uiModel.cardSize,
+                      style: CardStyle.elevated,
+                    ),
+                  );
+                },
+              ),
             ),
-          ),
       ],
     );
   }

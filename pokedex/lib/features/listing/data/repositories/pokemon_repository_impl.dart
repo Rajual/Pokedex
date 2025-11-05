@@ -90,4 +90,9 @@ class PokemonRepositoryImpl implements PokemonRepository {
   String _getPokemonImageUrl(int id) {
     return 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png';
   }
+
+  /// Get Pokemon image URL for local assets (fallback)
+  String _getPokemonImageAsset(int id) {
+    return 'assets/pokemon_$id.png';
+  }
 }

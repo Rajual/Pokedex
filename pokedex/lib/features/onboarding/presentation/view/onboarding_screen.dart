@@ -70,18 +70,18 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       uiModel: uiModel,
       onFinish: () async {
         // Mark onboarding as completed and navigate to main app
-        final prefs = await ref.read(preferencesServiceProvider.future) as PreferencesService;
+        final prefs = await ref.read(preferencesServiceProvider.future);
         await prefs.setOnboardingCompleted(true);
         if (context.mounted) {
-          Navigator.of(context).pushReplacementNamed('/home');
+          Navigator.of(context).pushReplacementNamed('/home-navigation');
         }
       },
       onSkip: () async {
         // Mark onboarding as completed and navigate to main app
-        final prefs = await ref.read(preferencesServiceProvider.future) as PreferencesService;
+        final prefs = await ref.read(preferencesServiceProvider.future);
         await prefs.setOnboardingCompleted(true);
         if (context.mounted) {
-          Navigator.of(context).pushReplacementNamed('/home');
+          Navigator.of(context).pushReplacementNamed('/home-navigation');
         }
       },
     );

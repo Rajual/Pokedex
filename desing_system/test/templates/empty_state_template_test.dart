@@ -1,3 +1,4 @@
+import 'package:desing_system/templates/empty_state_template/models/empty_state_template_ui_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:desing_system/desing_system.dart';
@@ -6,10 +7,12 @@ void main() {
   group('EmptyStateTemplate', () {
     testWidgets('renders with required parameters', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
+        MaterialApp(
           home: EmptyStateTemplate(
-            imagePath: 'assets/test.png',
-            title: 'Empty State',
+            uiModel: EmptyStateTemplateUiModel(
+              imagePath: 'assets/test.png',
+              title: 'Empty State',
+            ),
           ),
         ),
       );
@@ -22,10 +25,12 @@ void main() {
 
     testWidgets('renders title correctly', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
+        MaterialApp(
           home: EmptyStateTemplate(
-            imagePath: 'assets/test.png',
-            title: 'No hay favoritos',
+            uiModel: EmptyStateTemplateUiModel(
+              imagePath: 'assets/test.png',
+              title: 'No hay favoritos',
+            ),
           ),
         ),
       );
@@ -37,9 +42,8 @@ void main() {
 
     testWidgets('renders description when provided', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
-          home: EmptyStateTemplate(
-            imagePath: 'assets/test.png',
+        MaterialApp(
+          home: EmptyStateTemplate.fromProperties(            imagePath: 'assets/test.png',
             title: 'Title',
             description: 'This is a description',
           ),
@@ -53,9 +57,8 @@ void main() {
 
     testWidgets('does not render description when null', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
-          home: EmptyStateTemplate(
-            imagePath: 'assets/test.png',
+        MaterialApp(
+          home: EmptyStateTemplate.fromProperties(            imagePath: 'assets/test.png',
             title: 'Title',
           ),
         ),
@@ -69,9 +72,8 @@ void main() {
 
     testWidgets('renders hint when provided', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
-          home: EmptyStateTemplate(
-            imagePath: 'assets/test.png',
+        MaterialApp(
+          home: EmptyStateTemplate.fromProperties(            imagePath: 'assets/test.png',
             title: 'Title',
             hint: 'This is a hint',
           ),
@@ -86,8 +88,7 @@ void main() {
     testWidgets('renders primary action button when provided', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: EmptyStateTemplate(
-            imagePath: 'assets/test.png',
+          home: EmptyStateTemplate.fromProperties(            imagePath: 'assets/test.png',
             title: 'Title',
             actionLabel: 'Take Action',
             onAction: () {},
@@ -106,8 +107,7 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
-          home: EmptyStateTemplate(
-            imagePath: 'assets/test.png',
+          home: EmptyStateTemplate.fromProperties(            imagePath: 'assets/test.png',
             title: 'Title',
             actionLabel: 'Action',
             onAction: () {
@@ -128,8 +128,7 @@ void main() {
     testWidgets('renders secondary action button when provided', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: EmptyStateTemplate(
-            imagePath: 'assets/test.png',
+          home: EmptyStateTemplate.fromProperties(            imagePath: 'assets/test.png',
             title: 'Title',
             secondaryActionLabel: 'Secondary',
             onSecondaryAction: () {},
@@ -146,8 +145,7 @@ void main() {
     testWidgets('renders both buttons when both are provided', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: EmptyStateTemplate(
-            imagePath: 'assets/test.png',
+          home: EmptyStateTemplate.fromProperties(            imagePath: 'assets/test.png',
             title: 'Title',
             actionLabel: 'Primary',
             onAction: () {},
@@ -170,8 +168,7 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
-          home: EmptyStateTemplate(
-            imagePath: 'assets/test.png',
+          home: EmptyStateTemplate.fromProperties(            imagePath: 'assets/test.png',
             title: 'Title',
             actionLabel: 'Primary',
             onAction: () {},
@@ -193,9 +190,8 @@ void main() {
 
     testWidgets('uses custom image size', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
-          home: EmptyStateTemplate(
-            imagePath: 'assets/test.png',
+        MaterialApp(
+          home: EmptyStateTemplate.fromProperties(            imagePath: 'assets/test.png',
             title: 'Title',
             imageSize: AppImageSize.small,
           ),
@@ -209,9 +205,8 @@ void main() {
 
     testWidgets('uses custom background color', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
-          home: EmptyStateTemplate(
-            imagePath: 'assets/test.png',
+        MaterialApp(
+          home: EmptyStateTemplate.fromProperties(            imagePath: 'assets/test.png',
             title: 'Title',
             backgroundColor: Colors.blue,
           ),
@@ -232,9 +227,8 @@ void main() {
 
     testWidgets('uses default background color when not provided', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
-          home: EmptyStateTemplate(
-            imagePath: 'assets/test.png',
+        MaterialApp(
+          home: EmptyStateTemplate.fromProperties(            imagePath: 'assets/test.png',
             title: 'Title',
           ),
         ),
@@ -254,9 +248,8 @@ void main() {
 
     testWidgets('uses custom alignment', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
-          home: EmptyStateTemplate(
-            imagePath: 'assets/test.png',
+        MaterialApp(
+          home: EmptyStateTemplate.fromProperties(            imagePath: 'assets/test.png',
             title: 'Title',
             alignment: CrossAxisAlignment.start,
           ),
@@ -270,9 +263,8 @@ void main() {
 
     testWidgets('uses custom horizontal padding', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
-          home: EmptyStateTemplate(
-            imagePath: 'assets/test.png',
+        MaterialApp(
+          home: EmptyStateTemplate.fromProperties(            imagePath: 'assets/test.png',
             title: 'Title',
             horizontalPadding: 32.0,
           ),
@@ -286,9 +278,8 @@ void main() {
 
     testWidgets('uses custom spacing', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
-          home: EmptyStateTemplate(
-            imagePath: 'assets/test.png',
+        MaterialApp(
+          home: EmptyStateTemplate.fromProperties(            imagePath: 'assets/test.png',
             title: 'Title',
             spacing: 24.0,
           ),
@@ -303,8 +294,7 @@ void main() {
     testWidgets('renders all elements together', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: EmptyStateTemplate(
-            imagePath: 'assets/test.png',
+          home: EmptyStateTemplate.fromProperties(            imagePath: 'assets/test.png',
             title: 'Complete Example',
             description: 'This is a description',
             hint: 'This is a hint',
@@ -330,8 +320,7 @@ void main() {
     testWidgets('is scrollable when content is large', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: EmptyStateTemplate(
-            imagePath: 'assets/test.png',
+          home: EmptyStateTemplate.fromProperties(            imagePath: 'assets/test.png',
             title: 'Very Long Title\n' * 10,
             description: 'Very Long Description\n' * 10,
             actionLabel: 'Action',
@@ -347,8 +336,7 @@ void main() {
 
     test('asserts onAction is provided when actionLabel is provided', () {
       expect(
-        () => EmptyStateTemplate(
-          imagePath: 'assets/test.png',
+        () => EmptyStateTemplate.fromProperties(          imagePath: 'assets/test.png',
           title: 'Title',
           actionLabel: 'Action',
           // onAction no proporcionado
@@ -360,8 +348,7 @@ void main() {
     test('asserts onSecondaryAction is provided when secondaryActionLabel is provided',
         () {
       expect(
-        () => EmptyStateTemplate(
-          imagePath: 'assets/test.png',
+        () => EmptyStateTemplate.fromProperties(          imagePath: 'assets/test.png',
           title: 'Title',
           secondaryActionLabel: 'Secondary',
           // onSecondaryAction no proporcionado

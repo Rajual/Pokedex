@@ -133,28 +133,104 @@ class HeroImageHeader extends StatelessWidget {
     );
   }
 
-  /// Construye la imagen hero con SvgPicture
+  /// Construye la imagen hero con soporte para SVG (asset), PNG/JPG (asset o network)
   Widget _buildHeroImage(BuildContext context, double imageWidth) {
+    final isNetworkImage = uiModel.imageUrl.startsWith('http://') || 
+                           uiModel.imageUrl.startsWith('https://');
+    final isSvg = uiModel.imageUrl.toLowerCase().endsWith('.svg');
+
     return Center(
       child: Hero(
         tag: uiModel.heroTag,
-        child: SvgPicture.asset(
-          uiModel.imageUrl,
-          width: imageWidth,
-          height: imageWidth,
-          fit: BoxFit.contain,
-          colorFilter: uiModel.imageColor != null
-              ? ColorFilter.mode(uiModel.imageColor!, BlendMode.srcIn)
-              : null,
-          placeholderBuilder: (context) => SizedBox(
-            width: imageWidth,
-            height: imageWidth,
-            child: Center(
-              child: CircularProgressIndicator(
-                color: uiModel.backButtonColor ?? Colors.white,
-              ),
-            ),
-          ),
+        child: _buildImageWidget(imageWidth, isNetworkImage, isSvg),
+      ),
+    );
+  }
+
+  /// Construye el widget de imagen apropiado según el tipo
+  Widget _buildImageWidget(double imageWidth, bool isNetworkImage, bool isSvg) {
+    // SVG desde assets
+    if (isSvg && !isNetworkImage) {
+      return SvgPicture.asset(
+        uiModel.imageUrl,
+        width: imageWidth,
+        height: imageWidth,
+        fit: BoxFit.contain,
+        colorFilter: uiModel.imageColor != null
+            ? ColorFilter.mode(uiModel.imageColor!, BlendMode.srcIn)
+            : null,
+        placeholderBuilder: (context) => _buildPlaceholder(imageWidth),
+      );
+    }
+
+    // SVG desde network
+    if (isSvg && isNetworkImage) {
+      return SvgPicture.network(
+        uiModel.imageUrl,
+        width: imageWidth,
+        height: imageWidth,
+        fit: BoxFit.contain,
+        colorFilter: uiModel.imageColor != null
+            ? ColorFilter.mode(uiModel.imageColor!, BlendMode.srcIn)
+            : null,
+        placeholderBuilder: (context) => _buildPlaceholder(imageWidth),
+      );
+    }
+
+    // PNG/JPG desde network
+    if (isNetworkImage) {
+      return Image.network(
+        uiModel.imageUrl,
+        width: imageWidth,
+        height: imageWidth,
+        fit: BoxFit.contain,
+        loadingBuilder: (context, child, loadingProgress) {
+          if (loadingProgress == null) return child;
+          return _buildPlaceholder(imageWidth);
+        },
+        errorBuilder: (context, error, stackTrace) {
+          debugPrint('Error loading network image: ${uiModel.imageUrl} - $error');
+          return _buildErrorWidget(imageWidth);
+        },
+      );
+    }
+
+    // PNG/JPG desde assets
+    return Image.asset(
+      uiModel.imageUrl,
+      width: imageWidth,
+      height: imageWidth,
+      fit: BoxFit.contain,
+      errorBuilder: (context, error, stackTrace) {
+        debugPrint('Error loading asset image: ${uiModel.imageUrl} - $error');
+        return _buildErrorWidget(imageWidth);
+      },
+    );
+  }
+
+  /// Construye el placeholder mientras carga
+  Widget _buildPlaceholder(double size) {
+    return SizedBox(
+      width: size,
+      height: size,
+      child: Center(
+        child: CircularProgressIndicator(
+          color: uiModel.backButtonColor ?? Colors.white,
+        ),
+      ),
+    );
+  }
+
+  /// Construye el widget de error
+  Widget _buildErrorWidget(double size) {
+    return SizedBox(
+      width: size,
+      height: size,
+      child: Center(
+        child: Icon(
+          Icons.broken_image,
+          size: size * 0.3,
+          color: Colors.white.withOpacity(0.5),
         ),
       ),
     );

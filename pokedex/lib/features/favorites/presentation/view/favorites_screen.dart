@@ -19,32 +19,12 @@ class FavoritesScreen extends ConsumerStatefulWidget {
 }
 
 class _FavoritesScreenState extends ConsumerState<FavoritesScreen> {
-  Result<FavoritesData, FavoritesFailure>? _result;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadFavorites();
-  }
-
-  Future<void> _loadFavorites() async {
-    final presenter = ref.read(favoritesPresenterProvider);
-    final result = await presenter.loadFavorites();
-    setState(() {
-      _result = result;
-    });
-  }
-
-  Future<void> _removeFromFavorites(String pokemonId) async {
-    final presenter = ref.read(favoritesPresenterProvider);
-    await presenter.removeFromFavorites(pokemonId);
-    // Reload favorites after removal
-    await _loadFavorites();
-  }
-
   @override
   Widget build(BuildContext context) {
-    if (_result == null) {
+    // Watch the favorites state - will rebuild automatically when favorites change
+    final favoritesState = ref.watch(favoritesNotifierProvider);
+    
+    if (favoritesState.isLoading) {
       return const Scaffold(
         body: LoadingTemplate(
           uiModel: LoadingTemplateUiModel(),
@@ -52,9 +32,27 @@ class _FavoritesScreenState extends ConsumerState<FavoritesScreen> {
       );
     }
 
-    return _result!.match(
-      onSuccess: (data) => _buildFavoritesContent(data),
-      onFailure: (error) => _buildErrorContent(error),
+    if (favoritesState.error != null) {
+      return _buildErrorContent(favoritesState.error!);
+    }
+
+    // Load full favorites data
+    return FutureBuilder<Result<FavoritesData, FavoritesFailure>>(
+      future: ref.read(favoritesPresenterProvider).loadFavorites(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return const Scaffold(
+            body: LoadingTemplate(
+              uiModel: LoadingTemplateUiModel(),
+            ),
+          );
+        }
+
+        return snapshot.data!.match(
+          onSuccess: (data) => _buildFavoritesContent(data),
+          onFailure: (error) => _buildErrorContent(error.toString()),
+        );
+      },
     );
   }
 
@@ -99,9 +97,10 @@ class _FavoritesScreenState extends ConsumerState<FavoritesScreen> {
         backgroundColor: _getBackgroundColor(primaryType),
         isFavorite: true, // Always true for favorites screen
       ),
-      onFavoriteChanged: (isFavorite) {
+      onFavoriteChanged: (isFavorite) async {
         if (!isFavorite) {
-          _removeFromFavorites(favorite.id);
+          final favoritesNotifier = ref.read(favoritesNotifierProvider.notifier);
+          await favoritesNotifier.removeFromFavorites(favorite.id);
         }
       },
       onTap: () {
@@ -109,7 +108,10 @@ class _FavoritesScreenState extends ConsumerState<FavoritesScreen> {
         Navigator.of(context).pushNamed('/details', arguments: favorite.id);
       },
       swipeAction: SwipeActionUiModel.delete(
-        onAction: () => _removeFromFavorites(favorite.id),
+        onAction: () async {
+          final favoritesNotifier = ref.read(favoritesNotifierProvider.notifier);
+          await favoritesNotifier.removeFromFavorites(favorite.id);
+        },
       ),
     );
   }
@@ -124,13 +126,13 @@ class _FavoritesScreenState extends ConsumerState<FavoritesScreen> {
         uiModel: EmptyStateTemplateUiModel(
           title: 'No favorites yet',
           description: 'Add Pokemon to your favorites by tapping the heart icon',
-          imagePath: 'assets/icons/heart_outline.png',
+          imagePath: 'assets/icons/Heart.svg',
         ),
       ),
     );
   }
 
-  Widget _buildErrorContent(FavoritesFailure error) {
+  Widget _buildErrorContent(String error) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Favorites'),
@@ -140,10 +142,12 @@ class _FavoritesScreenState extends ConsumerState<FavoritesScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Error: ${error.toString()}'),
+            Text('Error: $error'),
             const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: _loadFavorites,
+              onPressed: () {
+                ref.read(favoritesNotifierProvider.notifier).loadFavorites();
+              },
               child: const Text('Retry'),
             ),
           ],

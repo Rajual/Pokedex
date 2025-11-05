@@ -1,3 +1,4 @@
+import 'package:desing_system/molecules/app_type_tag/app_type_tag.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -43,7 +44,10 @@ void main() {
 
       // Assert
       expect(result.isSuccess, true);
-      expect(result.success, expectedEntity);
+      result.match(
+        onSuccess: (entity) => expect(entity, expectedEntity),
+        onFailure: (_) => fail('Should not be a failure'),
+      );
       verify(mockRepository.loadPokemonDetail(pokemonId)).called(1);
     });
 
@@ -60,7 +64,10 @@ void main() {
 
       // Assert
       expect(result.isFailure, true);
-      expect(result.failure, failure);
+      result.match(
+        onSuccess: (_) => fail('Should not be a success'),
+        onFailure: (f) => expect(f.toString(), contains('999')),
+      );
       verify(mockRepository.loadPokemonDetail(pokemonId)).called(1);
     });
 
@@ -76,7 +83,10 @@ void main() {
 
       // Assert
       expect(result.isSuccess, true);
-      expect(result.success, true);
+      result.match(
+        onSuccess: (value) => expect(value, true),
+        onFailure: (_) => fail('Should not be a failure'),
+      );
       verify(mockRepository.toggleFavorite(pokemonId)).called(1);
     });
 
@@ -93,7 +103,10 @@ void main() {
 
       // Assert
       expect(result.isSuccess, true);
-      expect(result.success, isFavorite);
+      result.match(
+        onSuccess: (value) => expect(value, isFavorite),
+        onFailure: (_) => fail('Should not be a failure'),
+      );
       verify(mockRepository.isFavorite(pokemonId)).called(1);
     });
 
@@ -110,7 +123,10 @@ void main() {
 
       // Assert
       expect(result.isFailure, true);
-      expect(result.failure, failure);
+      result.match(
+        onSuccess: (_) => fail('Should not be a success'),
+        onFailure: (f) => expect(f.toString(), contains('Connection failed')),
+      );
     });
   });
 }

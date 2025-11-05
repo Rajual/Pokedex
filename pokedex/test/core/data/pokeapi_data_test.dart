@@ -132,15 +132,16 @@ void main() {
     });
 
     test('PokemonMapper maps types correctly', () {
-      expect(PokemonMapper.fromString('water').label, 'Agua');
-      expect(PokemonMapper.fromString('fire').label, 'Fuego');
-      expect(PokemonMapper.fromString('grass').label, 'Planta');
-      expect(PokemonMapper.fromString('electric').label, 'Eléctrico');
-      expect(PokemonMapper.fromString('poison').label, 'Veneno');
-      expect(PokemonMapper.fromString('unknown').label, 'Normal'); // Fallback
+      // Test basic type mapping
+      expect(PokemonType.water.label, 'Agua');
+      expect(PokemonType.fire.label, 'Fuego');
+      expect(PokemonType.grass.label, 'Planta');
+      expect(PokemonType.electric.label, 'Eléctrico');
+      expect(PokemonType.poison.label, 'Veneno');
+      expect(PokemonType.normal.label, 'Normal');
     });
 
-    test('PokemonDetailDto extension methods work correctly', () {
+    test('PokemonDetailDto basic properties work correctly', () {
       final json = {
         'id': 1,
         'name': 'bulbasaur',
@@ -224,24 +225,32 @@ void main() {
 
       final pokemon = PokemonDetailDto.fromJson(json);
 
-      // Test imageUrl
-      expect(pokemon.imageUrl, 'https://example.com/artwork/1.png');
+      // Test basic properties
+      expect(pokemon.id, 1);
+      expect(pokemon.name, 'bulbasaur');
+      expect(pokemon.height, 7);
+      expect(pokemon.weight, 69);
 
-      // Test pokemonTypes
-      final types = pokemon.pokemonTypes;
-      expect(types.length, 2);
-      expect(types[0].label, 'Planta');
-      expect(types[1].label, 'Veneno');
+      // Test sprites
+      expect(pokemon.sprites.frontDefault, 'https://example.com/sprites/1.png');
+      expect(
+        pokemon.sprites.other?.officialArtwork?.frontDefault,
+        'https://example.com/artwork/1.png',
+      );
 
-      // Test pokemonStats
-      final stats = pokemon.pokemonStats;
-      expect(stats.hp, 45);
-      expect(stats.attack, 49);
-      expect(stats.defense, 49);
-      expect(stats.specialAttack, 65);
-      expect(stats.specialDefense, 65);
-      expect(stats.speed, 45);
-      expect(stats.total, 318);
+      // Test types
+      expect(pokemon.types.length, 2);
+      expect(pokemon.types[0].type.name, 'grass');
+      expect(pokemon.types[1].type.name, 'poison');
+
+      // Test stats
+      expect(pokemon.stats.length, 6);
+      expect(pokemon.stats[0].baseStat, 45); // HP
+      expect(pokemon.stats[1].baseStat, 49); // Attack
+      expect(pokemon.stats[2].baseStat, 49); // Defense
+      expect(pokemon.stats[3].baseStat, 65); // Special Attack
+      expect(pokemon.stats[4].baseStat, 65); // Special Defense
+      expect(pokemon.stats[5].baseStat, 45); // Speed
     });
 
     test('PokeApiException creates correctly', () {

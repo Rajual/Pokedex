@@ -25,8 +25,8 @@ void main() {
       expect(sizedBoxes, findsWidgets);
       
       final firstSizedBox = tester.widget<SizedBox>(sizedBoxes.first);
-      expect(firstSizedBox.width, 24.0);
-      expect(firstSizedBox.height, 24.0);
+      expect(firstSizedBox.width, 16.0);
+      expect(firstSizedBox.height, 16.0);
     });
 
     testWidgets('medium size renders correctly', (tester) async {
@@ -43,8 +43,8 @@ void main() {
 
       final sizedBoxes = find.byType(SizedBox);
       final firstSizedBox = tester.widget<SizedBox>(sizedBoxes.first);
-      expect(firstSizedBox.width, 48.0);
-      expect(firstSizedBox.height, 48.0);
+      expect(firstSizedBox.width, 24.0);
+      expect(firstSizedBox.height, 24.0);
     });
 
     testWidgets('large size renders correctly', (tester) async {
@@ -61,8 +61,8 @@ void main() {
 
       final sizedBoxes = find.byType(SizedBox);
       final firstSizedBox = tester.widget<SizedBox>(sizedBoxes.first);
-      expect(firstSizedBox.width, 96.0);
-      expect(firstSizedBox.height, 96.0);
+      expect(firstSizedBox.width, 32.0);
+      expect(firstSizedBox.height, 32.0);
     });
   });
 
@@ -187,8 +187,8 @@ void main() {
 
       final sizedBoxes = find.byType(SizedBox);
       final firstSizedBox = tester.widget<SizedBox>(sizedBoxes.first);
-      expect(firstSizedBox.width, 96.0);
-      expect(firstSizedBox.height, 96.0);
+      expect(firstSizedBox.width, 32.0);
+      expect(firstSizedBox.height, 32.0);
     });
 
     testWidgets('default values work correctly', (tester) async {
@@ -205,8 +205,8 @@ void main() {
 
       final sizedBoxes = find.byType(SizedBox);
       final firstSizedBox = tester.widget<SizedBox>(sizedBoxes.first);
-      expect(firstSizedBox.width, 48.0); // medium default
-      expect(firstSizedBox.height, 48.0);
+      expect(firstSizedBox.width, 24.0); // medium default
+      expect(firstSizedBox.height, 24.0);
     });
   });
 }

@@ -51,32 +51,58 @@ class AppImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dimension = uiModel.size.dimension;
+    final isNetworkImage = uiModel.assetPath.startsWith('http://') || 
+                           uiModel.assetPath.startsWith('https://');
 
     final imageWidget = ClipRRect(
       borderRadius: BorderRadius.circular(uiModel.borderRadius),
-      child: Image.asset(
-        uiModel.assetPath,
-        width: dimension,
-        height: dimension,
-        fit: uiModel.fit.boxFit,
-        errorBuilder: (context, error, stackTrace) {
-          debugPrint('Error loading image: ${uiModel.assetPath} - $error');
-          return Container(
-            width: dimension,
-            height: dimension,
-            color: Colors.grey[300],
-            child: uiModel.showErrorIcon
-                ? const Center(
-                    child: Icon(
-                      Icons.broken_image,
-                      color: Colors.grey,
-                      size: 32,
-                    ),
-                  )
-                : null,
-          );
-        },
-      ),
+      child: isNetworkImage
+          ? Image.network(
+              uiModel.assetPath,
+              width: dimension,
+              height: dimension,
+              fit: uiModel.fit.boxFit,
+              errorBuilder: (context, error, stackTrace) {
+                debugPrint('Error loading image: ${uiModel.assetPath} - $error');
+                return Container(
+                  width: dimension,
+                  height: dimension,
+                  color: Colors.grey[300],
+                  child: uiModel.showErrorIcon
+                      ? const Center(
+                          child: Icon(
+                            Icons.broken_image,
+                            color: Colors.grey,
+                            size: 32,
+                          ),
+                        )
+                      : null,
+                );
+              },
+            )
+          : Image.asset(
+              uiModel.assetPath,
+              width: dimension,
+              height: dimension,
+              fit: uiModel.fit.boxFit,
+              errorBuilder: (context, error, stackTrace) {
+                debugPrint('Error loading image: ${uiModel.assetPath} - $error');
+                return Container(
+                  width: dimension,
+                  height: dimension,
+                  color: Colors.grey[300],
+                  child: uiModel.showErrorIcon
+                      ? const Center(
+                          child: Icon(
+                            Icons.broken_image,
+                            color: Colors.grey,
+                            size: 32,
+                          ),
+                        )
+                      : null,
+                );
+              },
+            ),
     );
 
     if (uiModel.backgroundColor != null) {

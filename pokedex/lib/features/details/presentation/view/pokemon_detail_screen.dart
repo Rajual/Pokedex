@@ -32,8 +32,13 @@ class _PokemonDetailScreenState extends ConsumerState<PokemonDetailScreen> {
   @override
   void initState() {
     super.initState();
-    _loadLocaleData();
-    _loadPokemonDetail();
+    // Use post frame callback to ensure context is fully available
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _loadLocaleData();
+        _loadPokemonDetail();
+      }
+    });
   }
 
   Future<void> _loadLocaleData() async {
@@ -45,30 +50,36 @@ class _PokemonDetailScreenState extends ConsumerState<PokemonDetailScreen> {
       final assetPath = 'assets/locals/$locale/details.json';
       final jsonString = await DefaultAssetBundle.of(context).loadString(assetPath);
       final data = json.decode(jsonString) as Map<String, dynamic>;
-      setState(() {
-        _localeData = data;
-      });
+      if (mounted) {
+        setState(() {
+          _localeData = data;
+        });
+      }
     } catch (e) {
       // Fallback to default values if localization fails
-      setState(() {
-        _localeData = {
-          'stats': {
-            'weight': {'label': 'WEIGHT', 'icon': 'monitor_weight'},
-            'height': {'label': 'HEIGHT', 'icon': 'height'},
-            'category': {'label': 'CATEGORY', 'icon': 'category'},
-            'ability': {'label': 'ABILITY', 'icon': 'flash_on'},
-          }
-        };
-      });
+      if (mounted) {
+        setState(() {
+          _localeData = {
+            'stats': {
+              'weight': {'label': 'WEIGHT', 'icon': 'monitor_weight'},
+              'height': {'label': 'HEIGHT', 'icon': 'height'},
+              'category': {'label': 'CATEGORY', 'icon': 'category'},
+              'ability': {'label': 'ABILITY', 'icon': 'flash_on'},
+            }
+          };
+        });
+      }
     }
   }
 
   Future<void> _loadPokemonDetail() async {
     final presenter = ref.read(pokemonDetailPresenterProvider);
     final result = await presenter.loadPokemonDetail(widget.pokemonId);
-    setState(() {
-      _result = result;
-    });
+    if (mounted) {
+      setState(() {
+        _result = result;
+      });
+    }
   }
 
   Future<void> _toggleFavorite() async {
@@ -126,7 +137,11 @@ class _PokemonDetailScreenState extends ConsumerState<PokemonDetailScreen> {
       primaryColor: pokemon.primaryColor,
       isFavorite: pokemon.isFavorite,
       onFavoriteToggle: _toggleFavorite,
-      onBack: () => Navigator.of(context).pop(),
+      onBack: () {
+        if (mounted) {
+          Navigator.of(context).pop();
+        }
+      },
     );
 
     return PokemonDetailTemplate(uiModel: uiModel);
@@ -192,7 +207,11 @@ class _PokemonDetailScreenState extends ConsumerState<PokemonDetailScreen> {
         title: const Text('Error'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () {
+            if (mounted) {
+              Navigator.of(context).pop();
+            }
+          },
         ),
       ),
       body: Center(

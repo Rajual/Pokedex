@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:desing_system/desing_system.dart';
 import 'package:pokedex/app/config/localizations.dart';
+import 'package:pokedex/app/routes/routes.dart';
 import 'package:pokedex/features/listing/presentation/presenter/listing_presenter.dart';
 import 'package:pokedex/features/listing/domain/entities/pokemon_list_item.dart';
 import 'package:pokedex/features/favorites/domain/entities/favorites_entity.dart' as favorites_domain;
@@ -208,9 +209,23 @@ class _ListingScreenState extends ConsumerState<ListingScreen> {
     MyAppLocalizations? localizations,
     FilterState filterState,
   ) {
-    // Convert domain entities to design system Pokemon objects
-    final designSystemPokemon = pokemon.map(_mapToDesignSystemPokemon).toList();
+    // Watch favorites state to rebuild when it changes
+    final favoritesState = ref.watch(favoritesNotifierProvider);
+    
+    // Map Pokemon with current favorite status
+    final designSystemPokemon = pokemon.map((item) {
+      final isFavorite = favoritesState.isFavorite(item.id.toString());
+      return _mapToDesignSystemPokemon(item, isFavorite);
+    }).toList();
 
+    return _buildPokemonListView(designSystemPokemon, pokemon, localizations);
+  }
+
+  Widget _buildPokemonListView(
+    List<Pokemon> designSystemPokemon,
+    List<PokemonListItem> pokemon,
+    MyAppLocalizations? localizations,
+  ) {
     return PokemonListView(
       uiModel: PokemonListViewUiModel(
         searchPlaceholder: localizations?.getListingSearchPlaceholder() ?? 'Search Pokémon...',
@@ -219,10 +234,17 @@ class _ListingScreenState extends ConsumerState<ListingScreen> {
         isSearching: false,
       ),
       pokemonList: designSystemPokemon,
+      onTap: (index) {
+        // Navigate to Pokemon details screen
+        final pokemonItem = pokemon[index];
+        context.goToDetails(pokemonItem.id.toString());
+      },
       onFavoriteChanged: (index, isFavorite) async {
+        final pokemonItem = pokemon[index];
+        final favoritesNotifier = ref.read(favoritesNotifierProvider.notifier);
+        
         if (isFavorite) {
           // Add to favorites
-          final pokemonItem = pokemon[index];
           final favoritePokemon = favorites_domain.FavoritePokemon(
             id: pokemonItem.id.toString(),
             name: pokemonItem.name,
@@ -235,14 +257,12 @@ class _ListingScreenState extends ConsumerState<ListingScreen> {
             addedAt: DateTime.now(),
           );
 
-          final favoritesPresenter = ref.read(favoritesPresenterProvider);
-          await favoritesPresenter.addToFavorites(favoritePokemon);
+          await favoritesNotifier.addToFavorites(favoritePokemon);
         } else {
           // Remove from favorites
-          final pokemonItem = pokemon[index];
-          final favoritesPresenter = ref.read(favoritesPresenterProvider);
-          await favoritesPresenter.removeFromFavorites(pokemonItem.id.toString());
+          await favoritesNotifier.removeFromFavorites(pokemonItem.id.toString());
         }
+        // No need to call setState - provider will trigger rebuild automatically
       },
       onSearchChanged: (query) {
         // TODO: Implement search functionality
@@ -250,7 +270,7 @@ class _ListingScreenState extends ConsumerState<ListingScreen> {
     );
   }
 
-  Pokemon _mapToDesignSystemPokemon(PokemonListItem item) {
+  Pokemon _mapToDesignSystemPokemon(PokemonListItem item, bool isFavorite) {
     return Pokemon(
       name: item.name,
       number: item.id,
@@ -261,6 +281,7 @@ class _ListingScreenState extends ConsumerState<ListingScreen> {
       ],
       imagePath: item.imageUrl,
       backgroundColor: _getTypeColor(item.primaryType),
+      isFavorite: isFavorite,
     );
   }
 

@@ -1,39 +1,259 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Design System Flutter
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+Un sistema de diseño completo y reutilizable para aplicaciones Flutter, que sigue los principios de diseño atómico con átomos, moléculas, organismos y plantillas organizados en una estructura jerárquica.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+## 📋 Descripción General
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+Este sistema de diseño proporciona un conjunto completo de componentes de UI reutilizables para aplicaciones Flutter. Sigue los principios de diseño atómico con átomos, moléculas, organismos y plantillas organizados en una estructura jerárquica.
 
-## Features
+### Enfoque de Desarrollo
+El proyecto se desarrolló con un enfoque moderno donde la IA se utilizó para el trabajo duro de codificación, permitiendo que el desarrollador se enfocara principalmente en la arquitectura, diseño de sistemas y toma de decisiones estratégicas. Esto resultó en un código de alta calidad con una arquitectura sólida y mantenible.
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+## 🏗️ Arquitectura
 
-## Getting started
+### Patrón UiModel
+Todos los componentes utilizan clases UiModel para configuración:
+- **Type Safety**: Propiedades fuertemente tipadas
+- **Validación**: Validación integrada y aserciones
+- **Serialización**: Soporte JSON para configuración dinámica
+- **Inmutabilidad**: Todos los modelos son inmutables
+- **Backward Compatibility**: Constructores factory para APIs legacy
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+### Átomos (Bloques de Construcción Básicos)
 
-## Usage
+#### 1. AppButton
+**Ubicación**: `lib/atoms/app_button/app_button.dart`
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+Componente de botón versátil con múltiples variantes, tamaños y estados.
 
+**Características**:
+- **Tipos**: Primario, Secundario, Terciario
+- **Tamaños**: Pequeño, Mediano, Grande
+- **Estados**: Habilitado, Deshabilitado, Cargando
+- **Íconos**: Soporte para íconos principales y secundarios
+- **Personalización**: Ancho completo, colores personalizados
+
+#### 2. AppImage
+**Ubicación**: `lib/atoms/app_image/app_image.dart`
+
+Componente para mostrar imágenes PNG desde assets con manejo de errores y opciones de personalización.
+
+**Características**:
+- **Tamaños**: Pequeño, Mediano, Grande, Extra Grande
+- **Opciones de Ajuste**: Cover, Contain, Fill, etc.
+- **Manejo de Errores**: Íconos de error personalizados
+- **Estilos**: Radio de borde, sombras, colores de fondo
+
+#### 3. AppSvg
+**Ubicación**: `lib/atoms/app_svg/app_svg.dart`
+
+Componente para mostrar imágenes SVG con personalización de color y estados de carga.
+
+**Características**:
+- **Tamaños**: Pequeño, Mediano, Grande
+- **Personalización de Color**: Aplicación dinámica de color
+- **Estados de Carga**: Soporte para placeholders
+- **Manejo de Errores**: Widgets de error personalizados
+
+#### 4. AppFavoriteTag
+**Ubicación**: `lib/atoms/app_favorite_tag/app_favorite_tag.dart`
+
+Componente interactivo para marcar/desmarcar favoritos con animaciones.
+
+**Características**:
+- **Estilos**: Flotante, Relleno, Contorno
+- **Tamaños**: Pequeño, Mediano, Grande
+- **Animaciones**: Animaciones de escala al tocar
+- **Colores**: Colores personalizables activo/inactivo
+- **Estados**: Habilitado/Deshabilitado
+
+#### 5. DotIndicator
+**Ubicación**: `lib/atoms/dot_indicator/dot_indicator.dart`
+
+Indicador de paginación/progreso con puntos o barras.
+
+**Características**:
+- **Variantes**: Puntos (circulares), Barras (rectangulares)
+- **Tamaños**: Pequeño, Mediano, Grande
+- **Colores**: Colores personalizables activo/inactivo
+- **Interacción**: Callbacks de toque para navegación
+- **Animación**: Transiciones suaves
+
+#### 6. StatCard
+**Ubicación**: `lib/atoms/stat_card/stat_card.dart`
+
+Componente para mostrar estadísticas o métricas con íconos y valores.
+
+**Características**:
+- **Tamaños**: Pequeño, Mediano, Grande
+- **Variantes**: Predeterminado, Coloreado, Contorno, Elevado
+- **Colores**: Colores personalizables para todos los elementos
+- **Estados**: Habilitado/Deshabilitado
+- **Interacción**: Callbacks opcionales de toque
+
+## 🎯 Principios de Diseño
+
+### 1. Diseño Atómico
+- **Átomos**: Bloques de construcción básicos (botones, imágenes, íconos)
+- **Moléculas**: Combinaciones de átomos (tarjetas, etiquetas, indicadores)
+- **Organismos**: Componentes complejos (listas, formularios, navegación)
+- **Plantillas**: Diseños a nivel de página
+
+### 2. API Consistente
+- **Parámetros Requeridos**: Solo props esenciales requeridas
+- **Parámetros Opcionales**: Valores predeterminados sensibles para todas las props opcionales
+- **Constructores Factory**: Soporte para API legacy
+- **Documentación**: Documentación inline comprehensiva
+
+### 3. Accesibilidad
+- **Etiquetas Semánticas**: Etiquetado apropiado para lectores de pantalla
+- **Contraste de Color**: Combinaciones de colores compatibles con WCAG
+- **Objetivos Táctiles**: Objetivos táctiles mínimos de 44pt
+- **Gestión de Foco**: Manejo apropiado del foco
+
+### 4. Rendimiento
+- **Renderizado Eficiente**: Árboles de widgets optimizados
+- **Gestión de Memoria**: Liberación apropiada de recursos
+- **Optimización de Animaciones**: Animaciones suaves de 60fps
+- **Carga de Assets**: Carga lazy y caché
+
+## Theme Integration
+
+### Colors
+- **Primary Colors**: AppColors.primary, AppColors.primaryLight, AppColors.primaryDark
+- **Semantic Colors**: Success (green), Warning (yellow), Error (red), Info (blue)
+- **Neutral Colors**: Gray scale from 50 to 900
+- **Background Colors**: AppColors.gray100, AppColors.white
+
+### Typography
+- **Scale**: Consistent font sizes and weights
+- **Hierarchy**: Clear information hierarchy
+- **Readability**: Optimized line heights and letter spacing
+- **Accessibility**: Minimum contrast ratios
+
+### Spacing
+- **Scale**: Consistent spacing units (xs: 4, sm: 8, md: 16, lg: 24, xl: 32)
+- **Rhythm**: Vertical rhythm for consistent layouts
+- **Touch Targets**: Adequate spacing for interactions
+
+## 🧪 Estrategia de Pruebas
+
+### Pruebas Unitarias
+- **Pruebas UiModel**: Validación, serialización, inmutabilidad
+- **Pruebas de Widgets**: Renderizado, interacción, cambios de estado
+- **Pruebas de Integración**: Combinaciones de componentes
+
+### Cobertura de Pruebas
+- **Cobertura Mínima**: 80% de cobertura de línea
+- **Caminos Críticos**: Todas las interacciones de usuario probadas
+- **Casos Extremos**: Estados de error, condiciones límite
+- **Accesibilidad**: Compatibilidad con lectores de pantalla
+
+## Migration Guide
+
+### From Legacy API to UiModel API
+
+**Old Approach**:
 ```dart
-const like = 'sample';
+AppButton(
+  label: 'Click me',
+  onPressed: onPressed,
+  type: ButtonType.primary,
+  size: ButtonSize.medium,
+  isLoading: false,
+)
 ```
 
-## Additional information
+**New Approach**:
+```dart
+AppButton(
+  uiModel: AppButtonUiModel(
+    label: 'Click me',
+    type: ButtonType.primary,
+    size: ButtonSize.medium,
+    isLoading: false,
+  ),
+  onPressed: onPressed,
+)
+```
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+### Benefits of UiModel Pattern
+1. **Type Safety**: Compile-time validation
+2. **Validation**: Runtime assertions and checks
+3. **Serialization**: JSON configuration support
+4. **Testing**: Easier to test with mock models
+5. **Documentation**: Self-documenting configurations
+6. **Consistency**: Uniform API across all components
+
+## 🚀 Inicio Rápido
+
+### Prerrequisitos
+- Flutter SDK (versión 3.0 o superior)
+- Dart SDK (incluido con Flutter)
+
+### Instalación
+
+1. **Clonar el repositorio**
+```bash
+git clone https://github.com/tu-usuario/design-system-flutter.git
+cd design-system-flutter
+```
+
+2. **Instalar dependencias**
+```bash
+flutter pub get
+```
+
+3. **Generar archivos de código**
+```bash
+flutter pub run build_runner build
+```
+
+4. **Ejecutar showcase**
+```bash
+cd showcase
+flutter run
+```
+
+### Ejecutar Pruebas
+```bash
+# Ejecutar todas las pruebas
+flutter test
+
+# Ejecutar pruebas con cobertura
+flutter test --coverage
+```
+
+## 🤝 Contribuyendo
+
+### Agregando Nuevos Componentes
+1. **Seguir Diseño Atómico**: Determinar nivel apropiado (átomo/molécula/organismo)
+2. **Crear UiModel**: Definir clase de configuración con validación
+3. **Implementar Widget**: Usar UiModel para toda configuración
+4. **Agregar Backward Compatibility**: Constructor factory para API legacy
+5. **Escribir Pruebas**: Cobertura comprehensiva de pruebas
+6. **Actualizar Documentación**: Documentos inline y actualizaciones de README
+
+### Estilo de Código
+- **Estándares Dart**: Seguir guía de estilo oficial de Dart
+- **Documentación**: Docstrings comprehensivos para todas las APIs públicas
+- **Nombres**: Nombres claros y descriptivos siguiendo convenciones de Flutter
+- **Manejo de Errores**: Manejo apropiado de errores y feedback de usuario
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](LICENSE) para más detalles.
+
+## 🚀 Mejoras Futuras
+
+- **Nuevos Componentes**: Agregar más átomos, moléculas y organismos
+- **Tema Oscuro**: Implementar soporte completo para tema oscuro
+- **Internacionalización**: Soporte para múltiples idiomas
+- **Animaciones**: Sistema de animaciones consistente
+- **Documentación**: Generar documentación automática con dartdoc
+
+---
+
+*Desarrollado con ❤️ usando Flutter y siguiendo las mejores prácticas de desarrollo móvil.*
+
+Este sistema de diseño proporciona una base sólida para construir aplicaciones Flutter consistentes, accesibles y mantenibles. El patrón UiModel asegura type safety y flexibilidad mientras mantiene backward compatibility con codebases existentes.

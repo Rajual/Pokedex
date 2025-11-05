@@ -1,9 +1,9 @@
 {
-  "title": "Pokemon App",
-  "welcomeMessage": "Welcome to Pokemon World",
+  "title": "Pokédex",
+  "welcomeMessage": "Welcome to the world of Pokémon",
   "navigation": [
     {
-      "iconName": "list",
+      "iconName": "home",
       "label": "Pokedex",
       "routeName": "/listing"
     },
@@ -11,13 +11,23 @@
       "iconName": "favorite",
       "label": "Favorites",
       "routeName": "/favorites"
+    },
+    {
+      "iconName": "map",
+      "label": "Regions",
+      "routeName": "/regions"
+    },
+    {
+      "iconName": "person",
+      "label": "Profile",
+      "routeName": "/profile"
     }
   ],
   "config": {
     "initialSelectedIndex": 0,
     "keepPagesAlive": true,
     "activeColorHex": "#1E88E5",
-    "inactiveColorHex": "#757575",
+    "inactiveColorHex": "#9E9E9E",
     "navigationBarBackgroundColorHex": "#FFFFFF"
   }
 }

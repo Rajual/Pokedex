@@ -200,20 +200,20 @@ void main() {
 
       testWidgets('Size enum values are correct', (WidgetTester tester) async {
         expect(CardSize.small.height, 160);
-        expect(CardSize.small.width, 150);
-        expect(CardSize.small.padding, 12);
+        expect(CardSize.small.width, 120);
+        expect(CardSize.small.padding, 8);
         expect(CardSize.small.borderRadius, 12);
         expect(CardSize.small.imageSize, 60);
 
-        expect(CardSize.medium.height, 180);
-        expect(CardSize.medium.width, 170);
-        expect(CardSize.medium.padding, 16);
+        expect(CardSize.medium.height, 200);
+        expect(CardSize.medium.width, 140);
+        expect(CardSize.medium.padding, 12);
         expect(CardSize.medium.borderRadius, 16);
         expect(CardSize.medium.imageSize, 80);
 
-        expect(CardSize.large.height, 220);
-        expect(CardSize.large.width, 200);
-        expect(CardSize.large.padding, 20);
+        expect(CardSize.large.height, 240);
+        expect(CardSize.large.width, 160);
+        expect(CardSize.large.padding, 16);
         expect(CardSize.large.borderRadius, 20);
         expect(CardSize.large.imageSize, 100);
       });

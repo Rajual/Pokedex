@@ -1,6 +1,8 @@
+import 'package:desing_system/atoms/dot_indicator/models/dot_indicator_ui_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:desing_system/desing_system.dart';
+
 
 void main() {
   group('DotIndicator', () {
@@ -8,9 +10,11 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: DotIndicator.fromProperties(
-              count: 5,
-              currentIndex: 0,
+            body: DotIndicator(
+              uiModel: DotIndicatorUiModel(
+                count: 5,
+                currentIndex: 0,
+              ),
             ),
           ),
         ),
@@ -23,9 +27,11 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: DotIndicator.fromProperties(
-              count: 3,
-              currentIndex: 0,
+            body: DotIndicator(
+              uiModel: DotIndicatorUiModel(
+                count: 3,
+                currentIndex: 0,
+              ),
             ),
           ),
         ),
@@ -39,10 +45,12 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: DotIndicator.fromProperties(
-              count: 4,
-              currentIndex: 0,
-              variant: DotIndicatorVariant.bars,
+            body: DotIndicator(
+              uiModel: DotIndicatorUiModel(
+                count: 4,
+                currentIndex: 0,
+                variant: DotIndicatorVariant.bars,
+              ),
             ),
           ),
         ),
@@ -56,10 +64,12 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: DotIndicator(
-              count: 5,
-              currentIndex: 2,
-              activeColor: Colors.blue,
-              inactiveColor: Colors.grey,
+              uiModel: DotIndicatorUiModel(
+                count: 5,
+                currentIndex: 2,
+                activeColor: Colors.blue,
+                inactiveColor: Colors.grey,
+              ),
             ),
           ),
         ),
@@ -82,8 +92,10 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: DotIndicator(
-              count: 5,
-              currentIndex: 0,
+              uiModel: DotIndicatorUiModel(
+                count: 5,
+                currentIndex: 0,
+              ),
               onTap: (index) {
                 tappedIndex = index;
               },
@@ -101,12 +113,14 @@ void main() {
 
     testWidgets('renders with small size', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
+        MaterialApp(
           home: Scaffold(
             body: DotIndicator(
-              count: 3,
-              currentIndex: 0,
-              size: DotIndicatorSize.small,
+              uiModel: DotIndicatorUiModel(
+                count: 3,
+                currentIndex: 0,
+                size: DotIndicatorSize.small,
+              ),
             ),
           ),
         ),
@@ -119,12 +133,14 @@ void main() {
 
     testWidgets('renders with medium size (default)', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
+        MaterialApp(
           home: Scaffold(
             body: DotIndicator(
-              count: 3,
-              currentIndex: 0,
-              size: DotIndicatorSize.medium,
+              uiModel: DotIndicatorUiModel(
+                count: 3,
+                currentIndex: 0,
+                size: DotIndicatorSize.medium,
+              ),
             ),
           ),
         ),
@@ -137,12 +153,14 @@ void main() {
 
     testWidgets('renders with large size', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
+        MaterialApp(
           home: Scaffold(
             body: DotIndicator(
-              count: 3,
-              currentIndex: 0,
-              size: DotIndicatorSize.large,
+              uiModel: DotIndicatorUiModel(
+                count: 3,
+                currentIndex: 0,
+                size: DotIndicatorSize.large,
+              ),
             ),
           ),
         ),
@@ -155,12 +173,14 @@ void main() {
 
     testWidgets('uses custom active color', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
+        MaterialApp(
           home: Scaffold(
             body: DotIndicator(
-              count: 3,
-              currentIndex: 1,
-              activeColor: Colors.red,
+              uiModel: DotIndicatorUiModel(
+                count: 3,
+                currentIndex: 1,
+                activeColor: Colors.red,
+              ),
             ),
           ),
         ),
@@ -173,12 +193,14 @@ void main() {
 
     testWidgets('uses custom inactive color', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
+        MaterialApp(
           home: Scaffold(
             body: DotIndicator(
-              count: 3,
-              currentIndex: 0,
-              inactiveColor: Colors.yellow,
+              uiModel: DotIndicatorUiModel(
+                count: 3,
+                currentIndex: 0,
+                inactiveColor: Colors.yellow,
+              ),
             ),
           ),
         ),
@@ -191,12 +213,14 @@ void main() {
 
     testWidgets('uses custom spacing', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
+        MaterialApp(
           home: Scaffold(
             body: DotIndicator(
-              count: 4,
-              currentIndex: 0,
-              spacing: 24.0,
+              uiModel: DotIndicatorUiModel(
+                count: 4,
+                currentIndex: 0,
+                spacing: 24.0,
+              ),
             ),
           ),
         ),
@@ -219,8 +243,10 @@ void main() {
                 body: Column(
                   children: [
                     DotIndicator(
-                      count: 5,
-                      currentIndex: currentIndex,
+                      uiModel: DotIndicatorUiModel(
+                        count: 5,
+                        currentIndex: currentIndex,
+                      ),
                     ),
                     ElevatedButton(
                       onPressed: () {
@@ -247,7 +273,7 @@ void main() {
 
       // Verifica que hay animación en progreso
       await tester.pump(const Duration(milliseconds: 150));
-      
+
       // Completa la animación
       await tester.pumpAndSettle();
 
@@ -256,11 +282,13 @@ void main() {
 
     testWidgets('handles edge case with minimum count (1)', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
+        MaterialApp(
           home: Scaffold(
             body: DotIndicator(
-              count: 1,
-              currentIndex: 0,
+              uiModel: DotIndicatorUiModel(
+                count: 1,
+                currentIndex: 0,
+              ),
             ),
           ),
         ),
@@ -276,10 +304,12 @@ void main() {
             MaterialApp(
               home: Scaffold(
                 body: DotIndicator(
-                  count: 3,
-                  currentIndex: 1,
-                  variant: variant,
-                  size: size,
+                  uiModel: DotIndicatorUiModel(
+                    count: 3,
+                    currentIndex: 1,
+                    variant: variant,
+                    size: size,
+                  ),
                 ),
               ),
             ),
@@ -296,8 +326,10 @@ void main() {
     test('asserts count > 0', () {
       expect(
         () => DotIndicator(
-          count: 0,
-          currentIndex: 0,
+          uiModel: DotIndicatorUiModel(
+            count: 0,
+            currentIndex: 0,
+          ),
         ),
         throwsAssertionError,
       );
@@ -306,16 +338,20 @@ void main() {
     test('asserts currentIndex is within valid range', () {
       expect(
         () => DotIndicator(
-          count: 5,
-          currentIndex: -1,
+          uiModel: DotIndicatorUiModel(
+            count: 5,
+            currentIndex: -1,
+          ),
         ),
         throwsAssertionError,
       );
 
       expect(
         () => DotIndicator(
-          count: 5,
-          currentIndex: 5,
+          uiModel: DotIndicatorUiModel(
+            count: 5,
+            currentIndex: 5,
+          ),
         ),
         throwsAssertionError,
       );
