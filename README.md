@@ -161,7 +161,6 @@ flutter build web --release
 ### Cobertura Implementada
 - **Pruebas unitarias**: Lógica de negocio, entidades, repositorios y casos de uso
 - **Pruebas de widgets**: Componentes de UI, pantallas y navegación
-- **Pruebas de integración**: Interacciones entre capas y flujos completos
 
 ### Metas de Cobertura
 - **Mínimo 80%** de cobertura de línea en todas las capas
@@ -170,16 +169,7 @@ flutter build web --release
 
 
 
-
-
-
-
-
-## 📄 Licencia
-
-Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](LICENSE) para más detalles.
-
-## 🚀 Mejoras Futuras
+# 🚀 Mejoras Futuras
 
 - **Accesibilidad**: Implementar mejores prácticas de accesibilidad para usuarios con discapacidades ([Ver taller de accesibilidad](https://github.com/Rajual/taller_accesibilidad) - [En este tutorial implementamos accesibilidad](https://www.youtube.com/watch?v=nkktJanJWDM))
 - **Modularización**: Crear packages separados para cada feature y el sistema de diseño para mejorar la reutilización y mantenibilidad
@@ -188,3 +178,8 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](LICENSE) para
 ---
 
 *Desarrollado con ❤️ usando Flutter y siguiendo las mejores prácticas de desarrollo móvil.*
+
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](LICENSE) para más detalles.
