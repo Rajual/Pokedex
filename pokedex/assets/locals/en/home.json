@@ -1,0 +1,23 @@
+{
+  "title": "Pokemon App",
+  "welcomeMessage": "Welcome to Pokemon World",
+  "navigation": [
+    {
+      "iconName": "list",
+      "label": "Pokedex",
+      "routeName": "/listing"
+    },
+    {
+      "iconName": "favorite",
+      "label": "Favorites",
+      "routeName": "/favorites"
+    }
+  ],
+  "config": {
+    "initialSelectedIndex": 0,
+    "keepPagesAlive": true,
+    "activeColorHex": "#1E88E5",
+    "inactiveColorHex": "#757575",
+    "navigationBarBackgroundColorHex": "#FFFFFF"
+  }
+}

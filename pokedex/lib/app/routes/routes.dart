@@ -5,6 +5,7 @@ import '../../features/error/presentation/view/error_screen.dart';
 import '../../features/error/domain/entities/error_entity.dart';
 import '../../features/details/presentation/view/pokemon_detail_screen.dart';
 import '../../features/favorites/presentation/view/favorites_screen.dart';
+import '../../features/home/presentation/view/home_screen.dart';
 import '../../main.dart';
 
 /// Route names constants
@@ -15,6 +16,7 @@ class RouteNames {
   static const String error = '/error';
   static const String details = '/details';
   static const String favorites = '/favorites';
+  static const String homeNavigation = '/home-navigation';
 }
 
 /// Route generator for the app
@@ -24,6 +26,12 @@ class AppRouter {
       case RouteNames.home:
         return MaterialPageRoute(
           builder: (_) => const MyHomePage(),
+          settings: settings,
+        );
+
+      case RouteNames.homeNavigation:
+        return MaterialPageRoute(
+          builder: (_) => const HomeScreen(),
           settings: settings,
         );
 
@@ -86,6 +94,7 @@ class AppRouter {
   static Map<String, WidgetBuilder> getRoutes() {
     return {
       RouteNames.home: (context) => const MyHomePage(),
+      RouteNames.homeNavigation: (context) => const HomeScreen(),
       RouteNames.onboarding: (context) => const OnboardingScreen(),
       RouteNames.listing: (context) => const ListingScreen(),
       RouteNames.favorites: (context) => const FavoritesScreen(),
@@ -109,6 +118,11 @@ extension NavigatorExtension on BuildContext {
   /// Push to home screen
   void pushToHome() {
     Navigator.of(this).pushNamed(RouteNames.home);
+  }
+
+  /// Push to home navigation screen
+  void pushToHomeNavigation() {
+    Navigator.of(this).pushNamed(RouteNames.homeNavigation);
   }
 
   /// Push to onboarding screen

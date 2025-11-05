@@ -6,6 +6,7 @@ import 'app/routes/routes.dart';
 import 'core/common/preferences.dart';
 import 'features/onboarding/presentation/view/onboarding_screen.dart';
 import 'features/error/domain/entities/error_entity.dart';
+import 'features/home/presentation/view/home_screen.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -317,7 +318,7 @@ class AppEntryPoint extends ConsumerWidget {
         final onboardingCompleted = prefs.isOnboardingCompleted;
 
         if (onboardingCompleted) {
-          return const MyHomePage();
+          return const HomeScreen();
         } else {
           return const OnboardingScreen();
         }
