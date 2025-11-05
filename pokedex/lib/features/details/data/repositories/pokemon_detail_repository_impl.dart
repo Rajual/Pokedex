@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'package:desing_system/molecules/app_type_tag/app_type_tag.dart';
 import 'package:flutter/services.dart';
 import '../../../../core/common/result.dart';
 import '../../../../core/data/models/pokemon_detail/pokemon_detail_dto.dart';
+import '../../../favorites/domain/entities/favorites_entity.dart';
 import '../../domain/entities/pokemon_detail_entity.dart';
 import '../../domain/repositories/pokemon_detail_repository.dart';
 

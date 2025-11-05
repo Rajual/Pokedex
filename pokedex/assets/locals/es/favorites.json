@@ -1,0 +1,8 @@
+{
+  "emptyState": {
+    "title": "Aún no hay favoritos",
+    "description": "Agrega Pokemon a tus favoritos tocando el icono del corazón"
+  },
+  "screenTitle": "Favoritos",
+  "retryButton": "Reintentar"
+}

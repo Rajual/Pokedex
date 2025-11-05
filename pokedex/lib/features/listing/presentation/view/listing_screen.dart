@@ -10,6 +10,8 @@ import 'package:desing_system/desing_system.dart';
 import 'package:pokedex/app/config/localizations.dart';
 import 'package:pokedex/features/listing/presentation/presenter/listing_presenter.dart';
 import 'package:pokedex/features/listing/domain/entities/pokemon_list_item.dart';
+import 'package:pokedex/features/favorites/domain/entities/favorites_entity.dart' as favorites_domain;
+import 'package:pokedex/features/favorites/presentation/presenter/favorites_presenter.dart';
 
 /// Screen that displays a searchable and filterable Pokemon list
 /// using design system components
@@ -217,8 +219,30 @@ class _ListingScreenState extends ConsumerState<ListingScreen> {
         isSearching: false,
       ),
       pokemonList: designSystemPokemon,
-      onFavoriteChanged: (index, isFavorite) {
-        // TODO: Handle favorite changes
+      onFavoriteChanged: (index, isFavorite) async {
+        if (isFavorite) {
+          // Add to favorites
+          final pokemonItem = pokemon[index];
+          final favoritePokemon = favorites_domain.FavoritePokemon(
+            id: pokemonItem.id.toString(),
+            name: pokemonItem.name,
+            number: pokemonItem.id.toString(),
+            imageUrl: pokemonItem.imageUrl,
+            types: [
+              _mapStringToDomainPokemonType(pokemonItem.primaryType),
+              if (pokemonItem.secondaryType != null) _mapStringToDomainPokemonType(pokemonItem.secondaryType!),
+            ],
+            addedAt: DateTime.now(),
+          );
+
+          final favoritesPresenter = ref.read(favoritesPresenterProvider);
+          await favoritesPresenter.addToFavorites(favoritePokemon);
+        } else {
+          // Remove from favorites
+          final pokemonItem = pokemon[index];
+          final favoritesPresenter = ref.read(favoritesPresenterProvider);
+          await favoritesPresenter.removeFromFavorites(pokemonItem.id.toString());
+        }
       },
       onSearchChanged: (query) {
         // TODO: Implement search functionality
@@ -238,6 +262,48 @@ class _ListingScreenState extends ConsumerState<ListingScreen> {
       imagePath: item.imageUrl,
       backgroundColor: _getTypeColor(item.primaryType),
     );
+  }
+
+  PokemonType _mapStringToDomainPokemonType(String type) {
+    switch (type.toLowerCase()) {
+      case 'fire':
+        return PokemonType.fire;
+      case 'water':
+        return PokemonType.water;
+      case 'grass':
+        return PokemonType.grass;
+      case 'electric':
+        return PokemonType.electric;
+      case 'ice':
+        return PokemonType.ice;
+      case 'fighting':
+        return PokemonType.fighting;
+      case 'poison':
+        return PokemonType.poison;
+      case 'ground':
+        return PokemonType.ground;
+      case 'flying':
+        return PokemonType.flying;
+      case 'psychic':
+        return PokemonType.psychic;
+      case 'bug':
+        return PokemonType.bug;
+      case 'rock':
+        return PokemonType.rock;
+      case 'ghost':
+        return PokemonType.ghost;
+      case 'dragon':
+        return PokemonType.dragon;
+      case 'dark':
+        return PokemonType.dark;
+      case 'steel':
+        return PokemonType.steel;
+      case 'fairy':
+        return PokemonType.fairy;
+      case 'normal':
+      default:
+        return PokemonType.normal;
+    }
   }
 
   PokemonType _mapStringToPokemonType(String type) {

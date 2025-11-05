@@ -1,3 +1,4 @@
+import 'package:desing_system/molecules/app_type_tag/app_type_tag.dart';
 import 'package:flutter/material.dart';
 
 /// Domain entity for Pokemon detail data
@@ -97,27 +98,7 @@ class PokemonDetailEntity {
   }
 }
 
-/// Pokemon types enum
-enum PokemonType {
-  normal,
-  fire,
-  water,
-  electric,
-  grass,
-  ice,
-  fighting,
-  poison,
-  ground,
-  flying,
-  psychic,
-  bug,
-  rock,
-  ghost,
-  dragon,
-  dark,
-  steel,
-  fairy,
-}
+
 
 /// Extension to get color for each Pokemon type
 extension PokemonTypeExtension on PokemonType {

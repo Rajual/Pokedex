@@ -264,6 +264,14 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                     context.pushToDetails('1'); // Bulbasaur
                   },
                 ),
+                AppButton.fromProperties(
+                  label: 'View Favorites',
+                  type: ButtonType.secondary,
+                  onPressed: () {
+                    // Navigate to favorites screen
+                    context.pushToFavorites();
+                  },
+                ),
               ],
             ),
           ],

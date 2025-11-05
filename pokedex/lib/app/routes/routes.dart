@@ -4,6 +4,7 @@ import '../../features/listing/presentation/view/listing_screen.dart';
 import '../../features/error/presentation/view/error_screen.dart';
 import '../../features/error/domain/entities/error_entity.dart';
 import '../../features/details/presentation/view/pokemon_detail_screen.dart';
+import '../../features/favorites/presentation/view/favorites_screen.dart';
 import '../../main.dart';
 
 /// Route names constants
@@ -13,6 +14,7 @@ class RouteNames {
   static const String listing = '/listing';
   static const String error = '/error';
   static const String details = '/details';
+  static const String favorites = '/favorites';
 }
 
 /// Route generator for the app
@@ -65,6 +67,12 @@ class AppRouter {
           settings: settings,
         );
 
+      case RouteNames.favorites:
+        return MaterialPageRoute(
+          builder: (_) => const FavoritesScreen(),
+          settings: settings,
+        );
+
       default:
         // Fallback to home if route not found
         return MaterialPageRoute(
@@ -80,6 +88,7 @@ class AppRouter {
       RouteNames.home: (context) => const MyHomePage(),
       RouteNames.onboarding: (context) => const OnboardingScreen(),
       RouteNames.listing: (context) => const ListingScreen(),
+      RouteNames.favorites: (context) => const FavoritesScreen(),
       // Error route requires arguments, so it's handled in generateRoute
     };
   }
@@ -145,5 +154,15 @@ extension NavigatorExtension on BuildContext {
     Navigator.of(this).pushNamed(RouteNames.details, arguments: {
       'pokemonId': pokemonId,
     });
+  }
+
+  /// Navigate to favorites screen
+  void goToFavorites() {
+    Navigator.of(this).pushReplacementNamed(RouteNames.favorites);
+  }
+
+  /// Push to favorites screen
+  void pushToFavorites() {
+    Navigator.of(this).pushNamed(RouteNames.favorites);
   }
 }

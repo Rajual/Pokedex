@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:desing_system/molecules/app_type_tag/app_type_tag.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:desing_system/templates/pokemon_detail_template/pokemon_detail_template.dart';
@@ -179,7 +180,7 @@ class _PokemonDetailScreenState extends ConsumerState<PokemonDetailScreen> {
   }
 
   // Convert our domain PokemonType to design system PokemonType
-  design_system.PokemonType _convertToDesignSystemType(domain.PokemonType domainType) {
+  design_system.PokemonType _convertToDesignSystemType(PokemonType domainType) {
     // Since both enums have the same values in the same order, we can just cast
     // In a real app, you'd want proper mapping
     return design_system.PokemonType.values[domainType.index];
